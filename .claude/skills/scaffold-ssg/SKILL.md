@@ -5,6 +5,12 @@ description: Aplica DESIGN.tokens.json no scaffold Next.js SSG (home, serviços,
 
 # Skill `scaffold-ssg` — caminho default do kit
 
+> ⚠️ **Esta skill toca código.** Segue o protocolo spec-driven em
+> [`wiki/tecnologia/spec-driven.md`](../../../wiki/tecnologia/spec-driven.md):
+> escreve `docs/specs/scaffold-ssg.md`, gera `tests/scaffold-ssg.spec.ts`,
+> roda RED, executa via workers paralelos, e invoca QA sub-agent independente
+> antes de declarar GREEN.
+
 ## Quando NÃO usar esta skill
 
 Se ao menos uma destas for verdadeira, use `scaffold-payload`:

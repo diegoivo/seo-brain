@@ -10,61 +10,67 @@ updated: 2026-05-02
 > concorrente médio não sustenta. Sem 3 POVs claros sobre um tema, a skill
 > `conteudo` recusa escrever — o post seria AI slop disfarçado.
 
-Use o template abaixo. Cada POV deve ser:
+## Como preencher
+
+Use a skill `/onboarding` para preencher os 3 primeiros POVs interativamente,
+ou edite manualmente abaixo. Para inspiração de formato, veja
+[[../exemplos/generico-fintech-b2b]] e [[../exemplos/generico-saude-digital]].
+
+Cada POV deve ser:
 - Uma frase declarativa, ativa.
 - Defensável (você tem caso, dado ou experiência que sustenta).
 - Distinta do consenso (quem disser o oposto também tem ponto).
 
 ---
 
-## Template — preencha para a sua marca
+## Template (preencha 3-5 POVs antes de escrever o primeiro post)
 
 ### POV 1
-**Posição**: <em uma frase>
+**Posição**: `<em uma frase declarativa>`
 
-**Por quê esta marca defende isso**: <1-2 parágrafos com a evidência — caso,
-dado, observação direta>
+**Por quê esta marca defende isso**: `<1-2 parágrafos com a evidência — caso, dado, observação direta>`
 
-**Quem discordaria, e por quê**: <para garantir que é POV, não consenso>
+**Quem discordaria, e por quê**: `<para garantir que é POV, não consenso>`
 
 ### POV 2
-...
+**Posição**: `<...>`
+
+**Por quê**: `<...>`
+
+**Quem discordaria**: `<...>`
 
 ### POV 3
+**Posição**: `<...>`
+
+**Por quê**: `<...>`
+
+**Quem discordaria**: `<...>`
+
+### POV 4 (opcional)
 ...
 
-### POV 4
-...
-
-### POV 5
+### POV 5 (opcional)
 ...
 
 ---
 
-## POVs seed (do kit, troque pelos seus)
+## Critérios de qualidade do POV
 
-Estes são POVs de exemplo do método agentic-seo-kit, **não copie** — substitua.
+Antes de salvar um POV, valide:
 
-### POV exemplo A
-**Posição**: SEO Agêntico não substitui SEO clássico — amplifica quem já tem
-fundação técnica sólida.
+- [ ] **Declarativo**: começa com afirmação, não pergunta nem condicional.
+- [ ] **Específico**: aplica-se ao seu setor, não a "negócios em geral".
+- [ ] **Defensável**: você consegue citar 1+ evidência sem inventar.
+- [ ] **Polêmico**: existe pelo menos 1 player relevante que discordaria.
+- [ ] **Curto**: cabe em 1 frase de até 25 palavras.
 
-**Evidência**: sites com Core Web Vitals ruins não são citados por LLMs em
-quantidade significativa, mesmo com bom conteúdo.
+POV que falha qualquer item vira AI slop. Refaça antes de continuar.
 
-**Discordância**: agências que vendem "SEO para LLM" como produto novo dirão que
-é uma disciplina separada.
+## O que NÃO é POV
 
-### POV exemplo B
-**Posição**: PageSpeed 100 não é vaidade — é pré-condição para citação por
-LLMs e para conversão em mobile.
+- "Acreditamos em qualidade" — vago, todo mundo concorda.
+- "Somos a melhor opção do mercado" — claim, não posição.
+- "É importante priorizar o cliente" — consenso, não POV.
+- "Tecnologia transforma negócios" — buzzword, sem ângulo.
 
-**Evidência**: LCP correlaciona com taxa de conversão em mobile (Google,
-2023). LLMs penalizam fontes lentas para fetching durante grounding.
-
-### POV exemplo C
-**Posição**: Wiki/memória de marca é mais defensável que volume de conteúdo.
-Um site com 30 posts opinionados supera 300 posts genéricos em citação.
-
-**Evidência**: LLMs preferem fontes com POV consistente — facilita atribuição
-da resposta.
+POV verdadeiro tem alguém do outro lado disposto a defender o oposto.

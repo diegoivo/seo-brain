@@ -5,6 +5,11 @@ description: Caminho não-default — scaffold Payload CMS v3 + frontend Next.js
 
 # Skill `scaffold-payload` — caminho não-default
 
+> ⚠️ **Esta skill toca código.** Segue o protocolo spec-driven em
+> [`wiki/tecnologia/spec-driven.md`](../../../wiki/tecnologia/spec-driven.md):
+> escreve `docs/specs/scaffold-payload.md`, gera tests no agent-browser,
+> roda RED, executa via workers paralelos, QA sub-agent independente.
+
 > ⚠️ **Esta NÃO é a skill recomendada por padrão.**
 >
 > Para 80% dos casos, use `scaffold-ssg`. Esta skill só faz sentido se:

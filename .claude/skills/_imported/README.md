@@ -1,64 +1,63 @@
-# Skills importadas (referências, não duplicadas)
+# Skills importadas (cópia local — fork policy)
 
-Esta pasta contém **ponteiros** para skills do ecossistema que o kit
-agentic-seo-kit invoca, sem duplicar código. Cada arquivo `.md` aqui descreve
-qual skill global é usada por qual skill do kit.
+Esta pasta documenta as **cópias locais** de skills externas que o kit usa.
+Diferente da fase anterior (que apenas referenciava), agora o kit é
+**self-contained**: cada skill importada vive em `.claude/skills/` com cópia
+completa do arquivo `SKILL.md`.
 
-## Filosofia
+## Por que copiar localmente
 
-Skills do plugin Vercel e do skills.do são mantidas externamente. Replicá-las
-aqui geraria divergência. Em vez disso:
+- O aluno faz `git clone` e tudo funciona, mesmo sem o plugin Vercel ou gstack
+  daemon instalados.
+- O kit pode ser usado offline.
+- Versões ficam estáveis para a masterclass — a origem pode evoluir e quebrar a
+  experiência.
 
-1. Skills do kit (`conteudo`, `scaffold-ssg`, etc.) tentam invocar a skill
-   externa via `Skill tool` no host.
-2. Se indisponível, executam fallback inline (passos manuais documentados na
-   própria SKILL.md).
+## Tradeoff: viram fork
 
-## Mapa de dependências
+Quando a origem evolui, a cópia local fica desatualizada. Política de re-sync:
 
-| Skill do kit | Skills externas que invoca (em ordem) |
-|---|---|
-| `design-taste` | `stitch-design-taste`, `frontend-design`, `high-end-visual-design`, `brandbook` |
-| `scaffold-ssg` | nenhuma — implementação completa inline |
-| `scaffold-payload` | `vercel:vercel-payload`, `payload`, `vercel-payload` |
-| `publicar` | `vercel:deploy`, `deploy-to-vercel`, `vercel-cli-with-tokens` |
-| `conteudo` | nenhuma — usa WebSearch nativo do host |
-| `wiki` | nenhuma |
+1. **Trimestralmente**, rode `scripts/check-imports.sh` (a criar) para diff
+   contra origem.
+2. Ao detectar mudança relevante, abra PR de re-sync com nota no CHANGELOG.
+3. Não modifique skills importadas — se precisar customizar, crie wrapper
+   próprio (ex: `agent-browser` é wrapper, não cópia bruta).
 
-## Skills externas relevantes (referência)
+## Mapa de origens (snapshot)
 
-### Vercel
-- `vercel:deploy` — deploy preview/prod via plugin oficial.
-- `vercel:vercel-cli` — guia do Vercel CLI.
-- `vercel:nextjs` — best practices Next.js App Router.
-- `vercel:vercel-payload` — Payload v3 em Vercel com Neon.
-- `vercel:knowledge-update` — corrige conhecimento desatualizado sobre Vercel.
+| Skill local | Origem | Data da cópia | Tipo |
+|---|---|---|---|
+| `design-md/` | `~/.claude/skills/design-md/` (global) | 2026-05-02 | cópia bruta |
+| `vercel-deploy/` | plugin oficial `vercel/0.40.1/skills/deployments-cicd/SKILL.md` | 2026-05-02 | cópia do SKILL.md |
+| `vercel-cli/` | plugin oficial `vercel/0.40.1/skills/vercel-cli/SKILL.md` | 2026-05-02 | cópia do SKILL.md |
+| `vercel-nextjs/` | plugin oficial `vercel/0.40.1/skills/nextjs/SKILL.md` | 2026-05-02 | cópia do SKILL.md |
+| `agent-browser/` | wrapper que invoca `gstack`/`browse` global | 2026-05-02 | wrapper (não cópia) |
 
-### Payload
-- `payload` — collections, fields, hooks, access control.
-- `vercel-payload` — debugging cold starts e seed em Payload + Vercel.
+## Skills NÃO importadas (ainda invocadas via Skill tool quando disponíveis)
 
-### Frontend / Design
-- `frontend-design` — interfaces production-grade.
-- `stitch-design-taste` — design system semântico para Google Stitch.
-- `high-end-visual-design` — bloqueia defaults genéricos de IA.
-- `brandbook` — brand identity completo.
+| Skill | Por que não importada | Quando usar |
+|---|---|---|
+| `gstack` (vault completo) | ~5MB, atualização frequente | quando o host tem o daemon instalado, agent-browser delega |
+| `vercel:vercel-payload` | scaffold-payload é caminho não-default | só quando explicitamente confirmado |
+| `stitch-design-taste` | requer Stitch MCP server | quando disponível, design-taste delega |
+| `frontend-design`, `brandbook` | overlap com design-taste | opcionais |
 
-### QA / Testing
-- `qa` — QA testing automatizado com fix.
-- `qa-only` — QA report-only.
-- `browse` / `gstack` — headless browser para verificação.
+## Política de manutenção
 
-### Outras
-- `audit-website` — audit SEO via squirrelscan.
-- `benchmark` — performance regression detection.
-- `web-design-guidelines` — Web Interface Guidelines compliance check.
+- **Não** edite arquivos em `_imported/` ou em pastas de skills importadas.
+- **Sim** edite skills do kit (`conteudo`, `design-taste`, `scaffold-ssg`, etc.).
+- Wrappers (como `agent-browser`) podem ser editados — eles existem
+  exatamente para customizar comportamento sem tocar a origem.
 
-## Por que não copiar para dentro do kit?
+## Skills do kit (não importadas)
 
-- **Divergência**: skills externas evoluem. Cópia local fica obsoleta.
-- **Tamanho**: skills somam dezenas de MB. Kit precisa ser leve para `git clone`.
-- **Licença**: nem toda skill global tem licença permissiva para redistribuição.
+Estas são proprietárias do kit:
 
-A regra é: **kit invoca, não duplica**. Fallback inline é o seguro de vida
-quando o host não tem a skill externa.
+- `onboarding` — preenche wiki + site-config interativamente
+- `design-taste` — gera DESIGN.md + tokens
+- `scaffold-ssg` — caminho default Next.js SSG
+- `scaffold-payload` — caminho não-default Payload CMS
+- `conteudo` — redator PT-BR (a estrela)
+- `publicar` — build + deploy + PageSpeed
+- `wiki` — curadoria de memória
+- `agent-browser` — wrapper de QA browser (importada como wrapper)

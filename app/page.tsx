@@ -16,29 +16,26 @@ export default function HomePage() {
 
       <section className="container-page py-section">
         <h1 className="hero-title font-display font-bold max-w-[18ch]">
-          SEO Agêntico, em PT-BR, com PageSpeed 100 por construção.
+          {siteConfig.name}
         </h1>
         <p className="mt-8 max-w-editorial text-lg text-muted-foreground">
-          Substitua este lead pela proposta de valor da sua marca. Edite{" "}
-          <code>app/page.tsx</code> e <code>lib/site-config.ts</code>.
+          {siteConfig.description}
         </p>
       </section>
 
       <section className="container-editorial py-section prose-editorial">
         <p>
-          Este site foi gerado com o{" "}
-          <Link href="https://github.com/diegoivo/agentic-seo-kit">
-            agentic-seo-kit
-          </Link>
-          . O método combina três coisas: um stack travado para PageSpeed 100
-          (Next.js SSG + Tailwind), uma wiki de marca como memória do projeto
-          (em <code>wiki/</code>), e skills que orquestram design, scaffold,
-          conteúdo e publicação.
+          Este site foi gerado com o agentic-seo-kit. Para personalizar, rode{" "}
+          <code>/onboarding</code> e depois <code>/design</code> no seu agent
+          favorito (Claude Code, Cursor, Codex). Edite os princípios em{" "}
+          <code>wiki/conteudo/principios.md</code> e os POVs em{" "}
+          <code>wiki/conteudo/pov-da-marca.md</code> antes de pedir o primeiro
+          post.
         </p>
         <p>
-          A skill <code>conteudo</code> escreve artigos em PT-BR seguindo
-          princípios proprietários — leia <code>wiki/conteudo/principios.md</code>{" "}
-          e ajuste para a sua marca antes de publicar o primeiro post.
+          A skill <code>conteudo</code> escreve artigos em PT-BR seguindo a
+          wiki da sua marca. A skill <code>publicar</code> faz build e deploy
+          no Vercel com PageSpeed 100.
         </p>
       </section>
 
@@ -46,17 +43,17 @@ export default function HomePage() {
         <h2 className="h2-title font-display font-bold">Serviços</h2>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           <ServiceItem
-            title="SEO Agêntico"
-            description="Estratégia e execução para que LLMs e search engines citem a sua marca."
+            title="Serviço 1"
+            description="Substitua este texto pela descrição do primeiro serviço da sua marca."
           />
           <ServiceItem
-            title="Conteúdo opinionado"
-            description="Posts com POV proprietário, fontes verificáveis e voz brasileira — não AI slop."
+            title="Serviço 2"
+            description="Edite app/page.tsx ou app/servicos/page.tsx para personalizar."
           />
           <ServiceItem
-            title="Stack performático"
-            description="Sites Next.js SSG com PageSpeed 100, prontos para crawl e citação por agentes."
-            extra="Inclui setup de JSON-LD, sitemap, robots e Open Graph."
+            title="Serviço 3"
+            description="O kit já vem com layout editorial e tokens de design prontos."
+            extra="Rode /design <vibe> para regenerar identidade visual."
           />
         </div>
       </section>

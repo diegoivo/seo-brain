@@ -1,0 +1,65 @@
+---
+title: "Como o agentic-seo-kit estrutura um artigo de SEO Agêntico"
+description: "Estrutura, princípios e checklist do método. Substitua este post pelo seu primeiro artigo real após rodar /onboarding."
+date: "2026-05-02"
+author: "Autor Principal"
+keywords: ["SEO Agêntico", "AEO", "PT-BR", "método"]
+ogImage: "/og-default.png"
+intencao: "informacional"
+povs:
+  - "POV exemplo: substitua pelos POVs proprietários da sua marca."
+  - "Sem 3 POVs claros, a skill conteudo recusa escrever."
+  - "PageSpeed 100 é pré-condição, não meta de vaidade."
+fontes:
+  - { titulo: "Web Vitals — Google", url: "https://web.dev/vitals/", acessado: "2026-05-02" }
+---
+
+Este é um post de exemplo. Ele existe para demonstrar a estrutura e o
+frontmatter que a skill `conteudo` produz. **Substitua-o pelo seu primeiro
+artigo real** após rodar `/onboarding` e refinar `wiki/conteudo/pov-da-marca.md`.
+
+## O que define um artigo do método
+
+A skill `conteudo` segue 4 princípios não-negociáveis:
+
+1. **Wiki primeiro**: lê `wiki/conteudo/principios.md` e `pov-da-marca.md`
+   antes de pesquisar na web.
+2. **POV explícito**: cita 3-5 posições proprietárias da marca, não consenso
+   genérico de mercado.
+3. **PT-BR estrito**: hard-checks contra PT-PT, gerundismo, voz passiva
+   burocrática e vocabulário típico de IA ("delve", "robust", "comprehensive",
+   "leverage").
+4. **Fontes verificáveis**: cada estatística, número e citação tem link
+   inline para fonte que abre. Sem link, não escreve.
+
+## Estrutura do post
+
+Posts informacionais deste kit seguem o formato:
+
+- **Lead** em 2-3 frases que respondem direto à pergunta principal — o
+  parágrafo zero do AEO.
+- **4-8 H2** que respondem perguntas longtail reais (PAA do Google).
+- **POVs proprietários citados explicitamente**, com a forma "Daí o primeiro
+  POV: ..." ou similar.
+- **3-5 links internos** para outros posts ou notas da wiki.
+- **Conclusão** curta com CTA contextual, não genérico.
+
+## O que não entra
+
+A skill recusa:
+
+- Vocabulário banido (lista em `wiki/conteudo/jargao-banido.md`).
+- PT-PT (lista em `wiki/conteudo/voz-pt-br.md`).
+- Estatística sem fonte verificável.
+- Tema sem 3 POVs claros aplicáveis.
+
+## Próximos passos para você
+
+1. Apague este post (`rm content/exemplo-post.mdx`).
+2. Rode `/onboarding` se ainda não rodou.
+3. Refine `wiki/conteudo/pov-da-marca.md` — sem POVs claros, a skill
+   `conteudo` para.
+4. Rode `/conteudo <tema>` com o primeiro tema da sua marca.
+5. Rode `/publicar` para fazer deploy preview no Vercel.
+
+Para o método completo, leia `AGENTS.md`.

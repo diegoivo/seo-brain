@@ -5,6 +5,11 @@ description: Build local + deploy preview Vercel + abre PageSpeed Insights. Trig
 
 # Skill `publicar`
 
+> ⚠️ **Esta skill toca infraestrutura.** Quando faz mudanças em código (ex:
+> ajuste de config para passar build), segue o protocolo spec-driven em
+> [`wiki/tecnologia/spec-driven.md`](../../../wiki/tecnologia/spec-driven.md).
+> Para QA pós-deploy, invoca `agent-browser` para validar a URL pública.
+
 ## Pré-condições
 
 - Existe pelo menos 1 post em `content/*.mdx` (não `_*.mdx`).

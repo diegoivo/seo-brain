@@ -8,3 +8,7 @@ out
 .DS_Store
 *.log
 *.tsbuildinfo
+playwright-report
+test-results
+tests/__screenshots__
+SETUP.md
