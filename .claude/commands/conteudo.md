@@ -1,10 +1,11 @@
 ---
-description: Escreve 1 artigo PT-BR otimizado para SEO Agêntico, seguindo princípios proprietários
-argument-hint: <tema do post>
+description: Escreve 1 artigo MDX em PT-BR otimizado para SEO Agêntico
 ---
 
-Leia e siga `prompts/conteudo.md` na raiz deste repo. Execute todos os passos lá descritos.
+Invoque a skill `conteudo` (em `.claude/skills/conteudo/SKILL.md`) com o
+argumento abaixo como tema do post.
 
-Use o argumento como `<tema>` no passo 5. Se não houver argumento, peça ao usuário.
+Argumento: $ARGUMENTS
 
-OBRIGATÓRIO: usar busca web do host. Sem busca, parar e pedir URLs ao usuário.
+Não escreva sem 3 POVs claros em `wiki/conteudo/pov-da-marca.md` aplicáveis
+ao tema. Não escreva sem WebSearch disponível.

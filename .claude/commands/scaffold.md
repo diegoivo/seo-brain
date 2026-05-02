@@ -1,7 +1,9 @@
 ---
-description: Aplica DESIGN.md no scaffold Next.js (home, serviços, blog) seguindo restrições anti-AI-slop
+description: Aplica DESIGN.tokens.json no scaffold Next.js SSG (default do kit)
 ---
 
-Leia e siga `prompts/scaffold.md` na raiz deste repo. Execute todos os passos lá descritos.
+Invoque a skill `scaffold-ssg` (em `.claude/skills/scaffold-ssg/SKILL.md`).
 
-Pré-requisito: `DESIGN.tokens.json` deve existir (rode `/design` antes).
+Antes de executar, verifique se o caso justifica `scaffold-payload` (>50 posts,
+>3 autores, CMS visual exigido, catálogo dinâmico >100 itens). Se sim, sugira
+`scaffold-payload` em vez deste.

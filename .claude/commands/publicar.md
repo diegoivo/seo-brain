@@ -2,8 +2,6 @@
 description: Build local + deploy preview Vercel + abre PageSpeed Insights
 ---
 
-Leia e siga `prompts/publicar.md` na raiz deste repo. Execute todos os passos lá descritos.
+Invoque a skill `publicar` (em `.claude/skills/publicar/SKILL.md`).
 
-Pré-requisito: pelo menos 1 post em `content/` (não só `_principios.md`).
-
-Se for primeira vez usando Vercel CLI neste projeto, avise o usuário sobre o login no navegador antes de executar `npx vercel deploy`.
+Não promova para produção (`--prod`) sem confirmação explícita do usuário.

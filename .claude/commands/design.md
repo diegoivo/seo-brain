@@ -1,8 +1,11 @@
 ---
 description: Gera DESIGN.md + DESIGN.tokens.json a partir de uma vibe descrita em PT-BR
-argument-hint: <descrição da vibe da marca>
 ---
 
-Leia e siga `prompts/design.md` na raiz deste repo. Execute todos os passos lá descritos.
+Invoque a skill `design-taste` (em `.claude/skills/design-taste/SKILL.md`) com
+o argumento abaixo como vibe da marca.
 
-Se houver argumento passado, use-o como `<vibe>` no passo 1. Se não houver, recuse e peça as 3 dimensões (setor, tensão, referência) descritas no prompt.
+Argumento: $ARGUMENTS
+
+Se argumento estiver vazio ou for genérico (<50 chars, ou "moderno", "clean",
+"profissional", "bonito"), siga a recusa de input vago da skill.

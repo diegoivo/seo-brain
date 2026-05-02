@@ -1,93 +1,127 @@
 # agentic-seo-kit
 
-> Kit open source para criar um site Next.js SSG com PageSpeed 100 e conteúdo PT-BR otimizado para SEO Agêntico em poucos minutos.
+Template open-source para criar sites **Next.js SSG com PageSpeed 100** e
+conteúdo PT-BR otimizado para **SEO Agêntico**, orquestrado por um agente de
+**Organic Growth** com skills self-contained.
 
-**Por [Diego Ivo](https://github.com/diegoivo), na [Conversion](https://conversion.com.br)**. Open source MIT.
+> **Template neutro.** Nenhum arquivo cita marca específica. Você roda
+> `/onboarding` para preencher os dados da sua marca antes de começar.
 
-Se sua empresa precisa implementar SEO Agêntico em escala (+500 funcionários, ICP enterprise), [fale com o time da Conversion](mailto:contato@conversion.com.br).
-
-## O que faz
-
-4 comandos, executados sequencialmente em qualquer agente compatível com `AGENTS.md`:
-
-```
-/design   <descreva a vibe da marca>
-/scaffold
-/conteudo <tema do post>
-/publicar
-```
-
-Resultado: site Next.js publicado no Vercel preview, com PageSpeed 100, design system próprio (gerado por [stitch-design-taste](https://github.com/anthropics/skill-stitch-design-taste)), e 1 artigo PT-BR otimizado seguindo o método.
-
-## Pré-requisitos
-
-- [Node.js 22 ou 24 LTS](https://nodejs.org)
-- Git
-- Um agente compatível com `AGENTS.md`:
-  - [Antigravity](https://antigravity.google) (free tier, recomendado para começar)
-  - [Claude Code](https://claude.ai/code)
-  - [Codex CLI](https://github.com/openai/codex), Cursor, Aider, ou similar
-- Conta gratuita no [Vercel](https://vercel.com) (login no primeiro `/publicar`)
-
-## Quick start
+## Quickstart
 
 ```bash
-git clone https://github.com/diegoivo/agentic-seo-kit meu-site
+git clone <repo> meu-site
 cd meu-site
 npm install
 ```
 
-Abra o agente da sua escolha apontando para esse diretório e rode os 4 comandos em sequência. Cada um leva 2-5 minutos.
+Depois, abra o repo no seu agent (Claude Code, Codex, Cursor, Antigravity) e
+rode em sequência:
 
-## O que NÃO fazemos (anti-AI-slop)
+```
+/onboarding              → preenche wiki + site-config (1ª vez, interativo)
+/design   <vibe>         → identidade visual
+/scaffold                → aplica design no app
+/conteudo <tema>         → escreve o primeiro post
+/publicar                → build + deploy preview Vercel
+```
 
-Para criar autoridade visual real, este kit recusa os patterns que gritam "AI-generated":
+Cada comando aciona uma skill em `.claude/skills/`. Hosts sem suporte a slash
+commands podem invocar pelo nome ("siga `.claude/skills/conteudo/SKILL.md`
+para escrever um artigo sobre X").
 
-- ❌ Inter, Roboto, Arial, system-ui como font (use General Sans, Geist, Manrope, ou outras curadas)
-- ❌ Gradient roxo/violeta/indigo no background
-- ❌ 3 cards uniformes lado-a-lado com ícones em círculos coloridos
-- ❌ Border-radius bubbly em tudo
-- ❌ #000000 e #FFFFFF puros
-- ❌ Copy genérica ("Welcome to...", "Your all-in-one...", "Unlock the power of...")
-- ❌ Vocabulário de IA: delve, crucial, robust, comprehensive, tapestry, etc.
+## Estrutura
 
-Lista completa em `AGENTS.md`.
+| Pasta | Para quê |
+|---|---|
+| `app/` | Next.js 15 App Router, SSG via `output: 'export'` |
+| `lib/` | Helpers (`content`, `seo`, `site-config`) |
+| `components/` | `SiteHeader`, `SiteFooter` |
+| `content/` | Posts MDX (1 post de exemplo incluído — apague depois) |
+| `wiki/` | **Memória do projeto** — vault Obsidian-friendly |
+| `docs/specs/` | Specs verificáveis para tarefas técnicas (spec-driven) |
+| `tests/` | Playwright/agent-browser specs |
+| `.claude/skills/` | Skills do kit + skills importadas (self-contained) |
+| `.claude/commands/` | Slash commands shim para Claude Code |
+| `DESIGN.md` + `DESIGN.tokens.json` | Design system (regenerável por `/design`) |
+| `AGENTS.md` | Orquestrador "Organic Growth Agent" — leitura obrigatória |
 
-## Defaults seguros
+## Skills disponíveis
 
-Quando você não sabe que vibe quer, `/design` seleciona randomicamente de:
-- **10 paletas curadas** (Editorial Bege, Linho Frio, Pedra, Manhã, Indigo Klein, Carvão, Tofu, Branco Cru, Pó de Café, Areia)
-- **10 font pairs curados** (todos via `next/font/google`, zero Inter)
+### Skills do kit
+- `onboarding` — preenche wiki + site-config + POVs iniciais (1ª vez)
+- `design-taste` — gera DESIGN.md + tokens (10 paletas, 10 font pairs curados)
+- `scaffold-ssg` — caminho default Next.js SSG
+- `scaffold-payload` — caminho não-default Payload CMS (>50 posts ou >3 autores)
+- `conteudo` — redator PT-BR com hard-checks anti-AI-slop
+- `publicar` — build + deploy preview + PageSpeed
+- `wiki` — curadoria de memória (única skill autorizada a escrever em `wiki/`)
 
-Cada combinação é testada para contrast AA+ e segue o spec [DESIGN.md open source](https://mindwiredai.com/2026/04/23/design-md-is-now-open-source/) do Google.
+### Skills importadas (cópia local — self-contained)
+- `design-md` — gerador semântico de DESIGN.md (do skill global)
+- `vercel-deploy` — guia oficial deployment + CI/CD
+- `vercel-cli` — comandos do Vercel CLI
+- `vercel-nextjs` — best practices Next.js App Router
+- `agent-browser` — wrapper para gstack/browse daemon (QA spec-driven)
 
-## Stack
+Política de fork e re-sync em `.claude/skills/_imported/README.md`.
 
-- [Next.js](https://nextjs.org) App Router (SSG via `output: 'export'`)
-- [Tailwind CSS](https://tailwindcss.com)
-- [shadcn/ui](https://ui.shadcn.com) (componentes mínimos: button, card, badge)
-- [Vercel](https://vercel.com) para deploy preview
-- [next/font/google](https://nextjs.org/docs/app/api-reference/components/font) + [next/image](https://nextjs.org/docs/app/api-reference/components/image) para Lighthouse 100
+## Wiki como memória
 
-## O método (resumo)
+`wiki/` é vault Obsidian-friendly. Abra a pasta no Obsidian (Open folder as
+vault) e edite as notas:
 
-10-20 princípios em [`content/_principios.md`](./content/_principios.md). Os mais importantes:
+- **Empresa**: `wiki/index.md` → seção "Sobre a empresa" (preencha 1º com `/onboarding`)
+- **Princípios editoriais**: `wiki/conteudo/principios.md`
+- **POVs proprietários**: `wiki/conteudo/pov-da-marca.md`
+- **Voz brasileira**: `wiki/conteudo/voz-pt-br.md`
+- **Vocabulário banido**: `wiki/conteudo/jargao-banido.md`
+- **Stack técnico**: `wiki/tecnologia/stack.md`
+- **Spec-driven**: `wiki/tecnologia/spec-driven.md`
+- **Exemplos genéricos**: `wiki/exemplos/`
 
-1. **Wiki primeiro, web depois** — POV proprietário antes de pesquisa externa
-2. **Skyscraper por padrão, intenção manda na forma**
-3. **POV proprietário > consenso** — 3-5 posições que só esta marca sustenta
-4. **Domínio próprio: linkagem interna primeiro**
-5. **Anti-jargão**, **citações verificáveis**, **PT-BR sempre**
-6. **JSON-LD Article + Organization** em toda página
+Skills só **leem** a wiki. As skills `wiki` e `onboarding` são as únicas
+exceções e só atuam quando invocadas.
 
-## Comunidade
+## Spec-driven (toda mudança em código)
 
-Versão público-facing em construção. Acesso à comunidade para alunos da [masterclass de SEO Agêntico da Conversion](https://conversion.com.br) (gratuita).
+Skills técnicas seguem o protocolo em `wiki/tecnologia/spec-driven.md`:
+
+```
+[1] SPEC      → docs/specs/<task>.md (critérios verificáveis)
+[2] TESTS     → tests/<task>.spec.ts (1 teste por critério, RED antes)
+[3] EXECUTE   → workers paralelos via Agent tool
+[4] QA        → sub-agent independente valida no browser e reporta
+```
+
+## Stack (default = SSG)
+
+- Next.js 15 App Router + TypeScript estrito + React 19
+- Tailwind 3.4 com tokens via `DESIGN.tokens.json`
+- MDX via `next-mdx-remote/rsc` + `gray-matter`
+- `next/font/google` (zero `<link>`)
+- Output: `export` estático → qualquer CDN serve
+
+Para sites grandes (>50 posts ou >3 autores), use `scaffold-payload` (caminho
+não-default, exige confirmação).
+
+## Scripts
+
+```bash
+npm run dev              # dev server
+npm run build            # build estático para out/
+npm run lint             # ESLint
+npm run typecheck        # tsc --noEmit
+npm run test:browser     # Playwright (requer setup)
+npm run test:browser:ui  # Playwright UI mode
+```
+
+Setup do browser (uma vez):
+
+```bash
+npx playwright install chromium
+```
 
 ## Licença
 
-[MIT](./LICENSE). Use, fork, adapte, ensine. Se evoluir o método, considere abrir PR.
-
-## Contribuindo
-
-PRs bem-vindos. Para mudanças no método (princípios PT-BR, paletas, prompts), abra issue antes para discutir.
+MIT. Use, fork, adapte. Se evoluir o método, considere abrir PR.

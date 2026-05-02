@@ -1,0 +1,28 @@
+{
+  "$schema": "https://design.md/spec/v1/tokens.json",
+  "name": "agentic-seo-kit",
+  "colors": {
+    "background": "#F8F5EF",
+    "foreground": "#1A1A18",
+    "accent": "#A6391A",
+    "accent-foreground": "#F8F5EF",
+    "border": "#E5DFD3",
+    "muted": "#EDE8DD",
+    "muted-foreground": "#5C5852"
+  },
+  "fonts": {
+    "display": { "family": "Fraunces", "googleFont": true, "weights": [600, 700] },
+    "body": { "family": "Inter Tight", "googleFont": true, "weights": [400, 500] },
+    "mono": { "family": "Geist Mono", "googleFont": true, "weights": [400] }
+  },
+  "radii": {
+    "sm": "0.25rem",
+    "md": "0.5rem",
+    "lg": "0.75rem"
+  },
+  "spacing": {
+    "section": "5rem",
+    "container": "1200px",
+    "editorial": "640px"
+  }
+}

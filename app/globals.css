@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  a {
+    @apply text-accent underline-offset-4;
+  }
+
+  a:hover {
+    @apply underline;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-container px-6 md:px-10;
+  }
+  .container-editorial {
+    @apply mx-auto w-full max-w-editorial px-6 md:px-0;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+    line-height: 1.05;
+  }
+  .h2-title {
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+    line-height: 1.15;
+  }
+  .prose-editorial {
+    @apply text-foreground;
+  }
+  .prose-editorial p {
+    @apply mb-6 leading-relaxed text-[1.0625rem] md:text-[1.125rem];
+  }
+  .prose-editorial h2 {
+    @apply mt-12 mb-4 h2-title;
+  }
+  .prose-editorial h3 {
+    @apply mt-8 mb-3 text-2xl font-semibold;
+  }
+  .prose-editorial ul,
+  .prose-editorial ol {
+    @apply mb-6 pl-6;
+  }
+  .prose-editorial ul {
+    @apply list-disc;
+  }
+  .prose-editorial ol {
+    @apply list-decimal;
+  }
+  .prose-editorial li {
+    @apply mb-2;
+  }
+  .prose-editorial blockquote {
+    @apply border-l-2 border-accent pl-4 my-6 italic text-muted-foreground;
+  }
+  .prose-editorial code {
+    @apply font-mono text-[0.9em] bg-muted px-1.5 py-0.5 rounded-sm;
+  }
+  .prose-editorial pre {
+    @apply font-mono text-sm bg-muted p-4 rounded-md overflow-x-auto my-6;
+  }
+  .prose-editorial pre code {
+    @apply bg-transparent p-0;
+  }
+}
