@@ -1,9 +1,10 @@
 ---
 name: artigo
-description: Escreve um artigo PT-BR seguindo Brain (tom de voz, personas, glossário) + Skyscraper + GEO embutido + frontmatter completo. Roda intent-analyst antes de definir forma. Pergunta proprietary_claims se ausentes. Use quando o usuário pedir "escrever artigo", "criar post", "novo conteúdo", "blog post".
+description: Escreve um artigo PT-BR seguindo Brain (tom de voz, personas, glossário) + Skyscraper + GEO embutido + frontmatter completo. HARD STOP - aborta se intent-analyst não rodou primeiro. Valida tamanho/parágrafos/bullets via scripts/article-quality.mjs (LLM é ruim para contar, scripts contam). Use quando o usuário pedir "escrever artigo", "criar post", "novo conteúdo", "blog post".
 allowed-tools:
   - Read
   - Write
+  - Bash
   - WebSearch
   - WebFetch
   - Grep
@@ -13,21 +14,31 @@ allowed-tools:
 
 Pipeline completo de criação de artigo seguindo a filosofia do kit.
 
+## HARD STOPs
+
+1. **`intent-analyst` NÃO rodou** → abortar com:
+   > "Preciso rodar `/intent-analyst` antes pra saber a forma certa do artigo (informacional, comercial, transacional). Roda primeiro."
+2. **`brain/index.md` é template** → redirecionar para `/onboard`.
+3. **`proprietary_claims` faltando ou genéricos** → bloquear (não auto-resolver).
+
+Sem hard stops, **não escreva**.
+
 ## Pipeline
 
 ### 1. Brain primeiro
-- Leia `brain/index.md`, `brain/tom-de-voz.md`, `brain/personas.md`.
-- Leia o(s) verbete(s) relevante(s) em `brain/glossario/`.
+- Leia `brain/index.md`, `brain/tom-de-voz.md`, `brain/personas.md`, `brain/principios-agentic-seo.md`.
+- Leia verbetes relevantes em `brain/glossario/`.
 - Liste o que o brain diz sobre o tema **antes** de qualquer pesquisa externa.
 
-### 2. Confirmar o tópico e os 3 POVs proprietários
-- Confirme o tópico, persona-alvo e objetivo de negócio.
-- Pergunte: **"Quais 3 opiniões fortes você tem sobre este tema?"** (se não houver `proprietary_claims` registrados no brain).
-- Documente as respostas — vão para `proprietary_claims[]` no frontmatter.
+### 2. Confirmar tópico e os 3 POVs proprietários
+- Confirme tópico, persona-alvo e objetivo de negócio.
+- Se `proprietary_claims` ausentes/genéricos: **pergunte** "Quais 3 opiniões fortes você tem sobre este tema **que não são consenso de mercado**?" (3 vezes "que não são consenso" — força diferenciação).
+- Documente. Vão para `proprietary_claims[]` no frontmatter.
 
-### 3. Análise de intenção (skill `intent-analyst`)
-- Roda `intent-analyst` com a query/tópico.
-- Confirma com o usuário a intenção dominante e a forma recomendada.
+### 3. Análise de intenção (HARD GATE)
+- Roda `/intent-analyst` com a query/tópico.
+- Recebe: intenção dominante + tamanho-alvo (palavras) + forma recomendada.
+- **Sem isso, abortar.**
 
 ### 4. Pesquisa de SERP (Skyscraper)
 - Web search dos top 10 resultados para a query.
@@ -71,24 +82,62 @@ schema_type:            # Article | BlogPosting | HowTo | FAQPage
 primary_keyword:
 secondary_keywords: []
 search_intent:          # do intent-analyst
+target_words:           # do intent-analyst — usado pelo article-quality.mjs
 target_persona:         # ref a brain/personas.md
 brain_refs: []          # paths para verbetes do glossário
 proprietary_claims: []  # mínimo 3 — POV proprietário
 author:                 # ref a brain/autores/<slug>.md
-tldr:                   # 2-3 frases citáveis (GEO)
-faq: []                 # FAQPage schema
+tldr:                   # 2-3 frases citáveis (GEO) — só em informacional
+faq: []                 # FAQPage schema — só onde aplicar
+cover_image:            # SEMPRE — thumb default em /blog
+cover_image_alt:
 og_image:
 og_image_alt:
 internal_links: []
 cluster:
+reading_time:           # calculado pelo article-quality
 ```
 
-### 9. Validação on-page (skill `seo-onpage`)
-Roda checklist de URL/H1/intro/visuais/links antes de publicar.
+### 9. Validação automática via `article-quality.mjs`
 
-### 10. Indexação no `content/posts/index.md`
-Adiciona o post à lista cronológica com link, data e categoria.
+LLMs são ruins de contar. Script faz isso:
+
+```bash
+node scripts/article-quality.mjs content/posts/<slug>.md --strict
+```
+
+Verifica:
+- **Palavras** dentro de ±20% do `target_words` (high severity)
+- **Parágrafos com ≥3 frases** em ≥70% do total (high severity)
+- **Bullets ≤ 2 listas no artigo todo** (high severity) — resolve "muito bullet point"
+- **Frases ≤25 palavras** em ≥80% (medium)
+- **Heading hierarchy** (h2 antes de h3) (medium)
+- **1 H1 único** (low)
+
+Se algum **high** falha, **refazer** antes de entregar. Não publique 47 palavras quando alvo é 1500 (sessão real).
+
+### 10. Validação on-page (skill `seo-onpage`)
+Roda checklist de URL/H1/intro/visuais/links.
+
+### 11. Cover image obrigatória
+Se `cover_image` ausente, dispare `/setup-images` para gerar/escolher antes de salvar.
+
+### 12. Indexação
+Adiciona em `content/posts/index.md` (lista cronológica) com link, data, categoria, cover.
 
 ## Output
 
-Arquivo `.md` em `content/posts/<slug>.md` com `status: draft`. Apresenta ao usuário para revisão. Após `/aprovado`, dispara `update-brain` que pode promover `status: published` (com nova confirmação).
+Arquivo `.md` em `content/posts/<slug>.md` com `status: draft`, `cover_image` preenchida. Apresenta ao usuário com:
+
+- Score do `article-quality.mjs` visível
+- Preview do post em `http://localhost:XXXX/blog/<slug>` (dev server)
+- 3 perguntas granulares específicas
+
+## Princípios
+
+- **HARD STOP em intent-analyst.** Sem ele, não escreva.
+- **Bullets ≤ 2 por artigo.** Padrão.
+- **Parágrafos com ≥3 frases.** Sem prosa fina.
+- **Tamanho via script, não LLM.** Conta palavras com regex.
+- **Cover obrigatória.** Thumb em listagem.
+- **Antivícios IA banidos** — usar lint do `tom-de-voz.md`.
