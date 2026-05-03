@@ -4,7 +4,11 @@
   "description": "Agentic SEO Kit — orquestrador SEO/GEO multi-harness com Claude Code prioritário",
   "private": true,
   "type": "module",
+  "bin": {
+    "agentic-seo-kit": "scripts/bootstrap.mjs"
+  },
   "scripts": {
+    "bootstrap": "node scripts/bootstrap.mjs",
     "setup": "npm run skills:install",
     "skills:install": "npx -y skills@latest add vercel-labs/agent-skills -y",
     "skills:update": "npx -y skills@latest update",

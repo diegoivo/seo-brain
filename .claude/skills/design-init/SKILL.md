@@ -212,6 +212,12 @@ Complemento técnico do MD acima. **O `DESIGN.md` é a fonte primária** (compat
 
 > Os valores acima são placeholders. **Substitua todos** com base nas respostas das 10 perguntas. Nenhum default sobrevive.
 
+### Regras críticas para `DESIGN.tokens.json`
+
+- **Não inclua `$schema`.** O JSON é consumido localmente pelo `/web` (Tailwind, CSS variables). Não existe schema público hospedado pelo kit.
+- **Nunca invente URLs** como `schemas.agenticseo.sh/...` ou similar. Esses domínios não existem.
+- **Apenas fontes gratuitas** (Google Fonts, Bunny Fonts, OFL/SIL/Apache). Lista permitida em `web-best-practices`. Nunca sugerir fontes pagas (GT America, Söhne, Editorial New não-grátis, etc.) — substitua por equivalentes Google/Bunny.
+
 ## Validação ao final
 
 Antes de salvar, confira:

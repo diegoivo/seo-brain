@@ -11,6 +11,33 @@ allowed-tools:
 
 Biblioteca de snippets canônicos. **Não improvise** — copie daqui e adapte só os valores.
 
+## Componentes prontos (não reescrever)
+
+Os snippets canônicos vivem em `.claude/skills/web-best-practices/snippets/`:
+
+- **`Hero.tsx`** — primeiro viewport, foto à direita, CTAs
+- **`PostCard.tsx`** — card de blog com cover_image obrigatória (thumbnail default)
+- **`PostBody.tsx`** + **`PostCover`** — corpo do post aplicando `.prose` do globals.css (resolve "headings sem estilo")
+- **`Footer.tsx`** — com credit "Powered by Agentic SEO" + ícones de redes via `<SocialIcon />`
+
+Para criar página, **copie do snippet** e adapte só os textos/dados. Não reescreva.
+
+## Regras hard
+
+### Banido em qualquer página
+
+- `style={{...}}` inline (use classes Tailwind ou CSS variables)
+- `<img>` direto (use `next/image`)
+- `<link>` Google Fonts no `<head>` (use `next/font/google`)
+- `text-[15vw]` ou similar em h1 (use `.h1` que tem clamp())
+- Fontes pagas: GT America, Söhne, Editorial New (paga), Pangea (paga). **Apenas grátis** (Google Fonts, Bunny Fonts, OFL/SIL). Lista permitida abaixo.
+
+### Fontes permitidas (Google + Bunny + OFL)
+
+Display/serif: Instrument Serif, DM Serif Display, Fraunces, Newsreader, Crimson Pro, Source Serif 4, EB Garamond
+Sans: Inter (evite default), Mona Sans, IBM Plex Sans, Geist, Manrope, Outfit, Onest, Plus Jakarta Sans, Figtree, Albert Sans
+Mono: JetBrains Mono, IBM Plex Mono, Geist Mono, DM Mono, Space Mono
+
 ## Targets
 
 | Métrica | Mínimo | Alvo |

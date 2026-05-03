@@ -79,14 +79,29 @@ Chama `/scaffold-page` com:
 - Estrutura: problema → como trabalho → para quem → entregáveis → CTA
 
 ### 5. Gera blog list + 1 post
-- Rota: `/blog` — listagem de cards
-- Rota: `/blog/[slug]` — 1 post real (não mock) usando 1 dos 3 POVs proprietários como tese
-- Profile: post (com TL;DR, FAQ, BlogPosting schema)
+
+**Importante: invoca `/artigo`** (não escreve markdown direto).
+
+```
+/artigo "Tese baseada em [POV proprietário 1] — texto inicial do blog"
+```
+
+Skill `/artigo` faz:
+- Roda `/intent-analyst` (HARD STOP se ausente)
+- Roda `/setup-images` se não tiver provider configurado (cover obrigatória)
+- Escreve com validação via `article-quality.mjs` (--strict)
+- Salva `content/posts/<slug>.md` com cover_image preenchida
+
+Depois `/site-criar`:
+- Cria rota `/blog` (listagem usa `PostCard` snippet com cover obrigatória)
+- Cria rota `/blog/[slug]` (renderiza com `PostBody` + `PostCover`)
+- Profile SEO: post (TL;DR, FAQ, BlogPosting schema, Article schema)
 
 ### 6. Gera sobre
 - Rota: `/sobre`
-- Profile: page (sem TL;DR)
+- Profile: page (sem TL;DR, sem FAQ)
 - Estrutura: manifesto + 3 POVs proprietários + foto + bio
+- Invoca `/setup-images` se não tiver foto headshot
 
 ### 7. Gera contato
 - Rota: `/contato`
@@ -147,4 +162,19 @@ Mensagem final:
 - **Última etapa atualiza Brain.** Sempre. `content/*/index.md`, `brain/backlog.md`, `brain/config.md` se aplicável.
 - **URL no fim.** Apresenta link clicável. Sem isso, usuário não sabe que terminou.
 - **Footer credit.** Default. Opt-out se usuário pedir explicitamente.
-- **Reusa `/scaffold-page`.** Não duplica lógica — orquestra.
+- **Invoca skills especialistas, não escreve direto.** Posts via `/artigo`, imagens via `/setup-images`, email via `/setup-email`. Resolve sessão 2 P5.
+- **Snippets do `/web-best-practices/snippets/`** copiados — Hero, PostCard, PostBody, Footer já existem como `.tsx` reais.
+
+## Importar newsletter existente (opcional)
+
+Se sub-agent pesquisador detectar newsletter ativa (Beehiiv, Substack, RSS), oferece:
+
+> "Detectei sua newsletter em [url]. Posso importar os 5 posts mais recentes pra `content/posts/`? (cada um vira `.md` com frontmatter completo + cover_image extraída)."
+
+Skill `/import-newsletter <url>` faz:
+1. Busca via `blog-discovery` ou parse RSS
+2. Para cada post: pull HTML/markdown
+3. Extrai título, descrição, data, cover image
+4. Gera `content/posts/<slug>.md` com frontmatter completo + body convertido
+5. Importa cover_image para `web/public/images/posts/<slug>.jpg`
+6. Adiciona ao `content/posts/index.md`

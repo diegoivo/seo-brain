@@ -1,6 +1,6 @@
 ---
 name: onboard
-description: Onboarding interativo do Agentic SEO Kit. 3 modos (manual/intermediário/auto), 6 fases (modo+identidade+posicionamento+design+tom+escopo). Sub-agents pesquisam marca existente via agent-browser e consultor de branding propõe identidade quando marca nova. Transforma o kit-template em projeto-inicializado preenchendo o Brain. Roda na primeira clonagem ou quando o usuário pedir "iniciar projeto", "começar do zero", "configurar o kit", "fazer onboarding".
+description: Onboarding interativo do Agentic SEO Kit. 3 modos (Express default / Guiado / Auto) com pergunta aberta inicial. Sub-agent pesquisador via agent-browser quando há domínio existente. Sub-agent consultor de branding quando marca nova. Lint anti-vícios IA. POVs bloqueante. Auto-commit por fase. Roda na primeira clonagem ou quando o usuário pedir "iniciar projeto", "começar do zero", "configurar o kit", "fazer onboarding".
 allowed-tools:
   - Read
   - Write
@@ -11,261 +11,190 @@ allowed-tools:
   - WebFetch
 ---
 
-# /onboard — v3
+# /onboard — v4
 
-Transforma o kit em estado **template** em **initialized**, preenchendo o Brain. Trabalho braçal vai para sub-agents; o usuário só decide o que **só ele sabe** e aprova.
+Transforma o kit em estado **template** em **initialized**, preenchendo o Brain. Trabalho braçal vai para sub-agents. O usuário decide o que **só ele sabe** e aprova.
 
 ## Pré-checks
 
-1. Leia `.cache/onboard-state.json` se existir (retomada).
-2. Verifique `kit_state` em todos os arquivos do brain. Se já é `initialized`, avise: "Brain já inicializado. Refazer vai sobrescrever decisões anteriores. Confirma?"
-3. Mostre overview de ~30s: 6 fases (modo + 5 fases substantivas).
+1. Leia `.cache/onboard-state.json` se existir → modo `--resume`.
+2. Se algum `kit_state` for `initialized`, avise: "Brain já inicializado. Refazer sobrescreve. Confirma?"
 
 ---
 
-## Fase 0a — Marca nova ou existente?
+## Pergunta inicial (sempre, antes de decidir modo)
 
-**Pergunta** (primeiro contato):
+Diga ao usuário:
 
-> Qual destes melhor descreve seu projeto?
+> Antes de começar, me conte sobre o seu projeto **com o máximo de informações que você tiver**. Misture o que importa:
 >
-> 1. **Marca pessoal nova** — sou eu, vou criar agora do zero
-> 2. **Marca pessoal já existente** — já tenho site/LinkedIn/presença online
-> 3. **Empresa/marca nova** — vou fundar
-> 4. **Empresa/marca existente** — já tem presença online
-> 5. **ONG / não-comercial**
-> 6. **Outro** (descreva)
-
-Resposta determina o **caminho da Fase 1-2**:
-- Existente (2/4) → sub-agent pesquisador via agent-browser ou WebSearch+WebFetch
-- Nova (1/3/5) → sub-agent consultor de branding propõe identidade
-
-## Fase 0b — Modo do onboard
-
-**Pergunta:**
-
-> Como você quer conduzir este onboarding?
+> - Tipo de marca (pessoal / empresa / ONG / não-comercial / outro)
+> - Já existe ou está criando agora? Se existe: **passe o domínio** (vou pesquisar)
+> - Sobre o que é o negócio / de que vive / quem atende
+> - Como sua marca se diferencia (concorrentes, posição, opinião contrária ao mainstream)
+> - Quais 3 opiniões fortes você sustenta sobre o tema central
+> - Personas-alvo (cargos, contextos, dores)
+> - Tom desejado (formal/informal, humor, 1ª pessoa…) — se tiver preferência
+> - Cores, fontes, mood que **não suporta** ou **adora**
+> - Tem logo / fotos / material visual?
+> - Pretende deploy onde (Vercel default)?
 >
-> 1. **Manual / guiado** — pergunta a pergunta (~18 perguntas, ~15 min). Recomendado para: marca nova sem material existente, gosta de pensar tudo.
-> 2. **Intermediário** ⭐ — perguntas em batch por fase (5 inputs grandes). Sub-agents fazem o trabalho braçal. Você valida pontos críticos. Recomendado para: maioria dos casos.
-> 3. **Auto / extremo** — sub-agents decidem tudo com base no que pesquisam. Você aprova um diff final único. Recomendado para: marca já existente com presença online forte e protótipo rápido.
+> Pode escrever em formato livre. Quanto mais info, mais **modo Auto** consegue rodar sem perguntas. Mínimo: 1-2 linhas.
 
-**Recomendação automática do agente** (com base em Fase 0a):
-- Existente forte (2/4 com site + LinkedIn + posts públicos) → sugere **Auto**
-- Existente parcial → sugere **Intermediário**
-- Nova → sugere **Intermediário** (consultor de branding propõe, você valida)
-
-> "Recomendo modo **[X]** baseado no que você descreveu. Aceita?"
-
-**Não prossiga sem o usuário escolher um modo explicitamente.**
+Espere a resposta do usuário. Se vier muito curta, ainda assim use o que tem.
 
 ---
 
-## Fase 1 — Identidade
+## Pergunta 2 — Modo
 
-**Atualiza:** `brain/index.md` + `brain/config.md`
+Após a resposta inicial, **proponha um modo recomendado** baseado no que veio:
 
-### Modo manual
-Pergunte uma a uma:
-1. Nome do projeto (com 3 sugestões + opção livre)
-2. Sobre você (livre, com sugestão se Fase 0a for "existente" e tiver pesquisa)
-3. Domínio:
-   > Como você vai começar?
-   > 1. Já tenho domínio comprado e quero usar agora
-   > 2. Tenho domínio mas vou apontar depois — uso vercel.app primeiro ⭐ recomendado
-   > 3. Ainda não tenho domínio — uso vercel.app por enquanto
-   > 4. Outro
+- **Auto** se: tem domínio existente OU resposta cobre maioria dos itens (posicionamento, persona, POVs, mood, deploy).
+- **Express** (default) se: resposta tem 30-60% das info, sub-agent pesquisa o resto.
+- **Guiado** se: resposta muito curta ou usuário pediu controle explícito.
 
-### Modo intermediário
-Apresente as 3 perguntas **em uma única mensagem**, com:
-- **Recomendado** ao lado de cada (vindo da pesquisa do sub-agent ou inferência)
-- "Para validar, me confirme: aceito todas as recomendações? Ou quer ajustar algum item?"
+Pergunte:
 
-Exemplo:
-> Fase 1 — Identidade. Recomendações com base na minha pesquisa:
+> Com base no que você descreveu, recomendo modo **[X]**.
 >
-> 1. **Nome:** "Diego Ivo" (recomendado — é como você se posiciona online)
-> 2. **Sobre:** "Diego Ivo, fundador e CEO da Conversion, maior agência de SEO do Brasil. Site pessoal..." (recomendado — extraído do seu LinkedIn)
-> 3. **Domínio:** opção 2 — vercel.app primeiro, apontar `diegoivo.com` depois (recomendado)
+> 1. **Auto** — eu decido tudo, mostro um diff final pra você aprovar/ajustar
+> 2. **Express** ⭐ — perguntas mínimas só onde faltam dados-chave
+> 3. **Guiado** — perguntas em batch por fase, você valida cada uma
 >
-> Aceita as 3? Ou quer ajustar algum?
+> Qual?
 
-### Modo auto
-Sub-agent pesquisador preenche tudo, agente apresenta resultado já gravado, pergunta só "alguma correção?".
-
-→ Atualiza `brain/index.md` (posicionamento + nome) e `brain/config.md` (domínio definitivo + temporário).
+**Não prossiga sem resposta explícita.**
 
 ---
 
-## Fase 2 — Posicionamento
+## Sub-agent pesquisador (todos os modos quando há domínio)
 
-**Atualiza:** `brain/index.md` (Posicionamento), `brain/personas.md`, `brain/principios-agentic-seo.md`
+Se a resposta inicial tem domínio:
+1. Tente `agent-browser` (se disponível): screenshot + extração de paleta/fontes/logo via JS eval. Ver skill `/site-clone`.
+2. Fallback: `WebSearch` + `WebFetch`. Mínimo **3 buscas paralelas**:
+   - Perfil profissional / sobre
+   - Conteúdo publicado (blog, posts)
+   - Posicionamento (concorrentes, "o que diferencia X")
 
-### Sub-agent pesquisador (marca existente)
+Resultado vai para a proposta consolidada de cada fase.
 
-Antes de perguntar, dispare sub-agent que:
-1. Tenta `agent-browser` (se instalado): navega site/LinkedIn/About/posts e extrai conteúdo.
-2. Fallback: `WebSearch` + `WebFetch` nativos.
+## Sub-agent consultor de branding (marca nova)
 
-Sub-agent retorna proposta consolidada de:
-- Posicionamento (1 frase)
-- 1-2 personas-alvo (com base em quem comenta, que conteúdo ressoa)
-- 3 POVs proprietários (inferidos com baixa confiança — usuário valida)
-
-### Sub-agent consultor de branding (marca nova)
-
-Roda mini-pesquisa de **benchmarks do nicho** (concorrentes, tom de mercado) e propõe:
-- Posicionamento que se diferencia do mercado em 1 frase
-- Persona-alvo provável
-- 3 POVs candidatos (com lista de "como descobrir o seu" — perguntas curtas que extraem opinião)
-
-### Modo manual
-3 perguntas:
-4. O que torna esta marca única em uma frase? (3 sugestões + livre)
-5. Persona principal (5 linhas: cargo, objetivo, dor, fontes, o que precisa de você) — com proposta do sub-agent
-6. 3 POVs proprietários (sub-agent propõe, você confirma 1 a 1)
-
-### Modo intermediário
-Mostra proposta consolidada do sub-agent. Pergunta:
-> "Validei [posicionamento, persona, 3 POVs]. Aceita ou quer ajustar algo? Sub-pergunta opcional: para cada POV, ele realmente conflita com o consenso de mercado, ou é posição que qualquer player também sustentaria?"
-
-### Modo auto
-Grava direto, mostra diff, pergunta "alguma correção?".
-
-→ Persiste arquivos. Salva estado fase 2.
+Quando não há referência online forte:
+1. Pesquisa **benchmarks do nicho** (3-5 concorrentes) — extrai paleta dominante, mood, voz comum
+2. Propõe posicionamento **diferenciado** desse mainstream
+3. Sugere persona provável + 3 POVs candidatos com perguntas curtas que extraem opinião do usuário se ele estiver em branco
 
 ---
 
-## Fase 3 — Design system + Brandbook
+## Modo Auto
 
-**Chama** `/design-init` (10 perguntas) com adaptação por modo:
+Pipeline:
 
-### Modo manual
-`/design-init` perguntas uma a uma.
+1. Sub-agents pesquisam tudo (paralelo).
+2. **Mostra plano antes de gravar** (`plans/onboard-<data>.md`):
+   ```
+   ## Vou gravar
+   - brain/index.md: posicionamento, domínio
+   - brain/personas.md: persona principal
+   - brain/principios-agentic-seo.md: 3 POVs
+   - brain/DESIGN.md + tokens: paleta, fontes, mood
+   - brain/tom-de-voz.md: customizações
+   - brain/tecnologia/index.md + brain/config.md: deploy, escopo
+   ```
+3. Aguarda **"go"** para escrever.
+4. Escreve tudo, faz auto-commit por fase: `chore(onboard): fase X — [resumo]`.
+5. Apresenta diff final + 3 perguntas granulares específicas (não "tá bom?").
+6. Se usuário ajustar, edita e re-commita.
+7. Pergunta: "Posso já gerar o site? `/site-criar`."
 
-### Modo intermediário
-`/design-init` agrupa em 2 batches:
-- **Batch A** (DNA da marca): arquétipo, mood (3 adjetivos), 3 referências, 3 antipadrões
-- **Batch B** (decisões técnicas): paleta, tipografia, densidade, contraste, motion
+## Modo Express (default)
 
-Em cada batch, agente traz **recomendado** ao lado de cada item (com base em Fases 0-2).
+Pipeline:
 
-### Modo auto
-`/design-init` decide tudo via consultor de branding + benchmarks. Apresenta `DESIGN.md` + `tokens.json` para aprovar.
+1. Sub-agents pesquisam.
+2. **Para cada fase**, mostra proposta consolidada e pergunta apenas **o que ainda falta**:
+   - **Fase 1** (identidade): se domínio veio na resposta inicial, pula. Senão pergunta.
+   - **Fase 2** (posicionamento): se 3 POVs vieram, pula. Se faltam, **bloqueia e pergunta**: "Quais 3 opiniões fortes que mainstream contesta? Não responda genérico — preciso de algo que seu concorrente não diria publicamente."
+   - **Fase 3** (design): se cores/mood vieram, propõe direto. Senão pergunta 3 escolhas-chave (mood em 3 adjetivos, paleta neutra/bicromática, density).
+   - **Fase 4** (tom): geralmente skip (default Estadão + capitalização BR).
+   - **Fase 5** (escopo): pergunta tipo de projeto + confirma Vercel.
+3. Auto-commit por fase.
+4. Apresenta resumo final + oferta `/site-criar`.
 
-### Brandbook visual (oferta)
+## Modo Guiado
 
-Após gerar `DESIGN.md` e `DESIGN.tokens.json`:
-
-> "Quer que eu gere um **brandbook visual interativo** no navegador para você testar antes de seguir? (~30s, abre `http://localhost:XXXX/brandbook`)"
-
-Se sim → chama `/brandbook` (cria rota `web/src/app/brandbook/page.tsx`, abre browser).
-
-→ Salva estado fase 3.
-
----
-
-## Fase 4 — Tom de voz
-
-**Atualiza:** `brain/tom-de-voz.md` (seção "Customizações deste projeto")
-
-### Modo manual
-1 pergunta:
-7. Calibração — default é PT-BR + voz ativa + capitalização BR + antivícios IA banidos. Quer ajustar?
-   1. Mais informal (tu, contrações)
-   2. Pode usar humor / ironia
-   3. 1ª pessoa do singular permitida
-   4. Combinar 1+2+3
-   5. Outro
-   6. ⭐ Manter o default
-
-### Modo intermediário
-Apresenta o default + recomenda manter. Se modo auto na Fase 0, agente decide com base no arquétipo (Fase 3) — "criador" → tolera 1ª pessoa singular; "sábio" → mais distante.
-
-### Modo auto
-Decide. Mostra diff.
-
-→ Salva estado fase 4.
+Pipeline manual com batches por fase. Cada fase mostra recomendado, usuário aprova ou ajusta. Equivale ao modo Intermediário antigo.
 
 ---
 
-## Fase 5 — Escopo & tecnologia
+## Lint de antivícios de IA (todos os modos)
 
-**Atualiza:** `brain/tecnologia/index.md` + `brain/config.md`
+Antes de escrever **qualquer copy proposto** no Brain, passe pelo lint:
 
-### Modo manual
-2 perguntas:
-8. Tipo do projeto:
-   1. Institucional (5-15 páginas)
-   2. Blog editorial (foco em conteúdo)
-   3. Produto (landing + features)
-   4. Mistura institucional + blog ⭐ recomendado para marca pessoal
-   5. Outro
+```js
+const ANTIVICIOS = [
+  /vale destacar/i, /é importante ressaltar/i,
+  /em síntese|em suma/i, /no cenário atual/i,
+  /no mundo cada vez mais/i, /uma jornada de/i,
+  /elevando ao próximo nível/i, /desbloqueando/i,
+  /navegando pelas águas/i,
+  /\bdelve\b|\bcrucial\b|\brobust\b|\bcomprehensive\b/i,
+  /\bnuanced\b|\bmultifaceted\b|\bpivotal\b|\btapestry\b/i,
+];
+```
 
-   Subpergunta automática: "≥100 páginas dinâmicas em 3 meses?" Se sim, sinaliza `/add-cms`.
+Se algum match, reescreva com voz ativa antes de mostrar.
 
-9. Plataforma de deploy:
-   1. **Vercel** ⭐ default — `next/image` otimiza, `next/font` self-host, OG dinâmico
-   2. Cloudflare Pages / Netlify / GitHub Pages — host estático, requer ajustes
-   3. Outro
+## POVs proprietários — bloqueante
 
-### Modo intermediário / auto
-Recomenda Vercel + tipo baseado em Fase 0a (institucional para pessoa, mistura para empresa, etc.). Pergunta confirmação ou direto.
+Se 3 POVs estão ausentes ou são consenso de mercado ("SEO técnico importa", "conteúdo de qualidade vence"), **NÃO escreva**. Pergunte:
 
-→ Atualiza `brain/tecnologia/index.md` + `brain/config.md` (deploy).
+> Os 3 POVs que tenho são consenso. Preciso de algo proprietário. Pense:
+>
+> - Qual posição você defende que **seus pares discordam publicamente**?
+> - O que mainstream do seu mercado diz que está errado, mas você sustenta?
+> - Onde sua experiência prova um padrão que dados públicos contradizem?
 
-→ Salva estado fase 5.
+Não auto-resolva.
 
----
+## Auto-commit por fase
+
+Após cada fase concluída e usuário aprovar:
+
+```bash
+git add brain/
+git commit -m "chore(onboard): fase X — <resumo>"
+```
+
+## Retomada
+
+`.cache/onboard-state.json`:
+```json
+{
+  "started_at": "...",
+  "mode": "express",
+  "current_phase": 3,
+  "completed_phases": [1, 2],
+  "answers": { ... }
+}
+```
+
+`/onboard --resume` carrega e segue.
 
 ## Conclusão
 
-1. Mostra resumo do Brain inteiro (`brain/index.md`, `config.md`, `personas.md`, `principios-agentic-seo.md`, `DESIGN.md` summary, `tom-de-voz.md` customizações, `tecnologia/index.md`).
-
-2. **Oferta de site mínimo viável:**
-
-   > "Onboard completo. Posso já gerar a estrutura padrão do site? Inclui:
-   >
-   > - Home (hero + 3 serviços + provas + CTA)
-   > - 1 página de serviço (template + 1 instância pré-preenchida)
-   > - Blog list + 1 post mock
-   > - Página 'sobre'
-   > - Página de contato com Resend (vou perguntar sobre conta no setup)
-   >
-   > 1. Sim, vai (modo auto do site)
-   > 2. Sim, mas pergunte cada página
-   > 3. Não, customizo depois — vou usar /scaffold-page para páginas individuais"
-
-   Se 1/2: chama `/site-criar` com modo equivalente.
-
+1. Mostra Brain populado.
+2. Oferta `/site-criar` (Express auto / Guiado / não).
 3. Apaga `.cache/onboard-state.json`.
-
-4. Sugere commit: `chore: onboarding inicial — kit_state initialized`.
-
----
 
 ## Princípios
 
-### Sempre traga o "recomendado"
-
-Em **qualquer** pergunta de qualquer modo, mostre a opção que o agente escolheria sozinho com ⭐. Não esconda recomendação atrás de "decida você". Recomendação ≠ imposição.
-
-### Modo é decisão explícita
-
-Não prossiga sem usuário escolher modo. Não assuma.
-
-### Trabalho braçal vai pra sub-agents
-
-Quando puder pesquisar, **pesquise**. Quando puder propor, **proponha**. Pergunta direta só para o que **só o usuário sabe** (3 POVs proprietários, antipadrões pessoais).
-
-### Feedback granular sempre
-
-Em cada fase, ao mostrar diff, pergunte 2-3 coisas específicas. Nunca "tá bom?".
-
-### Retomada graceful
-
-`.cache/onboard-state.json` permite pausar e retomar. Ao retomar, mostre fase atual + responde já gravadas + pergunta "continuar de onde parou?".
-
-### Não improvise design existente
-
-Se houver `DESIGN.md` em outro diretório do disco, **ignore**. Brain do projeto é o `brain/DESIGN.md` deste workspace, e ele só existe após `/design-init` rodar nesta sessão.
+- **Pergunta aberta primeiro.** Captura tudo de uma vez, reduz fricção.
+- **Modo é decisão explícita.** Não assume.
+- **Recomendado singular.** Não "Auto OU Express".
+- **Trabalho braçal pra sub-agents.** Pesquisa proativa via agent-browser quando há domínio.
+- **POVs bloqueia.** Não auto-resolve.
+- **Antivícios IA limpos.** Lint antes de mostrar.
+- **Auto-commit por fase.** Histórico granular.
+- **Não improvise design existente.** Ignore DESIGN.md em outros diretórios.

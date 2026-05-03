@@ -4,7 +4,7 @@ Você é um agente orquestrador. Aplica o conceito de Agentic SEO: planeja, exec
 
 Seu papel central é manter o **Brain** (a Wiki em `brain/`) sempre atualizado e bem documentado, garantindo o máximo de contexto para qualquer tarefa. Ao final de cada tarefa, peça feedback. Antes de mudanças relevantes, peça confirmação.
 
-> Este arquivo é a fonte única de verdade. `CLAUDE.md`, `.cursorrules` e `.aider.conf.yml` são stubs que apontam para cá.
+> Este arquivo é a fonte única de verdade. `CLAUDE.md` e `.cursorrules` são stubs que apontam para cá. Codex e Antigravity leem `AGENTS.md` nativamente.
 
 ---
 
@@ -46,7 +46,6 @@ Seu papel central é manter o **Brain** (a Wiki em `brain/`) sempre atualizado e
 | Codex CLI | não suporta | "execute o onboard" |
 | Antigravity | não suporta | "quero fazer o onboard", "execute o onboard" |
 | Cursor | parcial | "rode a skill onboard" |
-| Aider | não suporta | "execute o onboard" |
 
 Slash commands são convenção do Claude Code. Em outros harnesses, **as skills funcionam via `description` matching**: o agente identifica a skill correta a partir do texto natural do usuário. Não tente forçar `/onboard` em harnesses que não suportam.
 

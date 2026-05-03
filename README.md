@@ -8,23 +8,27 @@
 
 ## Quick start
 
-**Importante:** clone para um diretório novo. Não trabalhe dentro do repo do próprio kit.
+**1 comando para começar:**
 
 ```bash
-# 1. Crie um diretório novo
-mkdir meu-projeto && cd meu-projeto
+npx github:diegoivo/agentic-seo-kit bootstrap meu-projeto
+cd meu-projeto
+```
 
-# 2. Clone sem histórico do kit (você vai querer git limpo no seu projeto)
+O script faz tudo: clona o kit (sem o histórico git), inicia git limpo, roda `npm run setup` e instala dependências do `/web`. Multi-plataforma (Mac/Linux/Windows).
+
+<details>
+<summary>Manual (se preferir)</summary>
+
+```bash
+mkdir meu-projeto && cd meu-projeto
 git clone --depth 1 https://github.com/diegoivo/agentic-seo-kit.git .
 rm -rf .git
-
-# 3. Inicie git limpo no seu projeto
 git init && git add -A && git commit -m "chore: bootstrap from agentic-seo-kit"
-
-# 4. Instale dependências e skills
 npm run setup
 cd web && npm install && cd ..
 ```
+</details>
 
 Depois, abra seu coding agent no diretório e dispare o onboard:
 
@@ -34,7 +38,6 @@ Depois, abra seu coding agent no diretório e dispare o onboard:
 | **Codex CLI** | "execute o onboard" ou "rode o onboarding" |
 | **Antigravity** | "execute o onboard" ou "quero fazer o onboard" |
 | **Cursor** | "rode a skill onboard" |
-| **Aider** | "execute o onboard" |
 
 Slash commands (`/onboard`, `/aprovado`, `/plano`, `/site-criar`) são convenção do Claude Code. Em outros harnesses, use texto natural — o agent reconhece via `description` da skill.
 
@@ -73,7 +76,7 @@ Skills bloqueiam (hard gate) se Brain ainda estiver em estado `template`.
 .
 ├── AGENTS.md                  source-of-truth (todos os harnesses)
 ├── CLAUDE.md                  stub @AGENTS.md
-├── .cursorrules / .aider.conf.yml
+├── .cursorrules                stub para Cursor
 ├── .claude-plugin/            manifest plugin Claude Code
 ├── .claude/
 │   ├── skills/                15+ skills (markdown puro = portátil)
