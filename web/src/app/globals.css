@@ -284,3 +284,9 @@ p { text-wrap: pretty; }
 
 /* Hairline */
 .hairline { border-color: var(--color-border); }
+
+/* Utilitários responsivos pontuais (brandbook). */
+.hide-on-mobile { display: none; }
+@media (min-width: 768px) {
+  .hide-on-mobile { display: revert; }
+}
