@@ -21,6 +21,19 @@ sources: []
 
 (será gerado: 1. Atmosfera & Tema · 2. Cores & Papéis · 3. Tipografia · 4. Estilos de Componentes · 5. Princípios de Layout · 6. Profundidade & Elevação · 7. Motion · 8. Antipadrões · 9. Referências)
 
+## Tipografia (canônica do framework)
+
+A escala e o ritmo são fixos; só `font-family` muda no `/onboard`. Filosofia documentada em [[../docs/typography]]. Resumo:
+
+- **Escala**: perfect fourth (1.333) sobre body 1.125rem (18px). Tokens `--text-xs` → `--text-4xl`.
+- **Line-height**: 1.7 em body, 1.05–1.2 em headings.
+- **Measure**: parágrafos em 65ch (faixa Bringhurst/Butterick).
+- **Anchor-down spacing**: heading "ancora" o conteúdo abaixo (top >> bottom margin).
+- **`text-wrap`**: `balance` em headings, `pretty` em parágrafos.
+- **Hyphens**: `auto` em `.prose`, com `lang="pt-BR"` no `<html>`.
+
+Whitelist de fontes (gratuitas, OFL/SIL): em `/web-best-practices`. Pré-onboard, system fonts (anti-slop).
+
 ## Sistema de grid (canônico do framework)
 
 Todo site SEO Brain usa **CSS Grid 12 colunas + Subgrid + Container Queries**. Filosofia documentada em [[../docs/grid-system]]. Resumo:
