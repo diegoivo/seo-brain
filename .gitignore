@@ -14,3 +14,4 @@ brain/seo/reports/*.json
 brain/seo/reports/*.md
 !brain/seo/reports/.gitkeep
 !brain/seo/reports/index.md
+brain/brandbook.pdf
