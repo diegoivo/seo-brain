@@ -109,15 +109,18 @@ Atualize este arquivo a cada checkpoint (uma fase concluída → status: complet
 
 ### 1. Sub-agent pesquisador (quando há domínio)
 
-Se a resposta inicial trouxe domínio:
+Se a resposta inicial trouxe domínio, **dois trabalhos independentes** (não confundir):
 
-1. Tente `/site-clone` (agent-browser): screenshot + paleta + fontes + logo.
-2. Fallback: `WebSearch` + `WebFetch`. Mínimo **3 buscas paralelas**:
-   - Perfil profissional / sobre
-   - Conteúdo publicado (blog, posts)
-   - Posicionamento (concorrentes, "o que diferencia X")
+**A. Clone visual** (paleta, fontes, logo, screenshot da página inteira) → SOMENTE via `/site-clone` (agent-browser).
+- Se `agent-browser` ausente: `/site-clone` oferece install ao usuário. Se usuário recusar, **não há clone visual** — pula direto para `/design-init` from-scratch na fase 2 (brandbook). Não tente WebFetch/curl como substituto: paleta e fontes ficariam imprecisas.
+- **Asset pontual já identificado** é exceção: se o usuário disser explicitamente "pegue a logo daquele SVG" passando uma URL de arquivo (`.svg`, `.png`, `.ico`), `curl` é OK. Mas se ele disser "extraia a logo do site X" passando só a URL da home, isso exige `/site-clone` com agent-browser para detectar o arquivo correto via DOM.
 
-Resultado salva em `.cache/onboard-research.md` para as duas fases consumirem.
+**B. Pesquisa textual de identidade** (sobre, blog, posicionamento) → `WebSearch` + `WebFetch` em **3 buscas paralelas**:
+  - Perfil profissional / sobre
+  - Conteúdo publicado (blog, posts)
+  - Posicionamento (concorrentes, "o que diferencia X")
+
+Os dois trabalhos são independentes e podem rodar em paralelo. **WebFetch nunca substitui clone visual** — só captura texto. Resultado salva em `.cache/onboard-research.md` para as duas fases consumirem.
 
 ### 2. Sub-agent consultor (marca nova, sem referência online)
 

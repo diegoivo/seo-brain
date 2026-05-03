@@ -34,9 +34,19 @@ Quando standalone:
 Lê:
 - `brain/index.md` → mood verbal, antipadrões herdados, posicionamento.
 - `brain/personas/index.md` → contexto de uso (B2B sério vs. consumidor jovial).
-- `.cache/onboard-research.md` → paleta/fontes do site existente, se houver.
+- `.cache/onboard-research.md` → posicionamento textual extraído pelo `/onboard` (nunca paleta — pesquisa textual não captura visual).
+- `.cache/site-clone/extract.json` → paleta, fontes, logo (apenas se `/site-clone` rodou com sucesso e usuário tinha domínio existente).
 
 Produz **defaults inferidos** para passar ao `/design-init` — não para gravar direto. O usuário ainda confirma cada decisão.
+
+**Sem clone visual**: vai direto para `/design-init` from-scratch. As 10 perguntas anti-AI-slop garantem o resultado, mesmo sem inspiração de site existente.
+
+#### Regras de inferência (críticas)
+
+- **Paleta, fontes, logo, mood visual**: vêm **só** de `.cache/site-clone/extract.json`. Se ausente → defaults from-scratch via `/design-init`.
+- **Nunca infira cor a partir de descrição textual.** Não traduza "eles falam em sustentabilidade" para "verde", "premium" para "preto + dourado", "tech" para "azul + roxo". Isso é AI-slop.
+- **Nunca invente fonte plausível.** "Inter como fallback comum" é exatamente o que a regra do framework proíbe.
+- **Posicionamento textual** (do `.cache/onboard-research.md`) entra no prompt do `/design-init` como contexto editorial — nunca como fonte direta de tokens visuais.
 
 ### 2.2 Chamar `/design-init`
 

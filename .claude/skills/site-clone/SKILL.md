@@ -6,35 +6,53 @@ allowed-tools:
   - Write
   - Edit
   - Bash
-  - WebFetch
 ---
+
+<!-- WebFetch propositalmente AUSENTE: clone visual exige agent-browser.
+     Para baixar assets pontuais já identificados pelo DOM extract
+     (logo SVG, favicon, OG image), use `curl` via Bash. -->
+
 
 # /site-clone
 
 Clonagem **visual real** via browser headless. Não Fetch HTML puro (resolve "chutei Inter" da sessão 2 L1172).
 
-## Pré-requisito
+## Pré-requisito — agent-browser
 
-`agent-browser` no PATH. Detectar com:
+`agent-browser` (Vercel Labs) no PATH. **Sem ele, esta skill não roda.** Não há fallback — clonar visual sem browser real entrega dados imprecisos (paleta inferida sobre class names, fonte chuta "Inter", SPAs entregam shell vazio).
+
+### Pré-check (SEMPRE a PRIMEIRA Bash call desta skill)
+
+**Antes de qualquer outra ferramenta** (Read, Write, criar `.cache/`, ler brain, qualquer coisa) rode:
 
 ```bash
 command -v agent-browser
 ```
 
-Se ausente, abortar com:
+Esta tem que ser a primeira ação. Se você já abriu arquivos antes de checar, voltou e errou — abandone tudo e checa primeiro.
 
-> "❌ Clonagem visual exige `agent-browser` (Vercel Labs). Sem ele, posso só fazer Fetch HTML — paleta e fontes ficam imprecisas.
+Se **ausente**, ofereça install ao usuário e PARE — não tente WebFetch, não tente curl, não prepare nada, não leia brain:
+
+> ❌ `/site-clone` exige `agent-browser` (binário Rust da Vercel Labs feito para agentes).
 >
-> Instalar (uma vez):
+> Posso instalar agora pra você? (~30s, ~120MB Chromium baixado uma única vez)
 >
 > ```
-> npm install -g agent-browser
-> agent-browser install
+> npm install -g agent-browser && agent-browser install
 > ```
 >
-> ~30s. Depois rode `/site-clone <url>` de novo."
+> Responda **"instalar"** para eu rodar, ou **"pular"** para abortar a clonagem.
+>
+> Se pular: `/onboard` segue para `/design-init` from-scratch, sem clone visual.
 
-**Não tente fallback curl** — perde computed styles e JS-rendered content. Falhar é melhor que entregar dados imprecisos.
+Se o usuário disser "instalar":
+1. Roda `npm install -g agent-browser && agent-browser install` (Bash tool).
+2. Re-checa `command -v agent-browser`. Se ainda falhar, mostra erro e aborta.
+3. Continua o pipeline.
+
+Se o usuário disser "pular" (ou silenciar): aborte com mensagem clara — devolva controle ao orquestrador (`/onboard`) que vai pra `/design-init`.
+
+**Princípio inegociável:** `WebFetch` e `curl` **não são fallback** desta skill. São tools listadas em `allowed-tools` apenas para baixar arquivos pontuais (logo SVG já identificado, favicon, OG image). Nunca para extrair tokens visuais ou paleta.
 
 ## Pipeline
 

@@ -75,7 +75,7 @@ Skills do framework em `.claude/skills/`. Markdown puro = portátil entre harnes
 **Tecnologia & site:**
 - `web-best-practices` — biblioteca de snippets `.tsx` canônicos
 - `site-criar` — orquestra estrutura padrão (home + serviço + blog + sobre + contato)
-- `site-clone` — extrai paleta/fontes/logo de site existente via agent-browser, leva tokens pro brandbook
+- `site-clone` — extrai paleta/fontes/logo de site existente via [agent-browser](https://github.com/vercel-labs/agent-browser) (Vercel Labs). Pré-requisito: `npm i -g agent-browser && agent-browser install`. Sem ele a skill aborta — não há fallback (clonar visual via WebFetch entrega paleta inferida sobre class names, dado impreciso).
 - `setup-email` — Resend
 - `setup-images` — Unsplash/Pexels (free) ou OpenAI Image
 - `add-cms` — Payload + Neon (gatilho ≥100 páginas/3 meses)
