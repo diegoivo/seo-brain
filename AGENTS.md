@@ -33,20 +33,20 @@ O orquestrador consolida no final. Reduz latência, melhora qualidade.
 
 1. Se `pwd` é o **próprio repo do kit** (existe `.claude-plugin/plugin.json` + `brain/index.md` com `kit_state: template` na raiz), o usuário provavelmente quer **clonar para outro diretório** — não trabalhar no kit em si. Pergunte:
 
-   > "Você está no repo do próprio Agentic SEO Kit. Para iniciar um projeto novo, o ideal é clonar para um diretório separado. Quer que eu te ajude com isso?"
+   > "Você está no repo do próprio SEO Brain. Para iniciar um projeto novo, o ideal é clonar para um diretório separado. Quer que eu te ajude com isso?"
 
 2. Se o usuário pedir "importe X para este diretório" e o `pwd` atual já tem nome relacionado ao projeto (ex.: `diegoivo/`, `meu-blog/`), **pergunte antes de criar subdiretório**:
 
-   > "Clonar como subdir `agentic-seo-kit/` ou clonar arquivos diretamente para o dir atual `[pwd]`? Ele parece ser o destino do projeto."
+   > "Clonar como subdir `seobrain/` ou clonar arquivos diretamente para o dir atual `[pwd]`? Ele parece ser o destino do projeto."
 
    Default seguro: clonar arquivos diretamente para o dir atual (sem subdir), mas só após confirmar.
 
 3. **Sempre limpe o `.git` do kit ao clonar para projeto novo:**
 
    ```bash
-   git clone --depth 1 https://github.com/diegoivo/agentic-seo-kit.git .
+   git clone --depth 1 https://github.com/diegoivo/seobrain.git .
    rm -rf .git
-   git init && git add -A && git commit -m "chore: bootstrap from agentic-seo-kit"
+   git init && git add -A && git commit -m "chore: bootstrap from seobrain"
    ```
 
 ### Como invocar skills em diferentes harnesses

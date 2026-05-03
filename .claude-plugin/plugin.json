@@ -1,7 +1,7 @@
 {
-  "name": "agentic-seo-kit",
+  "name": "seobrain",
   "version": "0.1.0",
-  "description": "Agentic SEO Kit — orquestrador de SEO/GEO com sub-agents especialistas, skyscraper-by-default, GEO embutido. Multi-harness (Claude Code prioritário, Codex, Cursor, Antigravity).",
+  "description": "SEO Brain — framework experimental de SEO Agêntico. Brain (LLM Wiki Karpathy-style) + Brandbook visual + Conteúdo + SEO técnico por construção. Multi-harness (Claude Code, Codex, Cursor, Antigravity).",
   "author": "Conversion (https://www.conversion.com.br)",
   "license": "MIT",
   "skills": [

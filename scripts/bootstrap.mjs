@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// Bootstrap — clona o Agentic SEO Kit pra um diretório novo, limpa o .git
+// Bootstrap — clona o SEO Brain pra um diretório novo, limpa o .git
 // do kit, inicia git limpo e instala dependências. Multi-plataforma.
 //
 // Uso (a partir de qualquer lugar):
-//   npx github:diegoivo/agentic-seo-kit bootstrap meu-projeto
+//   npx github:diegoivo/seobrain bootstrap meu-projeto
 //
 // Ou manual:
 //   node scripts/bootstrap.mjs <nome-do-projeto>
@@ -41,7 +41,7 @@ const steps = [
   { name: "Iniciando git limpo", run: () => {
       sh("git init", dest);
       sh("git add -A", dest);
-      sh('git commit -m "chore: bootstrap from agentic-seo-kit" --quiet', dest);
+      sh('git commit -m "chore: bootstrap from seobrain" --quiet', dest);
     }
   },
   { name: "Instalando deps raiz + skills (npm run setup)", run: () => sh("npm run setup", dest) },
