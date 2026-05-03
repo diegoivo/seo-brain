@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 import { BRAND } from "@/lib/brand-config";
 
 export const metadata = { title: "Aplicações" };
@@ -29,14 +30,12 @@ export default function Aplicacoes() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Aplicações</p>
-        <h1 className="mb-8">Onde a marca aparece.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-16)" }}>
-          5 superfícies canônicas: header, footer, OG image (1200×630), favicon
-          (32×32) e avatar social (1:1). Quando há logo do usuário, ela
-          substitui o wordmark; senão, wordmark default. Tamanhos mínimos
-          documentados em <a href="/brandbook/marca">Marca / Logo</a>.
-        </p>
+        <PageHeader
+          breadcrumb="Identidade · Aplicações"
+          state="F+M"
+          title="Onde a marca aparece."
+          lead="5 superfícies canônicas: header, footer, OG image (1200×630), favicon (32×32) e avatar social (1:1). Tamanhos mínimos em /brandbook/marca."
+        />
 
         <h2 className="mb-6">Header</h2>
         <div style={applicationStyle}>

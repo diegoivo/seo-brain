@@ -1,6 +1,6 @@
 import { GridContainer, GridCol } from "@/components/grid";
-import { TemplateBanner } from "@/components/brandbook/TemplateBanner";
-import { StateBadge } from "@/components/brandbook/StateBadge";
+import { PageHeader } from "@/components/brandbook/PageHeader";
+import { Crimes } from "@/components/brandbook/Crimes";
 import { BRAND } from "@/lib/brand-config";
 
 export const metadata = { title: "Marca / Logo" };
@@ -9,18 +9,12 @@ export default function Marca() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Marca / Logo</p>
-        <h1 className="mb-8">Tipografia é a identidade.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          O SEO Brain <strong>não cria logo nem ícone</strong>. Logo é decisão
-          de marca — pertence ao usuário, não ao framework. O que entregamos:
-          (a) um <strong>wordmark</strong> tipográfico default e (b){" "}
-          <strong>regras de uso e estilização</strong> caso o usuário forneça
-          uma logo.
-        </p>
-        <TemplateBanner
-          variant="template"
-          message="Pré-onboard, mostramos só o wordmark default. Pós-/onboard, se o usuário fornecer arquivo de logo (SVG/PNG em web/public/logo.*), o brandbook renderiza a logo nesta página com regras de clear-space, fundos e tamanhos mínimos."
+        <PageHeader
+          breadcrumb="Identidade · Marca / Logo"
+          state="F+M"
+          title="Tipografia é a identidade."
+          lead="O SEO Brain não cria logo nem ícone. Logo é decisão de marca — pertence ao usuário. Entregamos: (a) wordmark tipográfico default e (b) regras de uso caso o usuário forneça logo."
+          changesWhen="Pré-onboard: wordmark default em fonte do sistema. Pós-/onboard com logo fornecida: a logo do usuário substitui o wordmark, com clear-space e fundos validados."
         />
 
         <h2 className="mb-8">Wordmark default</h2>
@@ -170,6 +164,32 @@ export default function Marca() {
             ou estúdio de sua preferência.
           </li>
         </ul>
+
+        <Crimes
+          category="marca"
+          items={[
+            {
+              name: "Crime do logo gerado por IA",
+              why: "Pedir 'gera uma logo pra mim'. Logo carrega rationale humano. IA gera plausível mas raso. Framework não cria logo — só aplica regras sobre logo do usuário.",
+            },
+            {
+              name: "Crime da logo recolorida parcial",
+              why: "Pintar uma letra de cor diferente do resto. Quebra leitura visual. Logo fornecida pelo usuário renderiza monocromática (--color-fg ou --color-bg).",
+            },
+            {
+              name: "Crime do tamanho mínimo violado",
+              why: "Logo em <16px (favicon). Some na escala. Mínimo absoluto: --text-md (18px) altura. Favicon usa primeira letra do wordmark, não a logo inteira reduzida.",
+            },
+            {
+              name: "Crime do efeito decorativo",
+              why: "Sombra, glow, outline, gradient overlay sobre logo do usuário. AI-slop. Render sempre flat, monocromático, sobre fundo sólido.",
+            },
+            {
+              name: "Crime do contraste insuficiente",
+              why: "Logo sobre fundo com contraste < 4.5:1. Em foto, exige overlay sólido (não gradient sutil). Validar contra accent E muted.",
+            },
+          ]}
+        />
       </GridCol>
     </GridContainer>
   );

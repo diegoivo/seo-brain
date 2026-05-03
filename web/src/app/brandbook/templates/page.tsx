@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Templates" };
 
@@ -6,13 +7,12 @@ export default function Templates() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Componentes · Templates</p>
-        <h1 className="mb-8">Templates de página.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          O esqueleto que <code>/site-criar</code> produz para cada tipo de
-          página. Cada template é restrição opinativa, não decoração — quem
-          improvisa template gera AI-slop.
-        </p>
+        <PageHeader
+          breadcrumb="Componentes · Templates"
+          state="F+M"
+          title="Templates de página."
+          lead="O esqueleto que /site-criar produz: hero, post, serviço, contato, sobre. Restrição opinativa — quem improvisa template gera AI-slop."
+        />
 
         <h2 className="mb-6">Hero</h2>
         <p className="prose" style={{ marginBottom: "var(--space-6)", maxWidth: "100%" }}>

@@ -1,4 +1,6 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
+import { Crimes } from "@/components/brandbook/Crimes";
 
 export const metadata = { title: "Grid" };
 
@@ -25,13 +27,12 @@ export default function Grid() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Grid</p>
-        <h1 className="mb-8">12 colunas escalonadas.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Mobile <strong>4 col</strong> · Tablet <strong>8 col</strong> ·
-          Desktop <strong>12 col</strong>. Filosofia em{" "}
-          <code>docs/grid-system.md</code>.
-        </p>
+        <PageHeader
+          breadcrumb="Sistema visual · Grid"
+          state="F"
+          title="12 colunas escalonadas."
+          lead="Mobile 4 col · Tablet 8 col · Desktop 12 col. Subgrid + Container Queries. Spacing 4-base. Filosofia em docs/grid-system.md."
+        />
       </GridCol>
 
       <GridCol span={4} spanMd={8} spanLg={12}>
@@ -234,6 +235,32 @@ export default function Grid() {
             não cabe, refaça.
           </p>
         </div>
+
+        <Crimes
+          category="grid"
+          items={[
+            {
+              name: "Crime do max-width arbitrário",
+              why: "section com max-width: 1100px ou 1300px. O canônico é 1200px (--container-max). Se 1200 não serve, justifique no DESIGN.md, não improvise inline.",
+            },
+            {
+              name: "Crime do padding fora do 4-base",
+              why: "padding: 18px ou gap: 5. Quebra ritmo. Spacing scale é 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 — múltiplos de 4 sempre.",
+            },
+            {
+              name: "Crime do grid dentro de grid sem subgrid",
+              why: "Cards com seu próprio grid 3-col dentro de container 12-col, sem subgrid. Desalinha. Use grid-template-rows: subgrid ou refatore.",
+            },
+            {
+              name: "Crime do breakpoint inventado",
+              why: "@media (min-width: 900px). Cosmético, fora dos canônicos 768 e 1280. Se aparecer 4 ocorrências de breakpoint custom no projeto, é refator pendente.",
+            },
+            {
+              name: "Crime do hero scrollável",
+              why: "Primeira dobra com 110dvh em mobile. Quebra a regra do primeiro viewport. Hero cabe em 100dvh ou refaça.",
+            },
+          ]}
+        />
       </GridCol>
     </GridContainer>
   );

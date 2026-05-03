@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Formulários" };
 
@@ -30,12 +31,12 @@ export default function Formularios() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Componentes · Formulários</p>
-        <h1 className="mb-8">Formulários.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Anatomia: <strong>label + input + help text</strong> (ou error text
-          quando inválido). Tudo vertical, tudo com espaçamento canônico.
-        </p>
+        <PageHeader
+          breadcrumb="Componentes · Formulários"
+          state="F+M"
+          title="Formulários."
+          lead="Anatomia: label + input + help text (ou error text quando inválido). Vertical, espaçamento canônico, target ≥ 44px em mobile."
+        />
 
         <form
           action="#"

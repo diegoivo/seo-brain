@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Botões e ações" };
 
@@ -36,14 +37,12 @@ export default function Botoes() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Componentes · Botões</p>
-        <h1 className="mb-8">Botões e ações.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          2 variantes canônicas: <code>.btn-accent</code> (primário, ação
-          principal) e <code>.btn-ghost</code> (secundário, ação alternativa).
-          Não inventamos uma terceira (&quot;outline&quot;, &quot;text&quot;) — se
-          precisar, refatora.
-        </p>
+        <PageHeader
+          breadcrumb="Componentes · Botões e ações"
+          state="F+M"
+          title="Botões e ações."
+          lead="2 variantes canônicas: .btn-accent (primário) e .btn-ghost (secundário). Sem terceira variante — se precisar, refatora."
+        />
 
         <h2 className="mb-6">Estados — primário</h2>
         <div

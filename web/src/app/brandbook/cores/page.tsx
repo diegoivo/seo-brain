@@ -1,5 +1,6 @@
 import { GridContainer, GridCol } from "@/components/grid";
-import { TemplateBanner } from "@/components/brandbook/TemplateBanner";
+import { PageHeader } from "@/components/brandbook/PageHeader";
+import { Crimes } from "@/components/brandbook/Crimes";
 
 export const metadata = { title: "Cores" };
 
@@ -48,17 +49,11 @@ export default function Colors() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Cores</p>
-        <h1 className="mb-8">Paleta funcional.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Pré-onboard, paleta neutra (não AI-slop). Pós-onboard, gerada por{" "}
-          <code>/design-init</code> a partir do briefing visual. Tokens em{" "}
-          <code>globals.css</code> · 6 papéis funcionais (não &quot;primary 50–900&quot;
-          que ninguém usa).
-        </p>
-        <TemplateBanner
-          variant="template"
-          message="Pré-onboard, mostramos os hex defaults canônicos abaixo. Pós-/onboard, brain/DESIGN.tokens.json sobrescreve --color-* em :root, e os swatches abaixo passam a refletir a paleta da marca."
+        <PageHeader
+          breadcrumb="Sistema visual · Cores"
+          state="M"
+          title="Paleta funcional."
+          lead="6 papéis funcionais (não 'primary 50–900' que ninguém usa). Tokens em globals.css. Pré-onboard, neutro. Pós-onboard, brain/DESIGN.tokens.json sobrescreve."
         />
 
         <h2 className="mb-8">6 papéis funcionais</h2>
@@ -221,47 +216,31 @@ export default function Colors() {
           ))}
         </div>
 
-        <h2 className="mb-8">Do / don&apos;t</h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "var(--space-6)",
-            marginBottom: "var(--space-16)",
-          }}
-        >
-          <div
-            style={{
-              padding: "var(--space-6)",
-              border: "1px solid var(--color-border)",
-              borderRadius: "0.5rem",
-            }}
-          >
-            <p className="eyebrow" style={{ color: "var(--color-fg)" }}>
-              ✓ Do
-            </p>
-            <p style={{ marginTop: "var(--space-3)", marginBottom: 0 }}>
-              <code>--color-fg</code> sobre <code>--color-bg</code> em texto
-              corrido. <code>--color-accent</code> apenas em CTAs e ações.
-            </p>
-          </div>
-          <div
-            style={{
-              padding: "var(--space-6)",
-              border: "1px solid var(--color-border)",
-              borderRadius: "0.5rem",
-            }}
-          >
-            <p className="eyebrow" style={{ color: "var(--color-muted)" }}>
-              ✗ Don&apos;t
-            </p>
-            <p style={{ marginTop: "var(--space-3)", marginBottom: 0 }}>
-              Não use <code>--color-accent</code> como cor de texto de
-              parágrafo. Não invente cores fora dos 6 papéis (ex.: amarelo
-              para warning) — defina um papel novo no DESIGN.tokens.json.
-            </p>
-          </div>
-        </div>
+        <Crimes
+          category="cor"
+          items={[
+            {
+              name: "Crime do papel inventado",
+              why: "Adicionar 'warning yellow' ou 'success green' fora dos 6 papéis funcionais. Defina um papel novo no DESIGN.tokens.json e documente aqui — não improvise inline.",
+            },
+            {
+              name: "Crime do accent em parágrafo",
+              why: "Usar --color-accent como cor de texto corrido. Accent é para CTAs e ações; em texto longo cansa a leitura e perde o sinal de ação.",
+            },
+            {
+              name: "Crime do gradiente purple→blue",
+              why: "Gradiente diagonal default Tailwind/shadcn. Reconhecível à distância como AI-slop. Se precisar de gradiente, ângulo ≤ 15° + cores ambas da paleta.",
+            },
+            {
+              name: "Crime do contraste 'quase'",
+              why: "Razão 4.0–4.4 que reprovaria em axe mas passa visualmente. WCAG AA exige 4.5+ — não há 'quase passou'.",
+            },
+            {
+              name: "Crime do hex hardcoded",
+              why: "Componente que escreve #0a0a0a inline em vez de var(--color-fg). Quebra paleta da marca pós-onboard sem ninguém perceber.",
+            },
+          ]}
+        />
       </GridCol>
     </GridContainer>
   );

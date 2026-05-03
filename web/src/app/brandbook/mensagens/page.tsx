@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Mensagens" };
 
@@ -29,13 +30,12 @@ export default function Mensagens() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Mensagens</p>
-        <h1 className="mb-8">CTA, erros, empty, loading.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Boilerplate canônico que padroniza microcopy entre páginas. Ajuste
-          pós-onboard se a voz da marca pedir variação — mas a estrutura
-          fica.
-        </p>
+        <PageHeader
+          breadcrumb="Voz e conteúdo · Mensagens"
+          state="F+M"
+          title="CTA, erros, empty, loading."
+          lead="Boilerplate canônico que padroniza microcopy entre páginas. Ajuste pós-onboard se a voz pedir — mas a estrutura fica."
+        />
 
         <h2 className="mb-6">CTA por contexto</h2>
         <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "var(--space-12)" }}>

@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Editorial" };
 
@@ -6,12 +7,12 @@ export default function Editorial() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Componentes · Editorial</p>
-        <h1 className="mb-8">Primitivos editoriais.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Tudo aqui vive dentro de <code>.prose</code> em posts e páginas
-          longas. Aplicação canônica em <code>web/src/app/globals.css</code>.
-        </p>
+        <PageHeader
+          breadcrumb="Componentes · Editorial"
+          state="F+M"
+          title="Primitivos editoriais."
+          lead="Tudo aqui vive dentro de .prose em posts e páginas longas. Aplicação canônica em globals.css."
+        />
 
         <h2 className="mb-6">Eyebrow</h2>
         <p className="eyebrow" style={{ marginBottom: "var(--space-3)" }}>

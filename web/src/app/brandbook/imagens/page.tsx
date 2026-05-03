@@ -1,5 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
-import { TemplateBanner } from "@/components/brandbook/TemplateBanner";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Imagens" };
 
@@ -47,19 +47,11 @@ export default function Imagens() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Imagens</p>
-        <h1 className="mb-8">Estilo, tipos, regras técnicas.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Sem estilo definido, todo banco de imagens vira AI-slop. Esta seção
-          define o <strong>mood-board canônico</strong> da marca + os{" "}
-          <strong>tipos de uso</strong> + as regras técnicas que valem em
-          qualquer caso. Provider default: <strong>Pexels</strong>. Skills
-          operacionais: <code>/setup-images</code> (configura) e{" "}
-          <code>npm run images:search</code> (busca + baixa).
-        </p>
-        <TemplateBanner
-          variant="template"
-          message="Pré-onboard, mostramos os 5 estilos canônicos. Pós-/setup-images, esta seção destaca o estilo escolhido e mostra resultados ao vivo da Pexels (se PEXELS_API_KEY estiver em .env.local)."
+        <PageHeader
+          breadcrumb="Sistema visual · Imagens"
+          state="F+M"
+          title="Estilo, tipos, regras técnicas."
+          lead="Sem estilo definido, todo banco vira AI-slop. Define mood-board canônico + tipos de uso + regras técnicas. Provider default: Pexels."
         />
 
         <h2 className="mb-6">Mood-board — 5 estilos opinativos</h2>

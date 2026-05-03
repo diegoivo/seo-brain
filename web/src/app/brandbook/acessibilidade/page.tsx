@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Acessibilidade" };
 
@@ -51,13 +52,12 @@ export default function Acessibilidade() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Acessibilidade</p>
-        <h1 className="mb-8">A11y como construção, não auditoria.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          A11y é parte do SEO técnico — Lighthouse audita, mas o framework
-          aplica por construção. Esta página é referência de bolso para
-          revisão. Skill <code>/qa-tech</code> automatiza a maioria.
-        </p>
+        <PageHeader
+          breadcrumb="Operação · Acessibilidade"
+          state="F"
+          title="A11y como construção, não auditoria."
+          lead="A11y é parte do SEO técnico — Lighthouse audita, mas o framework aplica por construção. Skill /qa-tech automatiza a maioria."
+        />
 
         <h2 className="mb-6">Checklist WCAG 2.2 AA</h2>
         {CHECKLIST.map((cat) => (

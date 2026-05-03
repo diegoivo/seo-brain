@@ -1,5 +1,6 @@
 import { GridContainer, GridCol } from "@/components/grid";
-import { TemplateBanner } from "@/components/brandbook/TemplateBanner";
+import { PageHeader } from "@/components/brandbook/PageHeader";
+import { Crimes } from "@/components/brandbook/Crimes";
 
 export const metadata = { title: "Tipografia" };
 
@@ -19,17 +20,11 @@ export default function Typography() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Tipografia</p>
-        <h1 className="mb-8">Escala canônica.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Perfect fourth (1.333) sobre body <code>1.125rem</code>. Tokens em{" "}
-          <code>globals.css</code> · filosofia em <code>docs/typography.md</code>.
-          Mude as fontes (<code>--font-display</code>, <code>--font-body</code>)
-          — escala e ritmo permanecem.
-        </p>
-        <TemplateBanner
-          variant="template"
-          message="Pré-onboard, headings usam fonte serif do sistema e body usa sans-serif do sistema. Pós-/onboard, --font-display e --font-body são preenchidas a partir do brain/DESIGN.tokens.json."
+        <PageHeader
+          breadcrumb="Sistema visual · Tipografia"
+          state="F+M"
+          title="Escala canônica."
+          lead="Perfect fourth (1.333) sobre body 1.125rem. Tokens em globals.css. Filosofia em docs/typography.md. Mude as fontes; escala e ritmo permanecem."
         />
 
         <h2 className="mb-8">Headings em layout real</h2>
@@ -224,6 +219,36 @@ export default function Typography() {
             </p>
           </div>
         </div>
+
+        <Crimes
+          category="tipografia"
+          items={[
+            {
+              name: "Crime do title-case americano",
+              why: "'Como Otimizar SEO Em 2026'. Capitalização BR: 1ª maiúscula + nomes próprios + siglas. Aplicar é correção ortográfica, não preferência.",
+            },
+            {
+              name: "Crime do anchor-up",
+              why: "Heading com margin simétrico (2em top + 2em bottom). Faz parecer flutuando entre parágrafos. Anchor-down (margin-top muito maior que bottom) ancora o heading no conteúdo abaixo.",
+            },
+            {
+              name: "Crime da line-height 1.5 em parágrafo longo",
+              why: "Cansa a leitura em texto extenso. .prose usa 1.7 — herança Bringhurst. 1.5 é mínimo aceitável só em UI dense.",
+            },
+            {
+              name: "Crime do max-width 100% em prose",
+              why: "Linha com 120ch+ é antipattern de leitura. Olho perde início da próxima linha. .prose limita em 65ch (faixa Butterick).",
+            },
+            {
+              name: "Crime do letter-spacing em body",
+              why: "Tracking ajustado em texto corrido. Não melhora leitura, parece estilo ad-hoc. Reservado para headings ≥ 2rem (negativo) e eyebrows uppercase (positivo 0.1em).",
+            },
+            {
+              name: "Crime da fonte Inter como default",
+              why: "Não é crime ter Inter — é crime escolher Inter sem motivo. /design-init pergunta atmosfera; se 'editorial sério', talvez serif. Inter é fallback de quem não decidiu.",
+            },
+          ]}
+        />
       </GridCol>
     </GridContainer>
   );

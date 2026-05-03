@@ -1,5 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
-import { TemplateBanner } from "@/components/brandbook/TemplateBanner";
+import { PageHeader } from "@/components/brandbook/PageHeader";
 
 export const metadata = { title: "Voz aplicada" };
 
@@ -46,15 +46,11 @@ export default function Voz() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Voz aplicada</p>
-        <h1 className="mb-8">Como esta marca soa.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Princípios em <code>brain/tom-de-voz.md</code>. Aqui mostramos
-          aplicação viva — antes/depois, do/don&apos;t, antivícios IA banidos.
-        </p>
-        <TemplateBanner
-          variant="template"
-          message="Pré-onboard, mostramos os defaults canônicos do framework (voz ativa, frases curtas, capitalização BR). Pós-/onboard, brain/tom-de-voz.md customiza pessoa (1ª/3ª), humor, jargão proprietário."
+        <PageHeader
+          breadcrumb="Voz e conteúdo · Voz aplicada"
+          state="F+M"
+          title="Como esta marca soa."
+          lead="Princípios em brain/tom-de-voz.md. Aqui mostramos aplicação viva — antes/depois, do/don't, antivícios IA banidos."
         />
 
         <h2 className="mb-6">Princípios canônicos</h2>

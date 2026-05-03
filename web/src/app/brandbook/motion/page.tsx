@@ -1,4 +1,6 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { PageHeader } from "@/components/brandbook/PageHeader";
+import { Crimes } from "@/components/brandbook/Crimes";
 
 export const metadata = { title: "Motion" };
 
@@ -18,12 +20,12 @@ export default function Motion() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook · Motion</p>
-        <h1 className="mb-8">Menos é mais.</h1>
-        <p className="prose" style={{ marginBottom: "var(--space-12)" }}>
-          Motion comunica intenção, não decora. Sites editoriais não precisam
-          de animação em todo elemento. As regras canônicas:
-        </p>
+        <PageHeader
+          breadcrumb="Sistema visual · Motion"
+          state="F"
+          title="Menos é mais."
+          lead="Motion comunica intenção, não decora. Sites editoriais não precisam de animação em todo elemento. As regras canônicas, abaixo."
+        />
 
         <h2 className="mb-6">Durações canônicas</h2>
         <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "var(--space-12)" }}>
@@ -101,6 +103,32 @@ export default function Motion() {
           <li><strong>Loading state</strong> só após 300ms — abaixo disso, mostre skeleton estático.</li>
           <li><strong>Easing default é ease-out</strong>. Movimento começa rápido e desacelera no fim — natural.</li>
         </ul>
+
+        <Crimes
+          category="motion"
+          items={[
+            {
+              name: "Crime do animar layout",
+              why: "Animar width, height, top, left. Causa reflow + repaint, mata FPS, infla CLS. Anime opacity e transform — só.",
+            },
+            {
+              name: "Crime do hover scaleUp",
+              why: "scale(1.05) no hover de card. Faz cards parecerem botões e aumenta CLS. Hover canônico: opacity 0.85 ou underline. Sem scale.",
+            },
+            {
+              name: "Crime do parallax sem propósito",
+              why: "Scroll-jacking custom em site editorial. Parallax distrai da leitura. Reservado para hero de marca expressiva — nunca em post ou listagem.",
+            },
+            {
+              name: "Crime do loading instantâneo",
+              why: "Spinner aparece antes de 300ms. Crítica perceptual: ação rápida não precisa de feedback de espera, vira flicker. Skeleton estático até 300ms; spinner depois.",
+            },
+            {
+              name: "Crime do prefers-reduced-motion ignorado",
+              why: "Animação que viola WCAG 2.3.3. Toda transição > --motion-fast precisa de @media (prefers-reduced-motion: reduce) com duration 0.01ms. Não-negociável.",
+            },
+          ]}
+        />
       </GridCol>
     </GridContainer>
   );
