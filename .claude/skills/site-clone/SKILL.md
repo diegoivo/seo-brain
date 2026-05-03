@@ -6,8 +6,12 @@ allowed-tools:
   - Write
   - Edit
   - Bash
-  - WebFetch
 ---
+
+<!-- WebFetch propositalmente AUSENTE: clone visual exige agent-browser.
+     Para baixar assets pontuais já identificados pelo DOM extract
+     (logo SVG, favicon, OG image), use `curl` via Bash. -->
+
 
 # /site-clone
 
