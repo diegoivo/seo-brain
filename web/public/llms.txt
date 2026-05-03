@@ -1,0 +1,16 @@
+# [Nome do projeto]
+
+> Preencher após /onboard. Este arquivo é a versão LLM-friendly do site para
+> citabilidade em ChatGPT, Perplexity, Claude, Gemini.
+
+## Sobre
+
+(posicionamento extraído de brain/index.md)
+
+## Conteúdo principal
+
+- (lista de posts e páginas com 1-line summary cada)
+
+## Contato
+
+- (preenchido por /onboard)

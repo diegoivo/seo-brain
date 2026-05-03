@@ -1,10 +1,21 @@
 /** @type {import('next').NextConfig} */
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const nextConfig = {
-  // Vercel default: deixa next/image otimizar (AVIF/WebP automático).
-  // Para hosts estáticos (Cloudflare Pages, GitHub Pages),
-  // configure via env var DEPLOY_TARGET=static + sharp pre-conversion.
   reactStrictMode: true,
   poweredByHeader: false,
+  async headers() {
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // /brandbook é dev-only — bloqueia indexação extra
+      { source: "/brandbook/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+    ];
+  },
 };
 
 export default nextConfig;

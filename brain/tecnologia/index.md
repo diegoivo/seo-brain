@@ -1,11 +1,16 @@
 ---
+title: Tecnologia
+tags: [brain, tecnologia]
 kit_state: template
+created: TEMPLATE
 updated: TEMPLATE
+status: template
+sources: []
 ---
 
 # Tecnologia
 
-> Stack atual + decisão sobre banco. Atualize aqui sempre que a stack mudar.
+> Decisões arquiteturais (por que essa stack, gatilho de banco, justificativas). Para estado vivo (URLs, IDs, env), veja [[../config]].
 
 ## Stack default (estado inicial pós-onboard)
 

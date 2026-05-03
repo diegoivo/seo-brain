@@ -1,15 +1,22 @@
 ---
+title: Backlog
+tags: [brain, backlog]
 kit_state: template
+created: TEMPLATE
 updated: TEMPLATE
+status: template
 ---
 
 # Backlog
 
-> Ideias, pendências e estado. Atualize ao final de cada tarefa via `update-brain` (disparada por `/aprovado`).
+> Ideias, pendências e estado futuro. **Decisões registradas** (histórico) ficam em [[log]] (Karpathy lint separa planning de history).
+
+> [!warning] Estado: template
+> Será populado conforme você usa o framework.
 
 ## Em andamento
 
-(vazio — preencha conforme avança)
+(vazio)
 
 ## Próximos passos
 
@@ -19,12 +26,8 @@ updated: TEMPLATE
 
 (vazio)
 
-## Decisões registradas
+## Decisões abertas
 
-| Data | Decisão | Justificativa |
-|---|---|---|
-| TEMPLATE | TEMPLATE | TEMPLATE |
-
-## Decisões superadas
+(pontos que precisam de decisão antes de avançar)
 
 (vazio)

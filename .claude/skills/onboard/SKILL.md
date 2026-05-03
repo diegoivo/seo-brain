@@ -1,6 +1,6 @@
 ---
 name: onboard
-description: Onboarding interativo do Agentic SEO Kit. 3 modos (Express default / Guiado / Auto) com pergunta aberta inicial. Sub-agent pesquisador via agent-browser quando há domínio existente. Sub-agent consultor de branding quando marca nova. Lint anti-vícios IA. POVs bloqueante. Auto-commit por fase. Roda na primeira clonagem ou quando o usuário pedir "iniciar projeto", "começar do zero", "configurar o kit", "fazer onboarding".
+description: Onboarding orquestrador do SEO Brain — duas fases explícitas (brain + brandbook). Pergunta aberta inicial, decide modo (Express default / Guiado / Auto), chama /onboard-brain (identidade + POVs + voz + escopo) e /onboard-brandbook (visual + DESIGN.md via /design-init + tokens + scaffold). State persistido em .cache/onboard.md (markdown, retomável). Roda na primeira clonagem ou quando o usuário pedir "iniciar projeto", "começar do zero", "configurar o kit", "fazer onboarding".
 allowed-tools:
   - Read
   - Write
@@ -11,13 +11,22 @@ allowed-tools:
   - WebFetch
 ---
 
-# /onboard — v4
+# /onboard — v5 (orquestrador de duas fases)
 
-Transforma o kit em estado **template** em **initialized**, preenchendo o Brain. Trabalho braçal vai para sub-agents. O usuário decide o que **só ele sabe** e aprova.
+Transforma o kit em estado **template** em **initialized**. Estrutura explícita: **fase brain** (identidade, dados) + **fase brandbook** (visual). Cada fase é uma skill independente e re-rodável.
+
+## Duas fases
+
+| Fase | Skill chamada | O que faz |
+|---|---|---|
+| 1. Brain | [`/onboard-brain`](../onboard-brain/SKILL.md) | Identidade, posicionamento, personas, POVs, voz, escopo, deploy |
+| 2. Brandbook | [`/onboard-brandbook`](../onboard-brandbook/SKILL.md) | Atmosfera, paleta, tipografia, mood; chama `/design-init`; popula scaffold em `web/src/app/brandbook/` |
+
+Ordem importa: brandbook lê `brain/index.md` para puxar mood/posicionamento da fase 1.
 
 ## Pré-checks
 
-1. Leia `.cache/onboard-state.json` se existir → modo `--resume`.
+1. Leia `.cache/onboard.md` se existir → modo `--resume` (continuar de onde parou).
 2. Se algum `kit_state` for `initialized`, avise: "Brain já inicializado. Refazer sobrescreve. Confirma?"
 
 ---
@@ -36,20 +45,20 @@ Diga ao usuário:
 > - Personas-alvo (cargos, contextos, dores)
 > - Tom desejado (formal/informal, humor, 1ª pessoa…) — se tiver preferência
 > - Cores, fontes, mood que **não suporta** ou **adora**
-> - Tem logo / fotos / material visual?
+> - Tem material visual?
 > - Pretende deploy onde (Vercel default)?
 >
 > Pode escrever em formato livre. Quanto mais info, mais **modo Auto** consegue rodar sem perguntas. Mínimo: 1-2 linhas.
 
-Espere a resposta do usuário. Se vier muito curta, ainda assim use o que tem.
+Espere a resposta. Se vier curta, ainda assim use o que tem.
 
 ---
 
 ## Pergunta 2 — Modo
 
-Após a resposta inicial, **proponha um modo recomendado** baseado no que veio:
+Após a resposta inicial, **proponha um modo recomendado**:
 
-- **Auto** se: tem domínio existente OU resposta cobre maioria dos itens (posicionamento, persona, POVs, mood, deploy).
+- **Auto** se: tem domínio existente OU resposta cobre maioria dos itens.
 - **Express** (default) se: resposta tem 30-60% das info, sub-agent pesquisa o resto.
 - **Guiado** se: resposta muito curta ou usuário pediu controle explícito.
 
@@ -67,68 +76,85 @@ Pergunte:
 
 ---
 
-## Sub-agent pesquisador (todos os modos quando há domínio)
+## Inicialização do controle
 
-Se a resposta inicial tem domínio:
-1. Tente `agent-browser` (se disponível): screenshot + extração de paleta/fontes/logo via JS eval. Ver skill `/site-clone`.
+Crie `.cache/onboard.md` com:
+
+```markdown
+---
+mode: <auto|express|guiado>
+started_at: <ISO date>
+domain_existing: <url|null>
+input_raw: |
+  <copy literal da resposta inicial do usuário>
+---
+
+# Onboard — controle
+
+## Fase 1 — Brain
+Status: pending
+
+## Fase 2 — Brandbook
+Status: pending
+
+## Próximo passo
+Iniciar /onboard-brain
+```
+
+Atualize este arquivo a cada checkpoint (uma fase concluída → status: completed; próxima fase → in_progress).
+
+---
+
+## Fluxo
+
+### 1. Sub-agent pesquisador (quando há domínio)
+
+Se a resposta inicial trouxe domínio:
+
+1. Tente `/site-clone` (agent-browser): screenshot + paleta + fontes + logo.
 2. Fallback: `WebSearch` + `WebFetch`. Mínimo **3 buscas paralelas**:
    - Perfil profissional / sobre
    - Conteúdo publicado (blog, posts)
    - Posicionamento (concorrentes, "o que diferencia X")
 
-Resultado vai para a proposta consolidada de cada fase.
+Resultado salva em `.cache/onboard-research.md` para as duas fases consumirem.
 
-## Sub-agent consultor de branding (marca nova)
+### 2. Sub-agent consultor (marca nova, sem referência online)
 
-Quando não há referência online forte:
-1. Pesquisa **benchmarks do nicho** (3-5 concorrentes) — extrai paleta dominante, mood, voz comum
-2. Propõe posicionamento **diferenciado** desse mainstream
-3. Sugere persona provável + 3 POVs candidatos com perguntas curtas que extraem opinião do usuário se ele estiver em branco
+1. Pesquisa benchmarks do nicho (3-5 concorrentes).
+2. Propõe posicionamento diferenciado.
+3. Sugere persona + 3 POVs candidatos.
 
----
+### 3. Chamar Fase 1 — Brain
 
-## Modo Auto
+Invoque `/onboard-brain` passando o modo, a resposta inicial e (se houver) `.cache/onboard-research.md`.
 
-Pipeline:
+A fase 1 retorna controle quando:
+- Brain populado: `brain/index.md`, `brain/personas/<slug>.md`, `brain/povs/<slug>.md` (mínimo 3), `brain/tom-de-voz.md`, `brain/tecnologia/index.md`, `brain/config.md`.
+- `kit_state: initialized` em todos os arquivos do brain.
+- Auto-commit por sub-fase (`chore(onboard-brain): <slug>`).
 
-1. Sub-agents pesquisam tudo (paralelo).
-2. **Mostra plano antes de gravar** (`plans/onboard-<data>.md`):
-   ```
-   ## Vou gravar
-   - brain/index.md: posicionamento, domínio
-   - brain/personas.md: persona principal
-   - brain/principios-agentic-seo.md: 3 POVs
-   - brain/DESIGN.md + tokens: paleta, fontes, mood
-   - brain/tom-de-voz.md: customizações
-   - brain/tecnologia/index.md + brain/config.md: deploy, escopo
-   ```
-3. Aguarda **"go"** para escrever.
-4. Escreve tudo, faz auto-commit por fase: `chore(onboard): fase X — [resumo]`.
-5. Apresenta diff final + 3 perguntas granulares específicas (não "tá bom?").
-6. Se usuário ajustar, edita e re-commita.
-7. Pergunta: "Posso já gerar o site? `/site-criar`."
+Atualize `.cache/onboard.md`: Fase 1 → completed.
 
-## Modo Express (default)
+### 4. Chamar Fase 2 — Brandbook
 
-Pipeline:
+Invoque `/onboard-brandbook`. Esta skill:
+- Lê `brain/index.md` (mood, posicionamento, antipadrões herdados).
+- Chama `/design-init` (10 perguntas) com defaults inferidos do brain.
+- Gera `brain/DESIGN.md` + `brain/DESIGN.tokens.json`.
+- Atualiza `web/src/app/globals.css` (somente fontes — escala/grid/spacing são canônicos).
+- Popula scaffold em `web/src/app/brandbook/` com tokens vivos (rotas já existem; preencher textos/exemplos com mood do projeto).
 
-1. Sub-agents pesquisam.
-2. **Para cada fase**, mostra proposta consolidada e pergunta apenas **o que ainda falta**:
-   - **Fase 1** (identidade): se domínio veio na resposta inicial, pula. Senão pergunta.
-   - **Fase 2** (posicionamento): se 3 POVs vieram, pula. Se faltam, **bloqueia e pergunta**: "Quais 3 opiniões fortes que mainstream contesta? Não responda genérico — preciso de algo que seu concorrente não diria publicamente."
-   - **Fase 3** (design): se cores/mood vieram, propõe direto. Senão pergunta 3 escolhas-chave (mood em 3 adjetivos, paleta neutra/bicromática, density).
-   - **Fase 4** (tom): geralmente skip (default Estadão + capitalização BR).
-   - **Fase 5** (escopo): pergunta tipo de projeto + confirma Vercel.
-3. Auto-commit por fase.
-4. Apresenta resumo final + oferta `/site-criar`.
+A fase 2 retorna controle quando:
+- `brain/DESIGN.md` `kit_state: initialized`.
+- Build do site passa com novos tokens.
+- Brandbook ao vivo renderiza paleta/tipo do projeto.
 
-## Modo Guiado
-
-Pipeline manual com batches por fase. Cada fase mostra recomendado, usuário aprova ou ajusta. Equivale ao modo Intermediário antigo.
+Atualize `.cache/onboard.md`: Fase 2 → completed.
 
 ---
 
-## Lint de antivícios de IA (todos os modos)
+## Lint de antivícios de IA (todos os modos, ambas as fases)
 
 Antes de escrever **qualquer copy proposto** no Brain, passe pelo lint:
 
@@ -144,57 +170,36 @@ const ANTIVICIOS = [
 ];
 ```
 
-Se algum match, reescreva com voz ativa antes de mostrar.
+Match → reescreva com voz ativa antes de mostrar.
 
-## POVs proprietários — bloqueante
+## POVs proprietários — bloqueante (delegado para `/onboard-brain`)
 
-Se 3 POVs estão ausentes ou são consenso de mercado ("SEO técnico importa", "conteúdo de qualidade vence"), **NÃO escreva**. Pergunte:
+Esta regra vive na skill `/onboard-brain`. O orquestrador apenas observa: se a fase 1 não conseguir 3 POVs proprietários, o fluxo **pausa** ali — não avança para brandbook.
 
-> Os 3 POVs que tenho são consenso. Preciso de algo proprietário. Pense:
->
-> - Qual posição você defende que **seus pares discordam publicamente**?
-> - O que mainstream do seu mercado diz que está errado, mas você sustenta?
-> - Onde sua experiência prova um padrão que dados públicos contradizem?
+## Auto-commit por sub-fase
 
-Não auto-resolva.
-
-## Auto-commit por fase
-
-Após cada fase concluída e usuário aprovar:
+Cada sub-fase (dentro de brain ou brandbook) faz auto-commit:
 
 ```bash
-git add brain/
-git commit -m "chore(onboard): fase X — <resumo>"
+git add brain/ web/src/app/
+git commit -m "chore(onboard-<fase>): <slug>"
 ```
-
-## Retomada
-
-`.cache/onboard-state.json`:
-```json
-{
-  "started_at": "...",
-  "mode": "express",
-  "current_phase": 3,
-  "completed_phases": [1, 2],
-  "answers": { ... }
-}
-```
-
-`/onboard --resume` carrega e segue.
 
 ## Conclusão
 
-1. Mostra Brain populado.
-2. Oferta `/site-criar` (Express auto / Guiado / não).
-3. Apaga `.cache/onboard-state.json`.
+1. Mostra Brain + Brandbook populados.
+2. Apaga `.cache/onboard.md` e `.cache/onboard-research.md`.
+3. Oferta `/site-criar` (Express auto / Guiado / não).
+4. Oferta `/blogpost` (primeiro artigo).
 
 ## Princípios
 
+- **Duas fases explícitas**, não pipeline opaco. Brain antes de brandbook.
+- **Cada fase é re-rodável**: `/onboard-brain --redo` ou `/onboard-brandbook --redo` funcionam isoladas.
+- **State em markdown**, não JSON. `.cache/onboard.md` é human-readable.
 - **Pergunta aberta primeiro.** Captura tudo de uma vez, reduz fricção.
 - **Modo é decisão explícita.** Não assume.
-- **Recomendado singular.** Não "Auto OU Express".
-- **Trabalho braçal pra sub-agents.** Pesquisa proativa via agent-browser quando há domínio.
-- **POVs bloqueia.** Não auto-resolve.
-- **Antivícios IA limpos.** Lint antes de mostrar.
-- **Auto-commit por fase.** Histórico granular.
+- **Trabalho braçal pra sub-agents.** Pesquisa proativa via `/site-clone` quando há domínio.
+- **POVs bloqueia.** Não auto-resolve. Bloqueio vive em `/onboard-brain`.
+- **Auto-commit por sub-fase.** Histórico granular.
 - **Não improvise design existente.** Ignore DESIGN.md em outros diretórios.

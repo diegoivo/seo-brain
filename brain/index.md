@@ -1,38 +1,69 @@
 ---
+title: Brain — Map of Content
+tags: [brain, moc]
 kit_state: template
+created: TEMPLATE
 updated: TEMPLATE
+status: template
 ---
 
-# Brain — [nome do projeto]
+# Brain — Map of Content
 
-> Este arquivo é a fonte de verdade do **seu projeto**. Rode `/onboard` para preencher.
+> Wiki proprietária da marca seguindo metodologia [Karpathy LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). 1 entidade = 1 arquivo. Frontmatter rico (tags, sources, entities). Append-only `log.md`.
 >
-> Enquanto `kit_state` for `template`, qualquer skill que dependa do Brain (artigo, scaffold-page, geo-checklist) vai redirecionar você para o onboarding.
+> ⚠️ **Estado: template.** Rode `/onboard` para preencher. Skills substantivas abortam enquanto `kit_state: template`.
+
+## Como editar
+
+- **No Obsidian:** abra a pasta `brain/` como vault. Wikilinks `[[arquivo]]`, callouts `> [!warning]`, tags `#brand` funcionam nativamente.
+- **No terminal/IDE:** markdown puro. Frontmatter YAML padrão.
+- **Pelo agente:** disparado por `/aprovado` → skill `update-brain`.
+
+---
+
+## Núcleo (sempre atualize estes)
+
+| Path | Conteúdo | Tags |
+|---|---|---|
+| [[index]] | este arquivo (MoC) | `#brain/moc` |
+| [[log]] | append-only — operações no Brain | `#brain/log` |
+| [[config]] | estado operacional vivo (domínios, deploy, integrações) | `#brain/config` |
+| [[tom-de-voz]] | tom de voz da marca + antivícios IA | `#brain/voz` |
+| [[DESIGN]] | design system narrativo (visual aplicado em `/web/src/app/brandbook`) | `#brain/design` |
+| [[backlog]] | ideias, pendências, próximos passos | `#brain/backlog` |
+
+## Entidades (1 por arquivo)
+
+| Tipo | Path | Descrição |
+|---|---|---|
+| Personas | [[personas/_template\|personas/]] | público-alvo do projeto. 1 arquivo por persona. |
+| POVs proprietários | [[povs/_template\|povs/]] | opiniões fortes da marca que não são consenso (mín. 3). |
+| Glossário | [[glossario/index\|glossario/]] | definições proprietárias. 1 arquivo por verbete. |
+
+## Tecnologia & operação
+
+| Path | Conteúdo |
+|---|---|
+| [[tecnologia/index]] | stack, gatilho de banco, decisões arquiteturais |
+| [[seo/reports/index\|seo/reports/]] | outputs do SEO Score e Lighthouse |
+
+## Fontes brutas
+
+| Path | Conteúdo |
+|---|---|
+| [[sources/index\|sources/]] | fontes imutáveis (PDFs, transcripts, posts, papers) que originaram o Brain. Não editar — só anexar. |
+
+---
 
 ## Posicionamento
 
-TEMPLATE — uma frase que descreve o que torna sua marca única. Ex.: "ajudamos founders B2B a crescer no orgânico sem depender de mídia paga".
+> [!warning] Preencher via `/onboard`
+> TEMPLATE — uma frase que descreve o que torna sua marca única. Ex.: "ajudamos founders B2B a crescer no orgânico sem depender de mídia paga".
 
-## Domínio
+## Domínio do projeto
 
-TEMPLATE — ex.: `meusite.com.br`. Use `localhost` se ainda não tem domínio.
+Ver [[config#Domínio]].
 
-## Porta dev preferida
+## Como atualizar este MoC
 
-Aleatória via `get-port` (default).
-
-## Resumo da Wiki
-
-- `config.md` — **estado operacional vivo** (domínios, deploy, integrações, env vars).
-- `tecnologia/index.md` — **decisões arquiteturais** (stack, gatilho de banco, justificativas).
-- `principios-agentic-seo.md` — 10 princípios proprietários do método.
-- `tom-de-voz.md` — voz, frases curtas, antivícios de IA, capitalização BR.
-- `personas.md` — personas-alvo do projeto.
-- `glossario/index.md` — definições proprietárias (cada conceito = 1 arquivo).
-- `DESIGN.md` — design system (gerado por `/design-init`).
-- `backlog.md` — ideias, pendências, estado.
-- `seo/reports/` — outputs do SEO Score e Lighthouse.
-
-## Como atualizar este arquivo
-
-A skill `update-brain` cuida disso após `/aprovado`. Manualmente: edite, troque a data e mantenha o resumo curto.
+A skill `update-brain` mantém. Manualmente: edite, troque `updated`, mantenha tabelas concisas.

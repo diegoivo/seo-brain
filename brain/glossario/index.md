@@ -1,30 +1,25 @@
 ---
+title: Glossário — MoC
+tags: [brain, glossario, moc]
 kit_state: template
-updated: TEMPLATE
+status: template
 ---
 
 # Glossário
 
-> Definições proprietárias da marca. Cada verbete vira um arquivo neste diretório.
+> Definições proprietárias da marca. 1 arquivo por verbete (Karpathy: 1 entidade = 1 arquivo).
 >
-> POVs proprietários (`proprietary_claims[]` no frontmatter dos posts) referenciam verbetes daqui via `brain_refs[]`. Manter a definição em um lugar só evita drift entre conteúdos.
+> POVs (`proprietary_claims[]` no frontmatter de posts) referenciam verbetes daqui via `brain_refs[]`.
 
-## Verbetes
+## Verbetes registrados
 
-(vazio — adicione conforme cunhar conceitos próprios)
+| Verbete | Tags | Por quê |
+|---|---|---|
+| (vazio — adicione conforme cunhar conceitos) | | |
 
-## Estrutura de cada verbete
+## Como adicionar
 
-```
-brain/glossario/
-├── index.md (este arquivo)
-├── conceito-x.md
-└── conceito-y.md
-```
-
-Cada arquivo deve ter:
-- **Termo** — nome do verbete
-- **Definição em 1-2 frases** — citável por LLMs (GEO)
-- **Por quê** — o que torna esta definição diferente do consenso de mercado
-- **Quando aplicar**
-- **Referências cruzadas** — outros verbetes ou posts
+1. Copie [[_template]] para `<termo-kebab>.md`
+2. Preencha (definição, por quê, quando, relacionados, sources)
+3. Atualize tabela acima
+4. Atualize [[../index]]

@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-// Brain Lint — valida frontmatter obrigatório, índices e freshness do Brain.
+// Brain Lint — Karpathy-style + Obsidian-friendly.
+// Valida: frontmatter, freshness, orphans (páginas sem inbound links),
+// broken wikilinks, stale claims, contradições heurísticas.
 // Uso: node scripts/brain-lint.mjs [--strict]
 
 import { readdir, readFile, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 import { argv } from "node:process";
 
 const ROOT = process.cwd();
@@ -22,8 +24,24 @@ const REQUIRED_SITE_FIELDS = [
   "primary_keyword", "search_intent", "category",
 ];
 const FRESHNESS_DAYS = 30;
+const STALE_DAYS = 90;
+
+const REQUIRED_BRAIN = [
+  "brain/index.md",
+  "brain/log.md",
+  "brain/config.md",
+  "brain/tom-de-voz.md",
+  "brain/personas/index.md",
+  "brain/povs/index.md",
+  "brain/glossario/index.md",
+  "brain/tecnologia/index.md",
+  "brain/sources/index.md",
+  "brain/backlog.md",
+];
 
 await checkBrainCore();
+await checkBrainEntities();
+await checkBrainGraph();
 await checkContent("content/posts", REQUIRED_POST_FIELDS);
 await checkContent("content/site", REQUIRED_SITE_FIELDS);
 
@@ -36,31 +54,142 @@ if (STRICT && ERRORS.length > 0) process.exit(1);
 // ============================================================================
 
 async function checkBrainCore() {
-  const required = [
-    "brain/index.md",
-    "brain/tom-de-voz.md",
-    "brain/personas.md",
-    "brain/glossario/index.md",
-    "brain/tecnologia/index.md",
-    "brain/backlog.md",
-  ];
-  for (const f of required) {
+  for (const f of REQUIRED_BRAIN) {
     if (!existsSync(join(ROOT, f))) {
       ERRORS.push(`${f} não existe`);
       continue;
     }
     await checkFreshness(f);
+    await checkStaleClaims(f);
   }
   if (!existsSync(join(ROOT, "brain/DESIGN.md"))) {
-    WARNINGS.push("brain/DESIGN.md não existe — rode /design-init");
+    WARNINGS.push("brain/DESIGN.md não existe — rode /design-init (ou /onboard fase brandbook)");
   }
+}
+
+async function checkBrainEntities() {
+  // Personas, POVs, glossário: cada um deve ter ≥1 entidade preenchida
+  // (após onboard). Em estado template, só aviso.
+  const dirs = ["brain/personas", "brain/povs", "brain/glossario"];
+  for (const dir of dirs) {
+    const full = join(ROOT, dir);
+    if (!existsSync(full)) continue;
+    const entries = await readdir(full);
+    const real = entries.filter(e => e.endsWith(".md") && e !== "index.md" && !e.startsWith("_"));
+    if (real.length === 0) {
+      WARNINGS.push(`${dir}: vazio (0 entidades). Esperado após /onboard.`);
+    }
+  }
+}
+
+async function checkBrainGraph() {
+  // Constrói grafo de wikilinks e detecta orphans + broken refs.
+  const brainFiles = await collectMd("brain");
+  // Para resolver wikilinks com `..` que apontam pra fora do brain (ex.: docs/, content/).
+  const externalFiles = [...await collectMd("docs"), ...await collectMd("content")];
+  const allFiles = [...brainFiles, ...externalFiles];
+  const inbound = new Map(); // file → count
+
+  for (const f of brainFiles) {
+    inbound.set(slugify(f), 0);
+  }
+
+  for (const f of brainFiles) {
+    // Templates ilustram sintaxe — não validar wikilinks neles.
+    if (f.endsWith("_template.md")) continue;
+    const content = await readFile(join(ROOT, f), "utf8");
+    // Aceita escape de pipe em tabelas (`\|`). Ignora target placeholder com `...` ou `<...>`.
+    const wikilinks = [...content.matchAll(/\[\[([^\]|#\\]+)(?:\\?\|[^\]]*)?\]\]/g)]
+      .map(m => m[1].trim())
+      .filter(t => !t.includes("...") && !t.includes("<") && t !== "arquivo" && t !== "Nota");
+    for (const target of wikilinks) {
+      const candidate = resolveWikilink(target, f, allFiles);
+      if (!candidate) {
+        WARNINGS.push(`${f}: wikilink quebrado [[${target}]]`);
+      } else if (brainFiles.includes(candidate)) {
+        inbound.set(slugify(candidate), (inbound.get(slugify(candidate)) || 0) + 1);
+      }
+    }
+  }
+
+  // Orphans (exceto index.md, _template.md e log.md)
+  for (const f of brainFiles) {
+    if (f.endsWith("/index.md") || f.endsWith("_template.md") || f.endsWith("/log.md")) continue;
+    const count = inbound.get(slugify(f)) || 0;
+    if (count === 0) {
+      WARNINGS.push(`${f}: orphan (nenhum arquivo do brain linka pra cá)`);
+    }
+  }
+}
+
+async function checkStaleClaims(file) {
+  const content = await readFile(join(ROOT, file), "utf8");
+  const fm = parseFrontmatter(content);
+  if (!fm || !fm.updated || fm.updated === "TEMPLATE") return;
+  const updated = new Date(fm.updated);
+  if (isNaN(updated.getTime())) return;
+  const ageDays = (Date.now() - updated.getTime()) / 86400000;
+  if (ageDays > STALE_DAYS) {
+    WARNINGS.push(`${file}: stale — frontmatter updated há ${Math.round(ageDays)} dias (>${STALE_DAYS}d). Revisar claims.`);
+  }
+}
+
+async function collectMd(dir) {
+  const full = join(ROOT, dir);
+  if (!existsSync(full)) return [];
+  const out = [];
+  await walk(full);
+  return out;
+
+  async function walk(d) {
+    const entries = await readdir(d, { withFileTypes: true });
+    for (const e of entries) {
+      const p = join(d, e.name);
+      if (e.isDirectory()) {
+        if (e.name.startsWith(".")) continue;
+        await walk(p);
+      } else if (e.name.endsWith(".md")) {
+        out.push(relative(ROOT, p));
+      }
+    }
+  }
+}
+
+function slugify(filepath) {
+  return filepath.replace(/\.md$/, "").replace(/\/index$/, "");
+}
+
+function resolveWikilink(target, fromFile, allFiles) {
+  // Tenta resolver [[target]] relativo ao arquivo (com .. normalizado), depois absoluto em brain/.
+  const fromDir = fromFile.split("/").slice(0, -1).join("/");
+  const candidates = [
+    normalizePath(`${fromDir}/${target}.md`),
+    normalizePath(`${fromDir}/${target}/index.md`),
+    `brain/${target}.md`,
+    `brain/${target}/index.md`,
+    target.endsWith(".md") ? `brain/${target}` : null,
+  ].filter(Boolean);
+  for (const c of candidates) {
+    if (allFiles.includes(c)) return c;
+  }
+  return null;
+}
+
+function normalizePath(p) {
+  const parts = p.split("/");
+  const out = [];
+  for (const part of parts) {
+    if (part === "..") out.pop();
+    else if (part !== "." && part !== "") out.push(part);
+  }
+  return out.join("/");
 }
 
 async function checkFreshness(path) {
   const s = await stat(join(ROOT, path));
   const ageDays = (Date.now() - s.mtimeMs) / 86400000;
   if (ageDays > FRESHNESS_DAYS) {
-    WARNINGS.push(`${path}: ${Math.round(ageDays)} dias sem atualização (>${FRESHNESS_DAYS}d)`);
+    WARNINGS.push(`${path}: ${Math.round(ageDays)} dias sem mtime (>${FRESHNESS_DAYS}d)`);
   }
 }
 
@@ -88,7 +217,7 @@ async function checkContent(dir, requiredFields) {
       }
     }
     if (Array.isArray(fm.proprietary_claims) && fm.proprietary_claims.length < 3) {
-      ERRORS.push(`${dir}/${entry}: proprietary_claims precisa de pelo menos 3 itens (tem ${fm.proprietary_claims.length})`);
+      ERRORS.push(`${dir}/${entry}: proprietary_claims precisa de ≥3 itens (tem ${fm.proprietary_claims.length})`);
     }
   }
 }

@@ -1,59 +1,55 @@
 ---
+title: Tom de voz
+tags: [brain, voz]
 kit_state: template
+created: TEMPLATE
 updated: TEMPLATE
+status: template
+sources: []
 ---
 
 # Tom de voz
 
-> Default baseado em princípios do Manual de Redação do Estadão (clareza, concisão, precisão, voz ativa) adaptados para conteúdo digital.
->
-> Customize na fase 4 do `/onboard` se a marca pedir voz diferente (ex: mais informal, com humor, em 1ª pessoa). Por default, este arquivo já é utilizável — só personalize se necessário.
+> [!info] Default Estadão + capitalização BR
+> Default já é utilizável. Customize via `/onboard` fase 4 se a marca pedir voz distinta.
 
 ## Princípios
 
 ### Voz e pessoa
-- **Voz ativa** sempre que possível. Passiva só quando o agente é irrelevante.
-- **1ª pessoa do plural** ("nós") em texto institucional.
-- **2ª pessoa** ("você") em how-to, tutoriais e conteúdo educativo.
+- **Voz ativa** sempre que possível.
+- **1ª pessoa do plural** ("nós") em institucional.
+- **2ª pessoa** ("você") em how-to/tutorial.
 - **Nunca** 1ª pessoa do singular em conteúdo da marca, salvo seção explícita de autoria.
 
 ### Frase
-- Máximo **25 palavras** por frase. Quebre períodos longos.
-- Parágrafos enxutos: **3-4 frases** em conteúdo digital.
+- Máximo **25 palavras** por frase.
+- Parágrafos com **3-4 frases** em conteúdo digital.
 
 ### Léxico
-- PT-BR padrão.
-- Evite anglicismos quando há equivalente claro: "performance" ok; "deliverable" → "entrega"; "stakeholder" → "parte interessada".
-- Explique siglas na primeira ocorrência. Depois use a sigla.
+- PT-BR padrão (nunca PT-PT: "tela" não "ecrã").
+- Anglicismo só se não houver equivalente claro.
+- Explique siglas na primeira ocorrência.
 
 ### Números e datas
-- **ISO 8601** em metadados (`2026-05-02`).
-- **Formato brasileiro** em corpo de texto ("2 de maio de 2026").
-- Numerais por extenso até nove ("nove erros"), algarismos a partir de 10.
-- Porcentagens com símbolo colado ao número ("35%", não "35 %").
-
-### Citações
-- Aspas curvas ("…" — não "…").
-- Atribuição explícita com fonte e data.
+- **ISO 8601** em metadados (`2026-05-03`).
+- **Formato BR** em corpo ("3 de maio de 2026").
+- Por extenso até nove; algarismos a partir de 10.
+- "35%" colado, não "35 %".
 
 ## Capitalização brasileira (regra rigorosa)
 
-**Em títulos, headings, meta titles, descrições e qualquer texto da marca:**
+Em títulos, headings, meta titles e qualquer texto da marca:
+- Apenas **primeira letra** maiúscula + nomes próprios.
+- Siglas: caixa-alta (SEO, GEO, CMS, API).
+- Marcas: grafia oficial (iPhone, GitHub, WhatsApp).
 
-- Apenas a **primeira letra do título** em maiúscula.
-- Nomes próprios mantêm a inicial maiúscula.
-- Siglas mantêm caixa-alta (SEO, GEO, CMS, API).
-- Marcas seguem grafia oficial (iPhone, eBay, GitHub, WhatsApp).
-
-| ✅ Correto | ❌ Errado |
-|---|---|
-| Como otimizar SEO para Google em 2026 | Como Otimizar SEO Para Google Em 2026 |
-| O que é GEO e por que importa | O Que É GEO E Por Que Importa |
-| Checklist de SEO para imagens | Checklist De SEO Para Imagens |
+✅ "Como otimizar SEO para Google em 2026"
+❌ "Como Otimizar SEO Para Google Em 2026"
 
 ## Antivícios de IA — banidos
 
-Estas expressões **não aparecem** em conteúdo da marca:
+> [!danger] Lint automático bloqueia esses termos
+> A skill `blogpost` e `update-brain` rodam regex contra essa lista antes de gravar.
 
 - "no mundo cada vez mais [X]"
 - "é importante ressaltar"
@@ -66,14 +62,13 @@ Estas expressões **não aparecem** em conteúdo da marca:
 - "uma jornada de"
 - emojis decorativos em corpo de texto
 - listas de exatamente 3 itens redundantes (cosplay de IA)
-- "delve", "crucial", "robust", "comprehensive", "nuanced", "multifaceted", "furthermore", "moreover", "pivotal", "landscape", "tapestry", "underscore", "foster", "showcase", "intricate", "vibrant"
+- "delve", "crucial", "robust", "comprehensive", "nuanced", "multifaceted", "pivotal", "tapestry", "underscore", "foster", "showcase", "intricate", "vibrant"
 
 ## Acessibilidade textual
 
-- Não use "clique aqui", "saiba mais", "leia mais" como anchor text. Sempre descritivo.
-- Explique siglas.
-- Frases curtas reduzem barreira de leitura.
+- Anchor descritivo (nunca "clique aqui", "saiba mais").
+- Frases curtas reduzem barreira.
 
 ## Customizações deste projeto
 
-(preenchido pela fase 4 do `/onboard`. Se vazio, vale o default acima.)
+(preenchido pela fase 4 do `/onboard`. Se vazio, vale o default.)

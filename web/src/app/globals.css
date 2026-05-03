@@ -26,18 +26,109 @@
   --border: #e5e7eb;
   --accent: #0a0a0a;
   --accent-fg: #ffffff;
-}
 
-/* Container padrão */
-.container-x {
-  width: 100%;
-  max-width: 1200px;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
+  /* Spacing scale 4-base — canônico do framework. Documentado em /docs/grid-system.md */
+  --space-1: 0.25rem;   /*   4px */
+  --space-2: 0.5rem;    /*   8px */
+  --space-3: 0.75rem;   /*  12px */
+  --space-4: 1rem;      /*  16px */
+  --space-6: 1.5rem;    /*  24px */
+  --space-8: 2rem;      /*  32px */
+  --space-12: 3rem;     /*  48px */
+  --space-16: 4rem;     /*  64px */
+  --space-24: 6rem;     /*  96px */
+  --space-32: 8rem;     /* 128px */
+
+  /* Typography scale — perfect fourth (1.333) sobre body 1.125rem.
+     Documentado em /docs/typography.md. Mude as fontes (display/body/mono),
+     não a escala. */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.844rem;   /* 13.5px */
+  --text-base: 1rem;       /* 16px */
+  --text-md:   1.125rem;   /* 18px — body default */
+  --text-lg:   1.5rem;     /* 24px */
+  --text-xl:   2rem;       /* 32px */
+  --text-2xl:  2.667rem;   /* ~43px */
+  --text-3xl:  3.553rem;   /* ~57px */
+  --text-4xl:  4.736rem;   /* ~76px */
+
+  --leading-tight: 1.05;
+  --leading-snug:  1.2;
+  --leading-body:  1.7;
+  --measure:       65ch;
+
+  /* Grid tokens */
+  --container-max: 1200px;
+  --grid-gap: var(--space-4);
+  --grid-margin: var(--space-6);
 }
 
 @media (min-width: 768px) {
-  .container-x { padding-inline: 2.5rem; }
+  :root { --grid-gap: var(--space-6); --grid-margin: var(--space-12); }
+}
+
+@media (min-width: 1280px) {
+  :root { --grid-gap: var(--space-8); }
+}
+
+/* Container padrão (centraliza + padding lateral) */
+.container-x {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+/* ======================================================================
+   Grid canônico — 12 colunas, responsivo escalonado.
+   Filosofia em /docs/grid-system.md.
+   Mobile: 4 col · Tablet (≥768): 8 col · Desktop (≥1280): 12 col.
+   ====================================================================== */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--grid-gap);
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+@media (min-width: 768px) {
+  .grid-12 { grid-template-columns: repeat(8, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .grid-12 { grid-template-columns: repeat(12, 1fr); }
+}
+
+/* Subgrid — herda colunas/linhas do pai. Para usar, o filho precisa
+   estar dentro de outro .grid-12 e cobrir 1+ colunas via .grid-col. */
+.grid-subgrid {
+  display: grid;
+  grid-template-columns: subgrid;
+  gap: var(--grid-gap);
+}
+
+/* Coluna do grid — controlada via vars --col-span / --col-start. */
+.grid-col {
+  grid-column: var(--col-start, auto) / span var(--col-span, 4);
+}
+
+@media (min-width: 768px) {
+  .grid-col {
+    grid-column:
+      var(--col-start-md, var(--col-start, auto))
+      / span var(--col-span-md, var(--col-span, 8));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-col {
+    grid-column:
+      var(--col-start-lg, var(--col-start-md, var(--col-start, auto)))
+      / span var(--col-span-lg, var(--col-span-md, var(--col-span, 12)));
+  }
 }
 
 /* Hero — primeiro viewport. Cabe em 100dvh mobile, 80vh desktop */
@@ -52,33 +143,69 @@
   .hero { min-height: 80vh; }
 }
 
-/* Tipografia editorial — clamp() em headings */
-h1, .h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 5rem); line-height: 1; letter-spacing: -0.025em; }
-h2, .h2 { font-family: var(--font-display); font-size: clamp(1.875rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.015em; }
-h3, .h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; }
-h4, .h4 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
+/* ======================================================================
+   Tipografia canônica — perfect fourth (1.333), body 1.125rem, line-height 1.7,
+   max-width 65ch, anchor-down spacing, text-wrap balance/pretty.
+   Filosofia em /docs/typography.md.
+   ====================================================================== */
+
+/* Headings — text-wrap: balance + anchor-down spacing.
+   clamp() para responsivo: cresce até o token total no desktop. */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-2xl), 7vw, var(--text-4xl));
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-xl), 4.5vw, var(--text-3xl));
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+h3, .h3 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-lg), 3vw, var(--text-2xl));
+  line-height: var(--leading-snug);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+h4, .h4 {
+  font-size: clamp(var(--text-md), 2vw, var(--text-xl));
+  line-height: 1.3;
+  font-weight: 600;
+  text-wrap: balance;
+}
 
 /* Body */
 body {
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Conteúdo editorial (posts) — herda mesmas regras visuais do brandbook */
+p { text-wrap: pretty; }
+
+/* Conteúdo editorial (posts e páginas longas) — anchor-down, measure 65ch, hyphens. */
 .prose {
-  font-size: 1.0625rem;
-  line-height: 1.75;
-  max-width: 68ch;
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  max-width: var(--measure);
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
-.prose > * + * { margin-top: 1.25em; }
-.prose h1, .prose h2, .prose h3 { margin-top: 2em; margin-bottom: 0.5em; }
-.prose h2 { font-size: clamp(1.625rem, 3vw, 2rem); }
-.prose h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
-.prose p { line-height: 1.75; }
+.prose > * + * { margin-block-start: 1.25em; }
+/* Anchor-down: heading "ancora" o conteúdo abaixo (top >> bottom). */
+.prose h2 { margin-block-start: 2em; margin-block-end: 0.5em; }
+.prose h3 { margin-block-start: 1.5em; margin-block-end: 0.4em; }
+.prose h4 { margin-block-start: 1.25em; margin-block-end: 0.35em; }
+.prose p, .prose li { text-wrap: pretty; }
 .prose blockquote {
   border-left: 3px solid var(--color-accent);
   padding-left: 1rem;
@@ -157,3 +284,222 @@ body {
 
 /* Hairline */
 .hairline { border-color: var(--color-border); }
+
+/* Utilitários responsivos pontuais (brandbook). */
+.hide-on-mobile { display: none; }
+@media (min-width: 768px) {
+  .hide-on-mobile { display: revert; }
+}
+
+/* Demo de container query no brandbook (Grid page). */
+@container (min-width: 480px) {
+  .cq-card { grid-template-columns: 1fr auto !important; }
+}
+
+/* ======================================================================
+   Brandbook shell — sidebar nav fixa + main scrolling.
+   Sidebar 240px em ≥1024px; drawer off-canvas em telas menores.
+   ====================================================================== */
+
+.brandbook-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+@media (min-width: 1024px) {
+  .brandbook-shell {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+}
+
+.brandbook-main {
+  padding: var(--space-12) 0 var(--space-32);
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .brandbook-main { padding-block-start: var(--space-16); }
+}
+
+.brandbook-nav-toggle {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-bg);
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .brandbook-nav-toggle { display: none; }
+}
+
+.brandbook-nav {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: min(280px, 80vw);
+  background: var(--color-bg);
+  border-inline-end: 1px solid var(--color-border);
+  padding: var(--space-8) var(--space-6);
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 200ms ease-out;
+  z-index: 30;
+}
+
+.brandbook-nav.is-open { transform: translateX(0); }
+
+@media (min-width: 1024px) {
+  .brandbook-nav {
+    position: sticky;
+    inset-block-start: 0;
+    height: 100dvh;
+    width: auto;
+    transform: none;
+    padding: var(--space-12) var(--space-6);
+  }
+}
+
+.brandbook-nav-brand {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-8);
+  text-decoration: none;
+  color: var(--color-fg);
+}
+
+.brandbook-nav-group { margin-bottom: var(--space-6); }
+
+.brandbook-nav-group-label {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.brandbook-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.brandbook-nav-item {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-decoration: none;
+  border-inline-start: 2px solid transparent;
+  margin-inline-start: -2px;
+  line-height: 1.4;
+}
+
+.brandbook-nav-item:hover { color: var(--color-fg); }
+
+.brandbook-nav-item.is-active {
+  color: var(--color-fg);
+  border-inline-start-color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* Banner "estado: template" / "estado: vazio" */
+.brandbook-banner {
+  border: 1px solid var(--color-border);
+  border-inline-start-width: 3px;
+  border-inline-start-color: var(--color-accent);
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-12);
+  border-radius: 0.25rem;
+  background: color-mix(in srgb, var(--color-fg) 3%, transparent);
+}
+
+.brandbook-banner p { margin: 0; }
+.brandbook-banner p + p { margin-top: var(--space-2); }
+.brandbook-banner-empty {
+  border-inline-start-color: var(--color-muted);
+}
+
+/* Badge de estado [F] / [M] / [F+M] — discreto, hover revela título */
+.brandbook-state-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-inline-start: var(--space-2);
+  vertical-align: middle;
+  cursor: help;
+}
+
+/* ======================================================================
+   Print stylesheet — escopo brandbook.
+   Sidebar some, layout volta a coluna única, tipografia em pt.
+   ====================================================================== */
+
+.no-print { /* utility */ }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 16mm 22mm 16mm;
+  }
+
+  :root {
+    --text-xs:   8pt;
+    --text-sm:   9pt;
+    --text-base: 10pt;
+    --text-md:   10pt;
+    --text-lg:   13.3pt;
+    --text-xl:   17.7pt;
+    --text-2xl:  23.6pt;
+    --text-3xl:  31.5pt;
+    --text-4xl:  41.9pt;
+    --leading-body: 1.5;
+    --measure: 65ch;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: var(--text-md);
+    line-height: var(--leading-body);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .no-print,
+  .brandbook-nav,
+  .brandbook-nav-toggle,
+  .skip-link { display: none !important; }
+
+  .brandbook-shell {
+    display: block;
+    min-height: 0;
+  }
+
+  .brandbook-main {
+    padding: 0 !important;
+  }
+
+  /* Cada seção de topo (h1) começa em página nova. */
+  h1 { break-before: page; }
+  h1:first-of-type { break-before: avoid; }
+  h1, h2 { break-after: avoid; }
+  h3, h4 { break-after: avoid; }
+  pre, table, figure, blockquote, .brandbook-banner { break-inside: avoid; }
+
+  a { color: inherit; text-decoration: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; color: #555; }
+}

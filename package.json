@@ -1,11 +1,11 @@
 {
-  "name": "agentic-seo-kit",
+  "name": "seobrain",
   "version": "0.1.0",
-  "description": "Agentic SEO Kit — orquestrador SEO/GEO multi-harness com Claude Code prioritário",
+  "description": "SEO Brain — framework experimental de SEO Agêntico. Brain (LLM Wiki Karpathy-style) + Brandbook visual + Conteúdo + SEO técnico por construção.",
   "private": true,
   "type": "module",
   "bin": {
-    "agentic-seo-kit": "scripts/bootstrap.mjs"
+    "seobrain": "scripts/bootstrap.mjs"
   },
   "scripts": {
     "bootstrap": "node scripts/bootstrap.mjs",
@@ -18,6 +18,7 @@
     "brain:lint:strict": "node scripts/brain-lint.mjs --strict",
     "content:sync": "node scripts/content-sync.mjs",
     "perf:audit": "node scripts/perf-audit.mjs",
+    "images:search": "node scripts/image-search.mjs",
     "kit:reset-template": "node scripts/kit-reset-template.mjs",
     "web:dev": "cd web && npm run dev",
     "web:build": "cd web && npm run build"

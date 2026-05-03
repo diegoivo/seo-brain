@@ -154,6 +154,40 @@ curl -o web/public/og.png "<og.url>"
 
 > "Visual extraído. Quer também importar tom de voz analisando o copy do site? (Sub-agent lê posts/sobre/home e propõe.)"
 
+### 6. Push para o brandbook ao vivo
+
+Atualizar `web/src/app/globals.css` (apenas tokens — escala/grid/spacing são canônicos):
+
+- `:root` cores (`--bg`, `--fg`, `--accent` etc) com hex extraídos.
+- `:root` fontes (`--font-display`, `--font-body`, `--font-mono`) com Google Fonts equivalentes.
+- Adicionar `next/font` import em `web/src/app/layout.tsx` (consultar `/web-best-practices`).
+
+Atualizar `web/src/app/brandbook/wordmark/page.tsx`: trocar "seobrain" pelo nome real da marca.
+
+Rodar `cd web && npm run build` — se passar, abrir `/brandbook` mentalmente em viewport 375×812 e 1280×800. Cores e tipografia devem refletir o site clonado.
+
+Auto-commit:
+
+```bash
+git add brain/DESIGN.md brain/DESIGN.tokens.json web/src/app/globals.css web/src/app/brandbook/ web/src/app/layout.tsx web/public/logo.* web/public/og.*
+git commit -m "chore(site-clone): tokens + assets de <domain> aplicados"
+```
+
+Apresentar URL local: `npm run dev` → `/brandbook` para o usuário ver clone ao vivo.
+
+### 7. Sugestão de hero
+
+Baseado no que foi extraído, sugira um modelo de hero da lista canônica em [`docs/hero-backgrounds.md`](../../../docs/hero-backgrounds.md):
+
+| Site clonado | Modelo sugerido |
+|---|---|
+| Tem foto real do produto | 2 (split: texto+foto) |
+| Mood corporativo sóbrio | 1 (cor sólida + tipografia) |
+| Estúdio/portfólio | 3 (asymmetric editorial) |
+| Blog/manifesto | 4 (lista vertical) |
+
+Antipadrões banidos (mesmo se o site original usar): gradiente purple→blue, blob SVG, malha de pontos, foto de stock corporativa.
+
 ## Princípios
 
 - **Sem agent-browser, aborta.** Não tenta fallback que entrega lixo.
