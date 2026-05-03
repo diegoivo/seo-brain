@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+/* ======================================================================
+   Tokens default — substituídos pelo /design-init e /brandbook.
+   Lê de brain/DESIGN.tokens.json e injeta aqui.
+   Antes do design-init, valores são placeholders neutros (não slop).
+   ====================================================================== */
+
+@theme {
+  --color-bg: var(--bg, #ffffff);
+  --color-fg: var(--fg, #0a0a0a);
+  --color-muted: var(--muted, #6b7280);
+  --color-border: var(--border, #e5e7eb);
+  --color-accent: var(--accent, #0a0a0a);
+  --color-accent-fg: var(--accent-fg, #ffffff);
+
+  --font-display: var(--font-display-family, ui-serif, Georgia, serif);
+  --font-body: var(--font-body-family, ui-sans-serif, system-ui, sans-serif);
+  --font-mono: var(--font-mono-family, ui-monospace, SFMono-Regular, monospace);
+}
+
+:root {
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #0a0a0a;
+  --accent-fg: #ffffff;
+}
+
+/* Container padrão */
+.container-x {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-x { padding-inline: 2.5rem; }
+}
+
+/* Hero — primeiro viewport. Cabe em 100dvh mobile, 80vh desktop */
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .hero { min-height: 80vh; }
+}
+
+/* Tipografia editorial — clamp() em headings */
+h1, .h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 5rem); line-height: 1; letter-spacing: -0.025em; }
+h2, .h2 { font-family: var(--font-display); font-size: clamp(1.875rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.015em; }
+h3, .h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; }
+h4, .h4 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
+
+/* Body */
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Conteúdo editorial (posts) — herda mesmas regras visuais do brandbook */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  max-width: 68ch;
+}
+.prose > * + * { margin-top: 1.25em; }
+.prose h1, .prose h2, .prose h3 { margin-top: 2em; margin-bottom: 0.5em; }
+.prose h2 { font-size: clamp(1.625rem, 3vw, 2rem); }
+.prose h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+.prose p { line-height: 1.75; }
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--color-muted);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--color-fg) 6%, transparent);
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+}
+.prose ul, .prose ol { padding-left: 1.5em; }
+.prose li + li { margin-top: 0.4em; }
+.prose img { width: 100%; height: auto; border-radius: 0.5rem; }
+
+/* Skip-to-content (a11y) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  z-index: 100;
+}
+.skip-link:focus-visible {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+}
+
+/* Botões */
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  font-weight: 500;
+  border-radius: 0.25rem;
+  transition: opacity 150ms ease-out;
+}
+.btn-accent:hover { opacity: 0.85; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--color-border);
+  font-weight: 500;
+  border-radius: 0.25rem;
+  transition: background 150ms ease-out;
+}
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-fg) 4%, transparent); }
+
+/* Eyebrow editorial */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Foco visível */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Hairline */
+.hairline { border-color: var(--color-border); }
