@@ -115,7 +115,7 @@ Antes de começar:
 
 ---
 
-## Fase 5 — Escopo & tecnologia (1 pergunta)
+## Fase 5 — Escopo & tecnologia (2 perguntas)
 
 **Atualiza:** `brain/tecnologia/index.md`
 
@@ -128,8 +128,16 @@ Antes de começar:
 
    Subpergunta automática: "Vai ter ≥100 páginas dinâmicas em 3 meses?" Se sim, sinaliza que o gatilho de Payload+Neon dispara — sugere rodar `/add-cms` depois.
 
+9. **Plataforma de deploy** — Vercel (default, recomendado) ou outro?
+   - **Vercel** — `next/image` otimiza automaticamente, fontes via `next/font` self-host, OG dinâmico via `@vercel/og`. Lighthouse 95+ é viável de saída.
+   - **Cloudflare Pages / Netlify / GitHub Pages** — host estático. Requer `output: "export"` em `web/next.config.mjs` + pré-conversão `sharp` para AVIF/WebP no build (avise o usuário sobre isso).
+   - **Outro** (descreva).
+
+   Default: Vercel. Se Vercel, **garanta que `web/next.config.mjs` não tem `output: "export"`** — desabilita otimização de imagens.
+
 → Atualiza `brain/tecnologia/index.md`:
 - Tabela de decisão sobre banco com data de hoje
+- Plataforma de deploy escolhida
 - Notas sobre escopo previsto
 - Troca `kit_state` para `initialized`
 

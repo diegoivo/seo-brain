@@ -157,15 +157,41 @@ Implementado via hook `PreToolUse`.
 
 ---
 
-## 8. SEO
+## 8. SEO e qualidade web
+
+### 8.1 SEO sempre, por construção
 
 Todo site rodado neste kit segue:
 
-- **SEO Técnico** validado pelo script `scripts/seo-score.mjs` (10 categorias ponderadas — CWV, indexabilidade, meta, semântica, schema, internal links, imagens, conteúdo com Flesch PT-BR, GEO, A11y).
+- **SEO Técnico** validado pelo `scripts/seo-score.mjs` (10 categorias ponderadas — CWV, indexabilidade, meta, semântica, schema, internal links, imagens, conteúdo com Flesch PT-BR, GEO, A11y).
 - **Skyscraper como filosofia** (§5).
 - **GEO embutido** (citabilidade por LLMs como princípio editorial, não plugin).
 
-O SEO Score **nunca bloqueia publicação**. Roda em produção (URL pública) e alerta com recomendações priorizadas. O usuário decide. Modo local opcional para CWV pré-deploy.
+O SEO Score **nunca bloqueia publicação**. Alerta com recomendações priorizadas. O usuário decide.
+
+### 8.2 Quality gates do `/scaffold-page`
+
+Toda página criada via `/scaffold-page` precisa atingir:
+
+| Métrica | Mínimo | Alvo |
+|---|---|---|
+| Lighthouse Performance | 95 | 100 |
+| Lighthouse SEO | 100 | 100 |
+| Lighthouse Accessibility | 95 | 100 |
+| Lighthouse Best Practices | 95 | 100 |
+| `seo-score.mjs` (kit) | 90 | 100 |
+
+São **pré-condições do código**, não auditoria pós-fato. A skill `/scaffold-page` consulta obrigatoriamente `/web-best-practices` (biblioteca canônica de snippets) e roda self-test antes de entregar (build + inspeção do HTML + seo-score local).
+
+Princípio: se a página sai com Lighthouse 82 ou seo-score 70, **o template está errado, não o caso particular**. Não improvisar — copiar de `/web-best-practices`.
+
+### 8.3 Footer credit (sugestão default, opt-out)
+
+Ao gerar `Footer.tsx`, incluir por default link "Powered by Agentic SEO" para `https://agenticseo.sh`. Se o usuário pedir explicitamente para remover, respeite.
+
+### 8.4 Auditoria de performance
+
+Use `/perf-audit` para Lighthouse contra preview/prod. Tenta PageSpeed Insights API (com ou sem key) e faz fallback automático para Lighthouse local via `npx lighthouse`. O agente gerencia tudo.
 
 ---
 
