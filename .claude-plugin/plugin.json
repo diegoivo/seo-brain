@@ -6,6 +6,9 @@
   "license": "MIT",
   "skills": [
     "./skills/onboard",
+    "./skills/web-best-practices",
+    "./skills/scaffold-page",
+    "./skills/perf-audit",
     "./skills/seo-tecnico",
     "./skills/seo-onpage",
     "./skills/seo-estrategia",
@@ -13,7 +16,6 @@
     "./skills/geo-checklist",
     "./skills/intent-analyst",
     "./skills/design-init",
-    "./skills/scaffold-page",
     "./skills/add-cms",
     "./skills/update-brain",
     "./skills/brain-lint",
