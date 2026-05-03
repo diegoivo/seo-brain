@@ -56,13 +56,48 @@ Se o usuário disser "pular" (ou silenciar): aborte com mensagem clara — devol
 
 ## Pipeline
 
-### 1. Captura
+### 1. Captura — 3 fases (acima da dobra + scroll incremental + multi-viewport)
+
+Captura em 1 momento perde conteúdo lazy (IntersectionObserver), hover states e densidade real do site. Pipeline atualizado:
 
 ```bash
+# Fase 1.1 — abre e espera fonts/imagens above-the-fold
 agent-browser open <url>
+sleep 1.5
+
+# Fase 1.2 — screenshot do hero (above-the-fold)
+agent-browser screenshot .cache/clone/above-fold.png
+
+# Fase 1.3 — scroll incremental para disparar lazy loaders
+agent-browser eval --stdin <<'EOF'
+window.scrollTo(0, document.body.scrollHeight * 0.33);
+EOF
+sleep 0.8
+agent-browser eval --stdin <<'EOF'
+window.scrollTo(0, document.body.scrollHeight * 0.66);
+EOF
+sleep 0.8
+agent-browser eval --stdin <<'EOF'
+window.scrollTo(0, document.body.scrollHeight);
+EOF
+sleep 0.8
+
+# Fase 1.4 — screenshot full-page após scroll completo
 agent-browser screenshot .cache/clone/full.png --full-page
+
+# Fase 1.5 — HTML após DOM ter hidratado tudo
 agent-browser get html "html" > .cache/clone/raw.html
+
+# Fase 1.6 — multi-viewport (mobile + tablet + desktop)
+for vp in 375x812 768x1024 1280x800; do
+  agent-browser eval --stdin <<EOF
+  // Não dá pra resize nativo via CDP simples; emule através de @viewport no print
+  // Estratégia alternativa: agent-browser navigate com query --viewport (se disponível)
+  EOF
+done
 ```
+
+> Nota implementação: agent-browser hoje não tem flag de viewport nativa. Para multi-viewport, o caminho atual é abrir 3 sessões com `agent-browser open <url> --viewport=375x812` se a versão suportar; caso não, capture só desktop e marque viewport limit em `cache/clone/extract.json`.
 
 ### 2. Extração via `eval --stdin`
 
@@ -128,6 +163,41 @@ function extractRadius() {
   return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([r]) => r);
 }
 
+// === NOVO: densidade composicional ===
+// Captura a estrutura de seções para que o scaffold respeite layout do real,
+// não só tokens. Sem isso, o clone tem cores certas mas estrutura genérica.
+result.composition = {
+  sections: [...document.querySelectorAll('main > section, body > section, [class*="section"]')]
+    .slice(0, 12)
+    .map((el) => {
+      const r = el.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      return {
+        height: Math.round(r.height),
+        childCount: el.children.length,
+        hasMedia: !!el.querySelector('img, video, picture, svg'),
+        imageCount: el.querySelectorAll('img').length,
+        bgColor: cs.backgroundColor,
+        layoutType: cs.display.includes('grid')
+          ? 'grid'
+          : cs.display.includes('flex')
+            ? 'flex'
+            : 'stack',
+      };
+    }),
+  totalSections: document.querySelectorAll('main > section, body > section').length,
+  totalImages: document.querySelectorAll('img').length,
+  totalCards: document.querySelectorAll('[class*="card"], article').length,
+  hasHero: !!document.querySelector('[class*="hero"]'),
+  hasMotion: [...document.styleSheets].some((s) => {
+    try {
+      return [...s.cssRules].some((r) => r.cssText?.includes('@keyframes'));
+    } catch {
+      return false;
+    }
+  }),
+};
+
 JSON.stringify(result);
 ```
 
@@ -142,11 +212,55 @@ Sub-agent lê extração + screenshot e propõe:
 - **Tipografia** mapeada para fontes Google equivalentes (se site usa fonte custom paga, sugerir Google equivalente)
 - **Type scale** com clamp() apropriado
 - **Border-radius** sistema
+- **Densidade composicional** — número de sections, layout dominante, presença de hero/cards/media
 - **Antipadrões inferidos** (se site é flat → "sem shadow"; se tem 3D → "evitar")
 
-Apresenta com **3 perguntas granulares específicas**:
+### 3.5 Perguntas granulares pré-aplicação (BLOQUEANTE)
 
-> "Detectei azul `#0A66C2` como primária e Inter como sans. Manter ou propor variante mais distinta? E mood — capturei 'corporativo sóbrio'; alinha?"
+Antes de gravar `brain/DESIGN.md`, gera `.cache/clone/decisions.md` com 5 perguntas comparando real vs canônico do framework. **Bloqueia até o usuário responder**:
+
+```markdown
+# Decisões de fidelidade — clone de <url>
+
+Compare o que foi extraído (real) com os canônicos do framework. Marque a sua escolha em cada par.
+
+## 1. Border-radius
+- [ ] Real: `38px` (pílulas em CTAs)
+- [ ] Canônico: `6px` (radius default do kit)
+- [ ] Híbrido: pílulas só em CTAs, 6px no resto
+
+## 2. Type scale tracking
+- [ ] Real: h1 `letter-spacing: 0.3px` (tracking positivo, clean)
+- [ ] Canônico: h1 `letter-spacing: -0.025em` (tight, display moderno)
+
+## 3. Densidade do hero
+- [ ] Real: hero + prova social numérica abaixo (15 anos / +120 / +100)
+- [ ] Canônico: hero limpo, sem prova social
+
+## 4. Sections estruturais
+- [ ] Real: ${composition.totalSections} sections com ${composition.totalCards} cards e ${composition.totalImages} imagens
+- [ ] Canônico do scaffold: home + 1 serviço + blog + sobre + contato (5 sections)
+- [ ] Manter estrutura do real, popular com conteúdo do brain
+
+## 5. Mood capturado
+- Mood inferido pelo agent: "<auto>"
+- [ ] Confirmo
+- [ ] Ajustar para: "_____"
+```
+
+Quando o usuário responde, agente lê o markdown editado e aplica decisões. Se respostas conflitam com canônicos, mostra warning antes de aplicar.
+
+### 3.6 Flag `--respect-clone-scale` (opt-in, default false)
+
+Por padrão, o clone preserva paleta + fontes + radius do real, mas mantém **escala tipográfica canônica** (perfect fourth 1.333) e **grid 12-col**. Para clones de fidelidade máxima:
+
+```
+agent invoca /site-clone <url> --respect-clone-scale
+```
+
+Quando ativa: o `globals.css` do scaffold sobrescreve `--text-*` e `--leading-*` com valores extraídos (clampeados em 0.8x–1.4x do canônico para não quebrar layout). Trade-off documentado em `brain/log.md`: "clone com scale do real vs DNA do framework".
+
+Sem flag: aplica radius/cores/fontes mas NÃO mexe na escala — clone fica reconhecível mas com "DNA do kit". Decisão padrão preserva consistência cross-projeto.
 
 ### 4. Importar assets
 

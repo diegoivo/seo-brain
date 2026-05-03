@@ -111,8 +111,9 @@ Atualize este arquivo a cada checkpoint (uma fase concluída → status: complet
 
 Se a resposta inicial trouxe domínio, **dois trabalhos independentes** (não confundir):
 
-**A. Clone visual** (paleta, fontes, logo, screenshot da página inteira) → SOMENTE via `/site-clone` (agent-browser).
+**A. Clone visual** (paleta, fontes, logo, screenshot da página inteira) → SOMENTE via `/site-clone` (agent-browser), seguido obrigatoriamente por `/clone-fidelity` (validação visual).
 - Se `agent-browser` ausente: `/site-clone` oferece install ao usuário. Se usuário recusar, **não há clone visual** — pula direto para `/design-init` from-scratch na fase 2 (brandbook). Não tente WebFetch/curl como substituto: paleta e fontes ficariam imprecisas.
+- Pós-`/site-clone` aplicar tokens, **rode `/clone-fidelity` automaticamente** para validar real vs local. P0 do report bloqueia avanço da fase 2 até ajuste manual ou re-clone.
 - **Asset pontual já identificado** é exceção: se o usuário disser explicitamente "pegue a logo daquele SVG" passando uma URL de arquivo (`.svg`, `.png`, `.ico`), `curl` é OK. Mas se ele disser "extraia a logo do site X" passando só a URL da home, isso exige `/site-clone` com agent-browser para detectar o arquivo correto via DOM.
 
 **B. Pesquisa textual de identidade** (sobre, blog, posicionamento) → `WebSearch` + `WebFetch` em **3 buscas paralelas**:
