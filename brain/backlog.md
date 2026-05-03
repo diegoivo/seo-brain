@@ -1,10 +1,15 @@
+---
+kit_state: template
+updated: TEMPLATE
+---
+
 # Backlog
 
-> Ideias, pendências e estado do projeto. Atualize ao final de cada tarefa via `update-brain`.
+> Ideias, pendências e estado. Atualize ao final de cada tarefa via `update-brain` (disparada por `/aprovado`).
 
 ## Em andamento
 
-(vazio)
+(vazio — preencha conforme avança)
 
 ## Próximos passos
 
@@ -18,9 +23,7 @@
 
 | Data | Decisão | Justificativa |
 |---|---|---|
-| 2026-05-02 | Iniciar projeto estático, sem CMS | Default do kit. Gatilho de banco não disparou. |
-| 2026-05-02 | Vercel + Vercel Marketplace como plataforma padrão | Billing unificado, env vars auto-provisionadas |
-| 2026-05-02 | AGENTS.md como source-of-truth, CLAUDE.md como stub | Portabilidade multi-harness sem duplicação |
+| TEMPLATE | TEMPLATE | TEMPLATE |
 
 ## Decisões superadas
 

@@ -11,9 +11,18 @@ Seu papel central é manter o **Brain** (a Wiki em `brain/`) sempre atualizado e
 ## 1. Ao iniciar uma sessão
 
 1. Leia `brain/index.md` para ganhar contexto.
-2. Se `brain/index.md` não existir ou estiver com mais de 30 dias sem atualização, sugira uma revisão geral antes de qualquer trabalho.
-3. Se `brain/DESIGN.md` não existir, sugira rodar `/design-init` (10 perguntas que geram um design system único).
-4. Se as skills externas (`.claude/skills/`) estiverem com mais de 30 dias, sugira `npm run skills:update`.
+2. **Verifique `kit_state` em todos os arquivos do brain.** Se algum estiver `template`, **não inicie tarefas substantivas** — sugira `/onboard` antes. Não interprete um arquivo do brain em estado template como "brain do projeto pronto"; ele descreve a marca **ainda a ser configurada**.
+3. Se `brain/index.md` está `initialized` mas com mais de 30 dias sem atualização, sugira uma revisão geral.
+4. Se `brain/DESIGN.md` está `template`, sugira `/onboard` (que internamente chama `/design-init`).
+5. Se as skills externas (`.claude/skills/`) estiverem com mais de 30 dias, sugira `npm run skills:update`.
+
+### Sobre clonar/importar para um diretório
+
+Se o usuário pedir "importe X para este diretório" e o `pwd` atual já tem nome relacionado ao projeto (ex.: `diegoivo/`, `meu-blog/`), **pergunte antes de criar subdiretório**:
+
+> "Clonar como subdir `agentic-seo-kit/` ou clonar arquivos diretamente para o dir atual `[pwd]`? Ele parece ser o destino do projeto."
+
+Default seguro: clonar como subdir. Mas só após confirmar.
 
 ---
 
@@ -30,6 +39,18 @@ Quando o usuário não for claro, faça perguntas guiadas pelo seguinte método:
 - **Sub-agents** — trabalhe com sub-agents especialistas. Sempre que possível, use um sub-agent independente como QA para validar a entrega.
 
 **Regra inegociável:** o Brain deve sempre estar atualizado.
+
+### Feedback granular, não consolidado
+
+Ao entregar trabalho, **não pergunte** "está bom?" — pergunta passiva. Aponte 2-3 decisões específicas que você tomou e pergunte sobre cada uma:
+
+- ❌ "Ficou bom? Aprovado?"
+- ✅ "3 coisas que decidi e queria validar:
+  1. Headline em 1ª ou 3ª pessoa? Optei por 1ª — ressoa ou prefere mais distância?
+  2. Eyebrow `01 — SEO` (estilo editorial) ou `Serviço · SEO` (mais comum)?
+  3. Foto à direita no hero ou centralizada? Coloquei à direita pra balancear o texto."
+
+O usuário pode topar tudo, mas a oferta granular abre espaço pra ajuste fino que ele não pediria sozinho. Aplique nas skills `artigo`, `scaffold-page`, `seo-onpage`, `design-init`, `onboard`.
 
 ---
 

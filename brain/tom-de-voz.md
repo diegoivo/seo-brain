@@ -1,6 +1,13 @@
+---
+kit_state: template
+updated: TEMPLATE
+---
+
 # Tom de voz
 
-> Base: princípios do Manual de Redação do Estadão (clareza, concisão, precisão, voz ativa) adaptados para conteúdo digital. Ajuste conforme o projeto for ganhando voz própria.
+> Default baseado em princípios do Manual de Redação do Estadão (clareza, concisão, precisão, voz ativa) adaptados para conteúdo digital.
+>
+> Customize na fase 4 do `/onboard` se a marca pedir voz diferente (ex: mais informal, com humor, em 1ª pessoa). Por default, este arquivo já é utilizável — só personalize se necessário.
 
 ## Princípios
 
@@ -8,7 +15,7 @@
 - **Voz ativa** sempre que possível. Passiva só quando o agente é irrelevante.
 - **1ª pessoa do plural** ("nós") em texto institucional.
 - **2ª pessoa** ("você") em how-to, tutoriais e conteúdo educativo.
-- **Nunca** 1ª pessoa do singular em conteúdo da marca.
+- **Nunca** 1ª pessoa do singular em conteúdo da marca, salvo seção explícita de autoria.
 
 ### Frase
 - Máximo **25 palavras** por frase. Quebre períodos longos.
@@ -27,7 +34,7 @@
 
 ### Citações
 - Aspas curvas ("…" — não "…").
-- Atribuição explícita com fonte e data: *"Cliques orgânicos caíram 35% em resultados com AI Overview", aponta Diego Ivo (LinkedIn, 2024).*
+- Atribuição explícita com fonte e data.
 
 ## Capitalização brasileira (regra rigorosa)
 
@@ -43,7 +50,6 @@
 | Como otimizar SEO para Google em 2026 | Como Otimizar SEO Para Google Em 2026 |
 | O que é GEO e por que importa | O Que É GEO E Por Que Importa |
 | Checklist de SEO para imagens | Checklist De SEO Para Imagens |
-| Estratégia de SEO em 7 passos | Estratégia De SEO Em 7 Passos |
 
 ## Antivícios de IA — banidos
 
@@ -60,6 +66,7 @@ Estas expressões **não aparecem** em conteúdo da marca:
 - "uma jornada de"
 - emojis decorativos em corpo de texto
 - listas de exatamente 3 itens redundantes (cosplay de IA)
+- "delve", "crucial", "robust", "comprehensive", "nuanced", "multifaceted", "furthermore", "moreover", "pivotal", "landscape", "tapestry", "underscore", "foster", "showcase", "intricate", "vibrant"
 
 ## Acessibilidade textual
 
@@ -67,6 +74,6 @@ Estas expressões **não aparecem** em conteúdo da marca:
 - Explique siglas.
 - Frases curtas reduzem barreira de leitura.
 
-## Quando este arquivo deve ser atualizado
+## Customizações deste projeto
 
-Quando o projeto desenvolver voz própria (após primeiros 5-10 conteúdos publicados). A skill `update-brain` lembra. Datar a atualização sempre.
+(preenchido pela fase 4 do `/onboard`. Se vazio, vale o default acima.)

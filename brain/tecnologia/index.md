@@ -1,50 +1,45 @@
+---
+kit_state: template
+updated: TEMPLATE
+---
+
 # Tecnologia
 
-> Última atualização: 2026-05-02
+> Stack atual + decisão sobre banco. Atualize aqui sempre que a stack mudar.
 
-## Stack atual
+## Stack default (estado inicial pós-onboard)
 
-### Default (estado inicial)
 - **Next.js** (App Router, SSG por padrão) em `/web`
-- **shadcn/ui** para componentes
+- **shadcn/ui** quando precisar de componentes (instale sob demanda)
 - **Vercel** para deploy + Vercel Marketplace para serviços externos
 - **Sem banco de dados.** Conteúdo em `/content/*.md`.
 
-### Quando o gatilho dispara (≥100 páginas/3 meses)
-- **Payload CMS** em `/web`
-- **Neon Postgres** via Vercel Marketplace
-- Pipeline: `content/*.md (drafts) → content-sync → Payload (publicado)`
+## Quando adicionar Payload + Neon
+
+Gatilho (rode skill `/add-cms` quando **um** disparar):
+- ≥100 páginas dinâmicas previstas nos próximos 3 meses, **ou**
+- Editor não-técnico publicando, **ou**
+- Necessidade comprovada de UI editorial.
+
+Pipeline pós-CMS: `/content/*.md` → `scripts/content-sync.mjs` → Payload (publicado).
 
 ## Decisão sobre banco — registro
 
 | Data | Estado | Justificativa |
 |---|---|---|
-| 2026-05-02 | Estático (sem CMS) | Estado inicial. Gatilho não disparou. |
+| TEMPLATE | Estático (sem CMS) | Estado inicial; gatilho não disparou |
 
-Atualize esta tabela quando rodar a skill `add-cms`.
+Atualize esta tabela quando rodar `/add-cms`.
 
 ## Princípios
 
-1. **Vercel é a plataforma padrão.** Todo serviço externo (banco, auth, storage, email) deve vir do Vercel Marketplace para unificar billing e env vars.
+1. **Vercel é a plataforma padrão.** Todo serviço externo (banco, auth, storage, email) vem do Vercel Marketplace para unificar billing e env vars.
 2. **Estático antes de dinâmico.** Markdown vence enquanto o site for pequeno.
 3. **Pré-renderização sempre que possível.** ISR só quando necessário.
 4. **Portas aleatórias** em dev (use `get-port`).
 
-## Bibliotecas e ferramentas
+## Skills externas instaladas
 
-- `get-port` — porta dev aleatória.
-- `skills` (Vercel Labs) — instalação e update de skills externas.
-- Scripts próprios: `seo-score`, `brain-lint`, `content-sync`.
+`npm run setup` instala apenas `vercel-labs/agent-skills`. Skills adicionais entram sob demanda dentro de outras skills (ex.: `payloadcms/skills` é instalada por `/add-cms`).
 
-## Skills externas instaladas (via `npx skills add`)
-
-Documentadas em `.claude/skills-lock.json`. O `npm run setup` instala apenas:
-
-```
-npx skills add vercel-labs/agent-skills
-```
-
-Skills externas adicionais entram **sob demanda explícita**, dentro do fluxo de uma skill própria do kit:
-
-- `payloadcms/skills --skill payload` — instalado pela skill `add-cms` quando o gatilho de banco disparar (ver §7.1 do AGENTS.md).
-- Outras integrações opcionais ficam documentadas em `docs/integrations/`.
+Integrações opcionais documentadas em `docs/integrations/`.

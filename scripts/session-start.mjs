@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SessionStart hook — injeta contexto inicial no Claude Code.
-// Imprime no stdout informações que o agent deve considerar antes de qualquer trabalho.
+// Detecta estado do kit (template vs initialized) via frontmatter kit_state.
 
 import { existsSync, statSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -9,36 +9,67 @@ const ROOT = process.cwd();
 const FRESHNESS_DAYS = 30;
 const messages = [];
 
-// 1. Brain index
-const brainIndex = join(ROOT, "brain/index.md");
-if (existsSync(brainIndex)) {
-  const ageDays = (Date.now() - statSync(brainIndex).mtimeMs) / 86400000;
-  if (ageDays > FRESHNESS_DAYS) {
-    messages.push(`📚 brain/index.md tem ${Math.round(ageDays)} dias sem atualização. Considere uma revisão geral.`);
-  }
+const BRAIN_FILES = [
+  "brain/index.md",
+  "brain/personas.md",
+  "brain/principios-agentic-seo.md",
+  "brain/tom-de-voz.md",
+  "brain/tecnologia/index.md",
+  "brain/DESIGN.md",
+  "brain/backlog.md",
+  "brain/glossario/index.md",
+];
+
+const templated = [];
+for (const f of BRAIN_FILES) {
+  const path = join(ROOT, f);
+  if (!existsSync(path)) continue;
+  const state = readKitState(path);
+  if (state === "template") templated.push(f);
+}
+
+if (templated.length === BRAIN_FILES.length) {
+  // Estado template integral — primeira execução.
+  messages.push("🚀 Kit em estado TEMPLATE. Rode /onboard para iniciar seu projeto.");
+  messages.push("   18 perguntas em 5 fases (~10 min). Sem isso, qualquer site/conteúdo gerado vai usar defaults genéricos.");
+} else if (templated.length > 0) {
+  // Onboard parcial.
+  messages.push("⚠️  Onboarding incompleto. Arquivos ainda em estado template:");
+  for (const f of templated) messages.push(`   - ${f}`);
+  messages.push("   Rode /onboard para retomar.");
 } else {
-  messages.push("📚 brain/index.md não existe ainda. Inicialize o Brain antes de iniciar tarefas substantivas.");
-}
+  // Estado inicializado — checks normais.
+  const brainIndex = join(ROOT, "brain/index.md");
+  if (existsSync(brainIndex)) {
+    const ageDays = (Date.now() - statSync(brainIndex).mtimeMs) / 86400000;
+    if (ageDays > FRESHNESS_DAYS) {
+      messages.push(`📚 brain/index.md tem ${Math.round(ageDays)} dias sem atualização. Considere uma revisão geral.`);
+    }
+  }
 
-// 2. DESIGN.md
-const design = join(ROOT, "brain/DESIGN.md");
-if (!existsSync(design)) {
-  messages.push("🎨 brain/DESIGN.md ausente. Rode /design-init (10 perguntas) antes de mexer em UI.");
-}
-
-// 3. External skills age
-const skillsLock = join(ROOT, ".claude/skills-lock.json");
-if (existsSync(skillsLock)) {
-  const ageDays = (Date.now() - statSync(skillsLock).mtimeMs) / 86400000;
-  if (ageDays > FRESHNESS_DAYS) {
-    messages.push(`🧰 Skills externas com ${Math.round(ageDays)} dias sem update. Quando conveniente: npm run skills:update`);
+  const skillsLock = join(ROOT, ".claude/skills-lock.json");
+  if (existsSync(skillsLock)) {
+    const ageDays = (Date.now() - statSync(skillsLock).mtimeMs) / 86400000;
+    if (ageDays > FRESHNESS_DAYS) {
+      messages.push(`🧰 Skills externas com ${Math.round(ageDays)} dias sem update. Quando conveniente: npm run skills:update`);
+    }
   }
 }
 
-if (messages.length === 0) {
-  process.exit(0);
-}
+if (messages.length === 0) process.exit(0);
 
 console.log("\n--- Agentic SEO Kit — checks de contexto ---");
 for (const m of messages) console.log(m);
 console.log("---\n");
+
+function readKitState(path) {
+  try {
+    const content = readFileSync(path, "utf8");
+    const m = content.match(/^---\n([\s\S]*?)\n---/);
+    if (!m) return null;
+    const kv = m[1].match(/^kit_state:\s*(\S+)/m);
+    return kv ? kv[1] : null;
+  } catch {
+    return null;
+  }
+}

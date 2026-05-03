@@ -25,11 +25,36 @@ Antes das perguntas, internalize estes antipadrões. O resultado **não pode** c
 - Ícones do Heroicons em todas as posições óbvias.
 - Border-radius universal de 8px em tudo.
 - Paleta neutra "slate/zinc/gray" sem accent forte.
-- Hero com headline gigante centralizado + dois CTAs lado a lado.
 - Cards brancos com sombra sutil em fundo cinza claro.
 - Stack de UI mais comum: Inter + Tailwind padrão + shadcn default + lucide-react.
 
 Cada decisão do DESIGN.md precisa ter justificativa explícita. Se a justificativa for "padrão do mercado" ou "fica bonito", **rejeite e pergunte de novo**.
+
+## Hard rule: primeiro viewport
+
+A primeira dobra (hero) **deve caber em** `100dvh` mobile e `~80vh` desktop **sem scroll**, sempre. É a restrição mais importante e a mais ignorada por agentes.
+
+**Antipadrões automáticos do hero (banidos no DESIGN.md gerado):**
+
+- Headline com `text-[15vw]` ou maior em mobile.
+- Display font > 6rem em mobile portrait.
+- Padding vertical do hero > 50% da viewport em qualquer breakpoint.
+- Hero com 4+ elementos verticais em mobile (eyebrow + headline + sub + 2 CTAs + foto + …).
+- Foto vertical 4:5 ocupando 70%+ da viewport mobile (empurra texto para fora).
+
+**Regra de orçamento de altura** (mobile portrait, dvh = 100):
+
+| Bloco | Máx % da viewport |
+|---|---|
+| Header | 8% |
+| Eyebrow + headline + sub | 50% |
+| Mídia (foto/vídeo) | 30% |
+| CTAs | 12% |
+| **Total** | **100% sem scroll** |
+
+Se o usuário pedir hero gigantesco, **ofereça alternativa**: headline grande + foto à direita em desktop, **stack vertical compacto** em mobile com escala reduzida (ex.: `clamp(2.5rem, 8vw, 5rem)`).
+
+**Validação obrigatória ao final**: simule mentalmente o hero em viewport 375×812 (iPhone 14). Se não cabe, refaça.
 
 ## As 10 perguntas
 
@@ -62,6 +87,11 @@ Faça **uma de cada vez**, aguardando resposta antes da próxima. Sem batch. Se 
     - "Sem cards brancos com shadow-md em fundo gray-50."
     - "Sem purple/blue."
     - "Sem hero centralizado."
+
+**Antipadrões automáticos** (sempre adicionados, mesmo que o usuário não cite):
+- Hero estoura primeiro viewport.
+- Headline > 12vw em mobile.
+- Display font > 6rem em mobile portrait.
 
 ## Outputs obrigatórios
 
@@ -192,6 +222,12 @@ Antes de salvar, confira:
 - [ ] Paleta **não é** purple/blue genérica.
 - [ ] Tipografia **não é** Inter (a menos que justificada explicitamente).
 - [ ] Antipadrões da pergunta 10 estão **explicitamente listados** na seção 8.
+- [ ] Antipadrões automáticos de viewport adicionados (hero estoura, headline > 12vw mobile, display > 6rem mobile).
+
+**Primeiro viewport:**
+- [ ] Simulação mental do hero em 375×812 cabe sem scroll.
+- [ ] Orçamento de altura por bloco respeitado (header 8%, headline 50%, mídia 30%, CTAs 12%).
+- [ ] Display font usa `clamp()` ou tem variante mobile reduzida (não tamanho fixo).
 
 **Compatibilidade Google Stitch:**
 - [ ] Cores têm **nome evocativo + hex em parênteses + papel funcional** (não só token).

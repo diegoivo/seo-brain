@@ -1,23 +1,24 @@
+---
+kit_state: template
+updated: TEMPLATE
+---
+
 # DESIGN.md
 
-> ⚠️ Este arquivo está em estado **placeholder**. Rode `/design-init` (10 perguntas) para gerar um design system único antes de mexer em UI.
+> ⚠️ **Placeholder.** Rode `/design-init` (10 perguntas) para gerar um design system único antes de mexer em UI.
+>
+> A skill `scaffold-page` aborta enquanto este arquivo estiver com `kit_state: template`.
 
 ## Por que este arquivo é importante
 
-DESIGN.md é a fonte canônica das decisões visuais do projeto. Sem ele, qualquer agente vai recair no default do Tailwind/shadcn — gradientes coloridos, purple/blue, ícones do Heroicons, shadows pesadas, cards arredondados de 8px — e o resultado vira AI slop genérico.
+DESIGN.md é a fonte canônica das decisões visuais do projeto. Sem ele, qualquer agente vai recair no default do Tailwind/shadcn — gradientes purple→blue, ícones do Heroicons, shadows pesadas, cards arredondados de 8px, hero gigante centralizado — e o resultado vira AI slop genérico.
 
-`/design-init` força decisões **opinativas** que tornam o design único: arquétipo de marca, mood em adjetivos, paleta com hex, antipadrões explícitos do que **não** fazer.
+`/design-init` força decisões **opinativas**: arquétipo de marca, mood em adjetivos, paleta com hex, antipadrões explícitos do que **não** fazer.
 
-## O que vai aqui depois do `/design-init`
+## Conteúdo após `/design-init`
 
-- Resumo do design system em prosa
-- Tipografia (família, escala, weights)
-- Cores (paleta com hex, uso de cada)
-- Espaçamento (escala)
-- Componentes (cards, buttons, forms — princípios)
-- Motion (timing functions, durações)
-- Antipadrões explícitos (com justificativa)
+(será gerado nas seções 1-9 — Atmosfera & Tema Visual, Cores & Papéis, Tipografia, Estilos de Componentes, Princípios de Layout, Profundidade & Elevação, Motion, Antipadrões, Referências)
 
 ## Tokens
 
-Tokens consumíveis pelo `/web` ficam em `brain/DESIGN.tokens.json` após o init.
+`brain/DESIGN.tokens.json` é gerado em paralelo, consumível pelo `/web`.

@@ -1,26 +1,25 @@
+---
+kit_state: template
+updated: TEMPLATE
+---
+
 # Personas
 
-> Atualize com as personas reais do projeto. Este é um template.
+> Quem você atende. Mín. 1, máx. 3 personas em um projeto sadio. Mais que isso é foco diluído.
+>
+> Rode `/onboard` (fase 2) para preencher de forma guiada.
 
-## Persona 1 — [Nome]
+## Persona 1 — TEMPLATE
 
-- **Quem é:**
-- **Objetivo dela:**
-- **Dores:**
-- **Onde busca informação:**
-- **O que precisa de nós:**
-- **Linguagem que ressoa com ela:**
-
-## Persona 2 — [Nome]
-
-- **Quem é:**
-- **Objetivo dela:**
-- **Dores:**
-- **Onde busca informação:**
-- **O que precisa de nós:**
-- **Linguagem que ressoa com ela:**
+- **Quem é:** TEMPLATE
+- **Cargo / contexto:** TEMPLATE
+- **Objetivo dela:** TEMPLATE
+- **Dores:** TEMPLATE
+- **Onde busca informação:** TEMPLATE
+- **O que precisa de você/da marca:** TEMPLATE
+- **Linguagem que ressoa com ela:** TEMPLATE
 
 ## Como usar
 
 - O frontmatter dos posts (`target_persona`) referencia uma persona deste arquivo.
-- Se o conteúdo não casa com nenhuma persona daqui, é sinal de que o conteúdo está fora do foco **ou** que falta uma persona nova (atualize antes de publicar).
+- Se um conteúdo não casa com nenhuma persona daqui, o conteúdo está fora de foco **ou** falta uma persona nova (atualize antes de publicar).

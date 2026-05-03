@@ -1,28 +1,30 @@
+---
+kit_state: template
+updated: TEMPLATE
+---
+
 # Glossário
 
 > Definições proprietárias da marca. Cada verbete vira um arquivo neste diretório.
+>
+> POVs proprietários (`proprietary_claims[]` no frontmatter dos posts) referenciam verbetes daqui via `brain_refs[]`. Manter a definição em um lugar só evita drift entre conteúdos.
 
 ## Verbetes
 
-(Adicione conforme cunhar conceitos próprios. Cada verbete deve ter:)
+(vazio — adicione conforme cunhar conceitos próprios)
 
-- **Termo** — slug do arquivo
-- **Definição em 1-2 frases** — citável por LLMs (GEO)
-- **Por quê** — o que torna esta definição diferente do consenso de mercado
-- **Quando aplicar**
-- **Referências cruzadas** — outros verbetes ou posts
-
-## Convenção de arquivos
+## Estrutura de cada verbete
 
 ```
 brain/glossario/
 ├── index.md (este arquivo)
-├── agentic-seo.md
-├── geo.md
-├── skyscraper.md
-└── ...
+├── conceito-x.md
+└── conceito-y.md
 ```
 
-## Por que existe
-
-POVs proprietários (`proprietary_claims[]` no frontmatter dos posts) referenciam verbetes daqui via `brain_refs[]`. Manter a definição em um lugar só evita drift entre conteúdos.
+Cada arquivo deve ter:
+- **Termo** — nome do verbete
+- **Definição em 1-2 frases** — citável por LLMs (GEO)
+- **Por quê** — o que torna esta definição diferente do consenso de mercado
+- **Quando aplicar**
+- **Referências cruzadas** — outros verbetes ou posts
