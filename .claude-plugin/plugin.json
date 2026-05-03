@@ -6,6 +6,7 @@
   "license": "MIT",
   "skills": [
     "./skills/onboard",
+    "./skills/plano",
     "./skills/web-best-practices",
     "./skills/scaffold-page",
     "./skills/perf-audit",
@@ -23,6 +24,7 @@
   ],
   "commands": [
     "./commands/aprovado.md",
-    "./commands/onboard.md"
+    "./commands/onboard.md",
+    "./commands/plano.md"
   ]
 }

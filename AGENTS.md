@@ -168,7 +168,7 @@ Sempre prefira portas aleatórias (use `get-port`). Cheque disponibilidade antes
 **Think → Plan → Build → Test → Ship → Document.**
 
 1. **Think** — elimine ambiguidade. Se o usuário pedir muitas coisas, sugira dividir em features e usar `brain/backlog.md`.
-2. **Plan** — desenhe a mudança e os critérios de sucesso. Apresente ao usuário. Após aprovação, crie spec e execute.
+2. **Plan** — para qualquer tarefa **não-trivial**, crie um plano em `plans/<slug>-<data>.md` via skill `/plano`. O plano tem objetivo, critérios FE (aprovação do usuário) e BE (agente verifica sozinho via build/types/score), etapas com checkboxes, riscos. **Última etapa do plano sempre atualiza o Brain.** Triviais (typo, ajuste pontual) executam direto, sem plano.
 3. **Build** — sempre que possível, sub-agents em paralelo + um sub-agent QA independente. Loop limitado a **3 rodadas**; o QA escreve relatório em `.cache/qa-runs/<task>.md` para persistir contexto entre rodadas. Após 3 falhas, escale ao usuário com opções.
 4. **Test** — peça que o usuário reproduza localmente os fluxos críticos.
 5. **Ship** — peça autorização. Commit, push, merge em `main`, push. Acompanhe o deploy na Vercel até concluir; rode checklist básico de smoke test em produção.
