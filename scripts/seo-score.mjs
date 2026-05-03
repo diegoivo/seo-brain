@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // SEO Score CLI — 10 categorias ponderadas, output JSON + Markdown.
 // Nunca bloqueia. Roda contra URL pública (modo prod) ou diretório de build (modo local).
-// Uso: node scripts/seo-score.mjs <url|build-path> [--mode=prod|local] [--out=<dir>]
+// Uso: node scripts/seo-score.mjs <url|build-path> [--mode=prod|local] [--profile=auto|home|page|post|landing] [--out=<dir>]
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
@@ -21,14 +21,26 @@ const WEIGHTS = {
   a11y: 5,
 };
 
+// Profiles — desabilitam checks que não fazem sentido para o tipo de página.
+// `geo.tldr` e `geo.faq` não fazem sentido em home/contato/sobre.
+// `content.density` (length) não faz sentido em landing/contato.
+const PROFILES = {
+  home:    { tldr: false, faq: false, breadcrumb: false, articleSchema: false },
+  page:    { tldr: false, faq: false, breadcrumb: true,  articleSchema: false },
+  post:    { tldr: true,  faq: true,  breadcrumb: true,  articleSchema: true  },
+  landing: { tldr: false, faq: true,  breadcrumb: true,  articleSchema: false },
+};
+
 const args = parseArgs(argv.slice(2));
 if (!args.target) {
-  console.error("Uso: seo-score <url|build-path> [--mode=prod|local] [--out=<dir>]");
+  console.error("Uso: seo-score <url|build-path> [--mode=prod|local] [--profile=auto|home|page|post|landing]");
   exit(2);
 }
 
 const mode = args.mode ?? (args.target.startsWith("http") ? "prod" : "local");
 const outDir = args.out ?? "brain/seo/reports";
+const profile = resolveProfile(args.profile, args.target);
+const profileFlags = PROFILES[profile];
 
 const html = await fetchTarget(args.target, mode);
 const url = mode === "prod" ? args.target : `file://${args.target}`;
@@ -38,11 +50,11 @@ const results = {
   indexability: checkIndexability(html, url),
   meta: checkMeta(html),
   semantic: checkSemantic(html),
-  schema: checkSchema(html),
+  schema: checkSchema(html, profileFlags),
   internal: checkInternalLinks(html, url),
   images: checkImages(html),
   content: checkContent(html),
-  geo: checkGEO(html, url),
+  geo: checkGEO(html, url, profileFlags),
   a11y: checkA11y(html, url),
 };
 
@@ -149,7 +161,7 @@ function checkSemantic(html) {
   return summarize(checks);
 }
 
-function checkSchema(html) {
+function checkSchema(html, flags) {
   const ldjson = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
   let parsed = [];
   for (const m of ldjson) {
@@ -164,6 +176,12 @@ function checkSchema(html) {
     bool("Article/BlogPosting/Product/etc", types.some(t => /Article|BlogPosting|Product|Service|HowTo|FAQPage|Organization/.test(t))),
     bool("Person ou Organization (E-E-A-T)", types.some(t => /Person|Organization/.test(t))),
   ];
+  if (flags?.breadcrumb) {
+    checks.push(bool("BreadcrumbList schema", types.some(t => /BreadcrumbList/.test(t))));
+  }
+  if (flags?.articleSchema) {
+    checks.push(bool("Article/BlogPosting (post)", types.some(t => /Article|BlogPosting/.test(t))));
+  }
   return summarize(checks);
 }
 
@@ -211,17 +229,20 @@ function checkContent(html) {
   return summarize(checks);
 }
 
-function checkGEO(html, url) {
+function checkGEO(html, url, flags) {
   const host = safeHost(url);
   const checks = [
-    bool("FAQPage schema", /FAQPage/.test(html)),
-    bool("Person schema (autoria)", /"@type"\s*:\s*"Person"/.test(html)),
-    bool("TL;DR ou bloco resumo", /tl;?dr|resumo r[áa]pido|em resumo/i.test(html)),
+    bool("Person schema (autoria/E-E-A-T)", /"@type"\s*:\s*"Person"/.test(html)),
     bool("citações com data ou fonte", /(fonte:|segundo|de acordo com)/i.test(html)),
     bool("perguntas em headings (H2/H3)", /<h[23][^>]*>[^<]*\?/i.test(html)),
-    // llms.txt validado externamente quando possível
     note(host ? `Validar manualmente https://${host}/llms.txt` : "llms.txt: skip (sem host)", { info: true }),
   ];
+  if (flags?.faq) {
+    checks.push(bool("FAQPage schema", /FAQPage/.test(html)));
+  }
+  if (flags?.tldr) {
+    checks.push(bool("TL;DR ou bloco resumo", /tl;?dr|resumo r[áa]pido|em resumo/i.test(html)));
+  }
   return summarize(checks.filter(c => c.value !== undefined));
 }
 
@@ -276,11 +297,23 @@ function buildReport(target, mode, score, results) {
   return {
     target,
     mode,
+    profile,
     timestamp: new Date().toISOString(),
     score: score.total,
     breakdown: score.breakdown,
     details: results,
   };
+}
+
+function resolveProfile(explicit, target) {
+  if (explicit && explicit !== "auto" && PROFILES[explicit]) return explicit;
+  // Auto-detect via path/URL.
+  const path = target.replace(/^https?:\/\/[^/]+/, "").replace(/^file:\/\//, "");
+  if (/\/blog\//.test(path) || /\/posts?\//.test(path)) return "post";
+  if (/\/(servicos?|produtos?|services?|products?|landing)\//.test(path)) return "landing";
+  if (/\/(contato|sobre|about|contact|equipe|team|legal|privacidade|terms)/.test(path)) return "page";
+  if (path === "" || path === "/" || /\/index\.html?$/.test(path) || path.endsWith("/")) return "home";
+  return "page";
 }
 
 function renderMarkdown(report) {
@@ -297,6 +330,7 @@ function renderMarkdown(report) {
   return `# SEO Score — ${report.target}
 
 - **Score:** ${report.score}/100
+- **Profile:** ${report.profile}
 - **Modo:** ${report.mode}
 - **Data:** ${report.timestamp}
 
