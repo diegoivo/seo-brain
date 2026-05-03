@@ -1,5 +1,7 @@
 import { GridContainer, GridCol } from "@/components/grid";
 import { TemplateBanner } from "@/components/brandbook/TemplateBanner";
+import { StateBadge } from "@/components/brandbook/StateBadge";
+import { BRAND } from "@/lib/brand-config";
 
 export const metadata = { title: "Marca / Logo" };
 
@@ -42,7 +44,7 @@ export default function Marca() {
               color: "var(--color-fg)",
             }}
           >
-            seobrain
+            {BRAND.wordmark}
           </span>
         </div>
 
@@ -71,7 +73,7 @@ export default function Marca() {
                 fontWeight: 600,
               }}
             >
-              seobrain
+              {BRAND.wordmark}
             </span>
             <p style={{ fontSize: "var(--text-sm)", color: "var(--color-muted)", marginTop: "var(--space-3)" }}>
               Header / footer · md
@@ -94,7 +96,7 @@ export default function Marca() {
                 fontWeight: 600,
               }}
             >
-              seobrain
+              {BRAND.wordmark}
             </span>
             <p style={{ fontSize: "var(--text-sm)", opacity: 0.7, marginTop: "var(--space-3)" }}>
               Inversa (dark bg)
@@ -116,7 +118,7 @@ export default function Marca() {
                 textTransform: "lowercase",
               }}
             >
-              /seobrain
+              /{BRAND.wordmark}
             </span>
             <p style={{ fontSize: "var(--text-sm)", color: "var(--color-muted)", marginTop: "var(--space-3)" }}>
               Mono / atribuição

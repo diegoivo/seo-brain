@@ -1,4 +1,5 @@
 import { GridContainer, GridCol } from "@/components/grid";
+import { BRAND } from "@/lib/brand-config";
 
 export const metadata = { title: "Aplicações" };
 
@@ -50,7 +51,7 @@ export default function Aplicacoes() {
             }}
           >
             <span style={{ ...wordmarkStyle, fontSize: "var(--text-md)" }}>
-              seobrain
+              {BRAND.wordmark}
             </span>
             <nav style={{ display: "flex", gap: "var(--space-6)", fontSize: "var(--text-sm)" }}>
               <a href="#" style={{ textDecoration: "none", color: "var(--color-muted)" }}>Home</a>
@@ -75,7 +76,7 @@ export default function Aplicacoes() {
             }}
           >
             <span style={{ ...wordmarkStyle, fontSize: "var(--text-md)" }}>
-              seobrain
+              {BRAND.wordmark}
             </span>
             <p style={{ fontSize: "var(--text-sm)", color: "var(--color-muted)", margin: 0, maxWidth: "55ch" }}>
               Posicionamento curto da marca em uma frase. Vem de{" "}
@@ -108,7 +109,7 @@ export default function Aplicacoes() {
             }}
           >
             <span style={{ ...wordmarkStyle, fontSize: "var(--text-lg)", opacity: 0.85 }}>
-              seobrain
+              {BRAND.wordmark}
             </span>
             <h3
               style={{

@@ -3,30 +3,31 @@ import { GridContainer, GridCol } from "@/components/grid";
 import { StateBadge } from "@/components/brandbook/StateBadge";
 import { TemplateBanner } from "@/components/brandbook/TemplateBanner";
 import { BRANDBOOK_GROUPS } from "@/lib/brandbook-sections";
+import { BRAND } from "@/lib/brand-config";
 
 export default function BrandbookHome() {
   return (
     <GridContainer>
       <GridCol span={4} spanMd={8} spanLg={10}>
-        <p className="eyebrow mb-6">Brandbook</p>
+        <p className="eyebrow mb-6">Brandbook · {BRAND.wordmark}</p>
         <h1 className="mb-8">Design system ao vivo.</h1>
         <p
           className="prose"
           style={{ color: "var(--color-muted)", marginBottom: "var(--space-12)" }}
         >
-          Este é o brandbook deste projeto — não um template genérico. Pré-onboard,
-          mostra os defaults canônicos do framework. Pós-<code>/onboard</code>, hidrata
-          as decisões da marca em tokens vivos do <code>globals.css</code>. Toda seção
-          aqui é tanto preview ao vivo quanto referência exportável em PDF.
+          O brandbook do <strong>{BRAND.wordmark}</strong>. Pré-onboard, defaults
+          canônicos do framework. Pós-<code>/onboard</code>, decisões da marca
+          hidratam tokens vivos no <code>globals.css</code>. Cada rota é preview
+          ao vivo, não documento.
         </p>
 
-        <TemplateBanner variant="template" />
+        {BRAND.state === "template" && <TemplateBanner variant="template" />}
 
         <div className="prose" style={{ marginBottom: "var(--space-16)" }}>
           <h2>Brand statement</h2>
-          <p>
-            <em>Pré-onboard:</em> aqui aparece o posicionamento de uma frase
-            consolidado a partir de <code>brain/index.md</code> assim que <code>/onboard-brain</code> rodar.
+          <p>{BRAND.positioning}</p>
+          <p style={{ fontSize: "var(--text-sm)", color: "var(--color-muted)" }}>
+            <em>Mood:</em> {BRAND.mood}
           </p>
           <h2>Como usar este brandbook</h2>
           <ul>
@@ -59,6 +60,7 @@ export default function BrandbookHome() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+              gridAutoRows: "1fr",
               gap: "var(--space-4)",
               listStyle: "none",
               padding: 0,
@@ -66,17 +68,18 @@ export default function BrandbookHome() {
             }}
           >
             {group.items.map((s) => (
-              <li key={s.href}>
+              <li key={s.href} style={{ display: "flex" }}>
                 <Link
                   href={s.href}
                   style={{
-                    display: "block",
+                    display: "flex",
+                    flexDirection: "column",
                     padding: "var(--space-4) var(--space-5)",
                     border: "1px solid var(--color-border)",
                     borderRadius: "0.375rem",
                     textDecoration: "none",
                     color: "inherit",
-                    height: "100%",
+                    flex: 1,
                   }}
                 >
                   <h3
