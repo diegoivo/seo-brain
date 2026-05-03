@@ -85,7 +85,9 @@ async function checkBrainEntities() {
 async function checkBrainGraph() {
   // Constrói grafo de wikilinks e detecta orphans + broken refs.
   const brainFiles = await collectMd("brain");
-  const fileSet = new Set(brainFiles.map(f => slugify(f)));
+  // Para resolver wikilinks com `..` que apontam pra fora do brain (ex.: docs/, content/).
+  const externalFiles = [...await collectMd("docs"), ...await collectMd("content")];
+  const allFiles = [...brainFiles, ...externalFiles];
   const inbound = new Map(); // file → count
 
   for (const f of brainFiles) {
@@ -101,10 +103,10 @@ async function checkBrainGraph() {
       .map(m => m[1].trim())
       .filter(t => !t.includes("...") && !t.includes("<") && t !== "arquivo" && t !== "Nota");
     for (const target of wikilinks) {
-      const candidate = resolveWikilink(target, f, brainFiles);
+      const candidate = resolveWikilink(target, f, allFiles);
       if (!candidate) {
         WARNINGS.push(`${f}: wikilink quebrado [[${target}]]`);
-      } else {
+      } else if (brainFiles.includes(candidate)) {
         inbound.set(slugify(candidate), (inbound.get(slugify(candidate)) || 0) + 1);
       }
     }

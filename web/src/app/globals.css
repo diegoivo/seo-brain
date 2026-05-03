@@ -26,18 +26,91 @@
   --border: #e5e7eb;
   --accent: #0a0a0a;
   --accent-fg: #ffffff;
-}
 
-/* Container padrão */
-.container-x {
-  width: 100%;
-  max-width: 1200px;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
+  /* Spacing scale 4-base — canônico do framework. Documentado em /docs/grid-system.md */
+  --space-1: 0.25rem;   /*   4px */
+  --space-2: 0.5rem;    /*   8px */
+  --space-3: 0.75rem;   /*  12px */
+  --space-4: 1rem;      /*  16px */
+  --space-6: 1.5rem;    /*  24px */
+  --space-8: 2rem;      /*  32px */
+  --space-12: 3rem;     /*  48px */
+  --space-16: 4rem;     /*  64px */
+  --space-24: 6rem;     /*  96px */
+  --space-32: 8rem;     /* 128px */
+
+  /* Grid tokens */
+  --container-max: 1200px;
+  --grid-gap: var(--space-4);
+  --grid-margin: var(--space-6);
 }
 
 @media (min-width: 768px) {
-  .container-x { padding-inline: 2.5rem; }
+  :root { --grid-gap: var(--space-6); --grid-margin: var(--space-12); }
+}
+
+@media (min-width: 1280px) {
+  :root { --grid-gap: var(--space-8); }
+}
+
+/* Container padrão (centraliza + padding lateral) */
+.container-x {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+/* ======================================================================
+   Grid canônico — 12 colunas, responsivo escalonado.
+   Filosofia em /docs/grid-system.md.
+   Mobile: 4 col · Tablet (≥768): 8 col · Desktop (≥1280): 12 col.
+   ====================================================================== */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--grid-gap);
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+@media (min-width: 768px) {
+  .grid-12 { grid-template-columns: repeat(8, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .grid-12 { grid-template-columns: repeat(12, 1fr); }
+}
+
+/* Subgrid — herda colunas/linhas do pai. Para usar, o filho precisa
+   estar dentro de outro .grid-12 e cobrir 1+ colunas via .grid-col. */
+.grid-subgrid {
+  display: grid;
+  grid-template-columns: subgrid;
+  gap: var(--grid-gap);
+}
+
+/* Coluna do grid — controlada via vars --col-span / --col-start. */
+.grid-col {
+  grid-column: var(--col-start, auto) / span var(--col-span, 4);
+}
+
+@media (min-width: 768px) {
+  .grid-col {
+    grid-column:
+      var(--col-start-md, var(--col-start, auto))
+      / span var(--col-span-md, var(--col-span, 8));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-col {
+    grid-column:
+      var(--col-start-lg, var(--col-start-md, var(--col-start, auto)))
+      / span var(--col-span-lg, var(--col-span-md, var(--col-span, 12)));
+  }
 }
 
 /* Hero — primeiro viewport. Cabe em 100dvh mobile, 80vh desktop */

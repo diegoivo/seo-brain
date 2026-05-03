@@ -23,7 +23,7 @@ sources: []
 
 ## Sistema de grid (canônico do framework)
 
-Todo site SEO Brain usa **CSS Grid 12 colunas + Subgrid + Container Queries**. Filosofia documentada em [[../docs/grid-system]] (criar). Resumo:
+Todo site SEO Brain usa **CSS Grid 12 colunas + Subgrid + Container Queries**. Filosofia documentada em [[../docs/grid-system]]. Resumo:
 
 - **12 colunas** padrão (responsivo: 4 mobile, 8 tablet, 12 desktop)
 - **Subgrid** para alinhar cards/sidebar com o grid pai (Safari 16+, Chrome 117+, Firefox 71+)
