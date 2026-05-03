@@ -18,6 +18,7 @@
     "brain:lint:strict": "node scripts/brain-lint.mjs --strict",
     "content:sync": "node scripts/content-sync.mjs",
     "perf:audit": "node scripts/perf-audit.mjs",
+    "images:search": "node scripts/image-search.mjs",
     "kit:reset-template": "node scripts/kit-reset-template.mjs",
     "web:dev": "cd web && npm run dev",
     "web:build": "cd web && npm run build"

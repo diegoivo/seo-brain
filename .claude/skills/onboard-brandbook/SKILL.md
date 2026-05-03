@@ -71,7 +71,22 @@ O scaffold já existe pré-commitado (`/brandbook`, `/brandbook/typography`, `/b
 
 Demais rotas herdam tokens automaticamente.
 
-### 2.5 Smoke test
+### 2.5 Imagens — estilo + provider
+
+Chama `/setup-images` para perguntar:
+
+- **Estilo** (5 opções: editorial / candid / technical / archival / experimental)
+- **Tipos** em uso (hero universal; secondary, avatar, illustration opt-in)
+- **Provider** (Pexels default, Unsplash secundário, OpenAI opcional pago)
+
+Resultado salvo em `brain/DESIGN.md` na seção "Imagens" + queries default
+geradas a partir do estilo escolhido. Skill `/blogpost` consome essas
+queries quando precisa de imagem.
+
+Pula esta sub-fase se o usuário pedir &quot;sem imagens&quot; (raro — só sites
+com tom muito tipográfico).
+
+### 2.6 Smoke test
 
 ```bash
 cd web && npm run build
@@ -85,7 +100,7 @@ Abra mentalmente `/brandbook` em viewport 375×812 e 1280×800. Verifique:
 - Grid alinhado.
 - Paleta aplicada em `:root` propaga para todo `.brandbook-shell`.
 
-### 2.6 Auto-commit
+### 2.7 Auto-commit
 
 ```bash
 git add brain/DESIGN.md brain/DESIGN.tokens.json web/src/app/globals.css web/src/app/brandbook/ web/src/app/layout.tsx
