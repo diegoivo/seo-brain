@@ -30,11 +30,14 @@ Roda ao final de cada tarefa aprovada. Mantém o Brain como source-of-truth atua
    - Quando relevante, posicionamento, domínio, porta dev.
 
 3. **Atualize arquivos específicos** conforme necessário:
-   - `brain/tecnologia/index.md` — se a stack mudou.
+   - `brain/config.md` — **estado operacional** (domínios, deploy, integrações, env vars). Atualize quando: registrar/trocar domínio, fazer primeiro deploy, adicionar integração (Resend, Stitch, Payload, Marketplace), trocar plataforma de deploy, adicionar env var nova.
+   - `brain/tecnologia/index.md` — **decisões arquiteturais** (stack, gatilho de banco, justificativas).
    - `brain/glossario/<verbete>.md` — se um conceito proprietário foi cunhado.
    - `brain/backlog.md` — riscar itens concluídos, anotar pendências surgidas.
-   - `brain/seo/reports/` — se rodou seo-score.
+   - `brain/seo/reports/` — se rodou seo-score ou perf-audit.
    - `content/posts/index.md` ou `content/site/index.md` — se publicou conteúdo.
+
+   **Regra:** estado vivo (URLs, IDs, status) → `config.md`. Decisões e por-quês → `tecnologia/index.md`. Nunca duplique entre os dois.
 
 4. **Pergunte sobre skills**:
    - "Esta tarefa pareceu repetível. Quer transformar em skill?"

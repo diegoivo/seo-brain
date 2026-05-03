@@ -23,14 +23,15 @@ Aleatória via `get-port` (default).
 
 ## Resumo da Wiki
 
+- `config.md` — **estado operacional vivo** (domínios, deploy, integrações, env vars).
+- `tecnologia/index.md` — **decisões arquiteturais** (stack, gatilho de banco, justificativas).
 - `principios-agentic-seo.md` — 10 princípios proprietários do método.
 - `tom-de-voz.md` — voz, frases curtas, antivícios de IA, capitalização BR.
 - `personas.md` — personas-alvo do projeto.
 - `glossario/index.md` — definições proprietárias (cada conceito = 1 arquivo).
-- `tecnologia/index.md` — stack atual + decisão sobre banco.
 - `DESIGN.md` — design system (gerado por `/design-init`).
 - `backlog.md` — ideias, pendências, estado.
-- `seo/reports/` — outputs do SEO Score.
+- `seo/reports/` — outputs do SEO Score e Lighthouse.
 
 ## Como atualizar este arquivo
 

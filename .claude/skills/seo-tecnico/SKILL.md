@@ -24,7 +24,22 @@ Audita um site (URL pública preferencial) ou um build local e devolve relatóri
 node scripts/seo-score.mjs <url-de-producao>
 # ou para build local:
 node scripts/seo-score.mjs ./web/.next --mode=local
+# forçar profile específico:
+node scripts/seo-score.mjs <url> --profile=home|page|post|landing
 ```
+
+### Profiles (auto-detect via path)
+
+O score ajusta os checks ao **tipo de página**, evitando penalizar sem motivo:
+
+| Profile | Auto-detect | Checa TL;DR | Checa FAQ | Checa Article schema | Checa Breadcrumb |
+|---|---|---|---|---|---|
+| `home` | `/` ou `/index.html` | ❌ | ❌ | ❌ | ❌ |
+| `page` | `/sobre`, `/contato`, `/equipe`, etc. | ❌ | ❌ | ❌ | ✅ |
+| `post` | `/blog/...` ou `/posts/...` | ✅ | ✅ | ✅ | ✅ |
+| `landing` | `/servicos/...`, `/produtos/...` | ❌ | ✅ | ❌ | ✅ |
+
+Por exemplo: `/contato` não é penalizado por não ter TL;DR (irrelevante). Só posts são auditados com critérios editoriais completos.
 
 Para CWV reais, exporte `PAGESPEED_API_KEY` (Google PageSpeed API). Sem a key, CWV é skipped (não penaliza score).
 

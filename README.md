@@ -1,138 +1,181 @@
 # Agentic SEO Kit
 
-> ⚠️ **Não pule o onboarding.** Este kit nasce como **template**. O Brain (wiki do projeto) e o design system precisam ser preenchidos com o **seu** projeto antes de gerar qualquer site ou conteúdo. Sem isso, o resultado vai usar defaults genéricos e perder o ponto principal do kit.
+> Multi-harness SEO/GEO orchestrator. Brain (wiki) como fonte de verdade humana, sub-agents especialistas, Skyscraper como filosofia, GEO embutido. Vercel + Vercel Marketplace por padrão.
 
-## O que é
+> ⚠️ **Não pule o onboarding.** Este kit nasce como **template**. O Brain e o design system precisam ser preenchidos com o **seu** projeto antes de gerar qualquer site ou conteúdo. Sem isso, o resultado vai usar defaults genéricos.
 
-Repositório template + plugin Claude Code para projetos de SEO/GEO. Multi-harness: roda primariamente em **Claude Code**, com portabilidade para Codex, Cursor e Antigravity via `AGENTS.md`.
-
-**Filosofia em uma frase:** Brain (wiki) como fonte de verdade humana, sub-agents especialistas, Skyscraper como filosofia, GEO embutido como princípio editorial, estático por padrão, Vercel Marketplace como caminho default.
+---
 
 ## Quick start
 
+**Importante:** clone para um diretório novo. Não trabalhe dentro do repo do próprio kit.
+
 ```bash
-gh repo create meu-projeto --template diegoivo/agentic-seo-kit
-cd meu-projeto
+# 1. Crie um diretório novo
+mkdir meu-projeto && cd meu-projeto
+
+# 2. Clone sem histórico do kit (você vai querer git limpo no seu projeto)
+git clone --depth 1 https://github.com/diegoivo/agentic-seo-kit.git .
+rm -rf .git
+
+# 3. Inicie git limpo no seu projeto
+git init && git add -A && git commit -m "chore: bootstrap from agentic-seo-kit"
+
+# 4. Instale dependências e skills
 npm run setup
+cd web && npm install && cd ..
 ```
 
-Abra no Claude Code e digite:
+Depois, abra seu coding agent no diretório e dispare o onboard:
 
-```
-/onboard
-```
+| Harness | Como invocar |
+|---|---|
+| **Claude Code** | `/onboard` |
+| **Codex CLI** | "execute o onboard" ou "rode o onboarding" |
+| **Antigravity** | "execute o onboard" ou "quero fazer o onboard" |
+| **Cursor** | "rode a skill onboard" |
+| **Aider** | "execute o onboard" |
 
-**18 perguntas em 5 fases (~10 min):**
-1. **Identidade** — nome do projeto, sobre você, domínio
-2. **Posicionamento** — USP em uma frase, persona principal, 3 POVs proprietários
-3. **Design system** — chama `/design-init` (10 perguntas anti-AI-slop)
-4. **Tom de voz** — calibração sobre o default Estadão + capitalização BR
-5. **Escopo** — tipo do projeto, gatilho de banco
+Slash commands (`/onboard`, `/aprovado`, `/plano`, `/site-criar`) são convenção do Claude Code. Em outros harnesses, use texto natural — o agent reconhece via `description` da skill.
 
-Cada fase salva incremental e pede feedback granular. Você pode pausar e retomar.
+---
 
-## Só depois rode
+## Onboarding: 3 modos
 
-- `/scaffold-page` — cria páginas Next.js consumindo o Brain
-- `/artigo` — escreve posts seguindo Brain + Skyscraper + GEO
-- `/seo-tecnico` — auditoria pós-deploy
+O `/onboard` pergunta no início qual modo você quer:
 
-Estas skills **abortam** se o Brain ainda estiver em `kit_state: template`. É proposital.
+| Modo | Quando usar | Comportamento |
+|---|---|---|
+| **Manual / guiado** | Marca nova, sem material existente, quer pensar tudo | Pergunta a pergunta (~18 perguntas, ~15 min) |
+| **Intermediário** ⭐ default | Tem alguma referência ou quer balanço fricção/qualidade | Perguntas em batch por fase. Sub-agent pesquisa material existente. Você valida pontos críticos |
+| **Auto** | Marca já existente com presença online forte, quer protótipo rápido | Sub-agents fazem tudo, você aprova um diff final |
+
+Em qualquer modo, o agente sempre traz a **opção recomendada** ao lado de cada decisão.
+
+---
+
+## Pipeline padrão pós-onboard
+
+1. **`/site-criar`** — gera estrutura padrão (home + 1 serviço + blog + sobre + contato) com Lighthouse 95+ por construção
+2. **`/setup-email`** — configura Resend para form de contato
+3. **`/artigo`** — escreve posts seguindo Brain + Skyscraper + GEO
+4. **`/perf-audit`** — Lighthouse pós-deploy (PageSpeed API + fallback local)
+5. **`/aprovado`** — registra mudanças no Brain
+6. **`/plano`** — antes de qualquer mudança não-trivial, agente cria um plano em `plans/` aprovado por você
+
+Skills bloqueiam (hard gate) se Brain ainda estiver em estado `template`.
+
+---
 
 ## Estrutura
 
 ```
 .
-├── AGENTS.md                  source-of-truth (todos os harnesses leem)
+├── AGENTS.md                  source-of-truth (todos os harnesses)
 ├── CLAUDE.md                  stub @AGENTS.md
-├── .cursorrules               stub
-├── .aider.conf.yml            stub
-├── .claude-plugin/            manifest do plugin Claude Code
+├── .cursorrules / .aider.conf.yml
+├── .claude-plugin/            manifest plugin Claude Code
 ├── .claude/
-│   ├── skills/                12 skills (markdown puro = portátil)
-│   ├── commands/              /aprovado, /onboard
-│   └── settings.json          hooks (SessionStart, PreToolUse)
-├── brain/                     wiki — fonte canônica do julgamento humano
-│   ├── index.md
+│   ├── skills/                15+ skills (markdown puro = portátil)
+│   ├── commands/              /aprovado, /onboard, /plano
+│   └── settings.json          hooks
+├── brain/                     wiki — fonte canônica
+│   ├── index.md               posicionamento + resumo
+│   ├── config.md              estado operacional (domínios, integrações)
 │   ├── tom-de-voz.md
 │   ├── personas.md
 │   ├── principios-agentic-seo.md
 │   ├── glossario/index.md
-│   ├── tecnologia/index.md
+│   ├── tecnologia/index.md    decisões arquiteturais
 │   ├── DESIGN.md              gerado por /design-init
 │   ├── backlog.md
-│   └── seo/reports/           outputs do SEO Score
-├── content/
-│   ├── posts/                 markdown — drafts e publicações
-│   └── site/
-├── web/                       Next.js SSG (Vercel-ready)
-├── scripts/                   CLI agnósticos
-│   ├── seo-score.mjs          10 categorias, Flesch PT-BR, GEO peso 10
-│   ├── brain-lint.mjs         valida frontmatter, freshness
-│   ├── content-sync.mjs       pipeline markdown→Payload (no-op até add-cms)
-│   ├── session-start.mjs      hook detecta kit_state e sugere /onboard
-│   └── pre-tool-use.mjs       hook PreToolUse (auto vs confirmação)
-└── docs/integrations/         integrações opcionais (Stitch)
+│   └── seo/reports/           outputs SEO Score + Lighthouse
+├── content/                   markdown drafts/publicações
+├── plans/                     planos de execução (versionados)
+├── web/                       Next.js SSG Vercel-ready
+├── scripts/                   CLI (seo-score, perf-audit, brain-lint)
+└── docs/integrations/         integrações opcionais
 ```
 
-## Skills do kit (13)
+---
+
+## Skills do kit
 
 | Skill | Função |
 |---|---|
-| **`onboard`** | **Onboarding interativo (5 fases, 18 perguntas)** |
-| `seo-tecnico` | Auditoria técnica completa (`seo-score.mjs`) |
-| `seo-onpage` | Otimização de uma página/post |
-| `seo-estrategia` | Estratégia em 7 passos (concorrentes → linkbait → PR) |
-| `seo-imagens` | Checklist de imagens (formato, peso, alt, lazy) |
+| **`onboard`** | Onboarding interativo (3 modos, 5 fases) |
+| **`plano`** | Cria plano em `plans/<slug>-<date>.md` antes de tarefa não-trivial |
+| **`site-criar`** | Estrutura padrão completa (home + serviço + blog + sobre + contato) |
+| `scaffold-page` | Cria UMA página específica |
+| `brandbook` | Brandbook visual em rota Next.js, espelha o Brain |
+| `setup-email` | Configura Resend para form de contato |
+| `web-best-practices` | Snippets canônicos Lighthouse 95+ (consulta obrigatória de site-criar) |
+| `perf-audit` | PageSpeed Insights + fallback Lighthouse local |
+| `seo-tecnico` | Auditoria técnica via `seo-score.mjs` (profiles auto: home/page/post/landing) |
+| `seo-onpage` / `seo-imagens` / `seo-estrategia` | Otimizações específicas |
 | `geo-checklist` | 20 itens GEO consolidados |
 | `intent-analyst` | Sub-agent que analisa intenção de busca |
 | `design-init` | 10 perguntas → DESIGN.md único, anti-AI-slop |
-| **`scaffold-page`** | **Cria páginas Next.js consumindo o Brain (hard gate em kit_state)** |
-| `add-cms` | Bolt-on Payload + Neon (≥100 páginas/3 meses) |
-| `update-brain` | Mantém o Brain atualizado (disparada por `/aprovado`) |
+| `add-cms` | Bolt-on Payload + Neon (gatilho ≥100 páginas/3 meses) |
+| `update-brain` | Mantém Brain atualizado (disparada por `/aprovado`) |
 | `brain-lint` | Valida frontmatter e freshness |
-| `artigo` | Pipeline completo de criação de artigo |
+| `artigo` | Pipeline completo de artigo |
+
+---
 
 ## Comandos úteis
 
 ```bash
-npm run seo:score https://meu-site.com   # roda SEO Score em URL
-npm run brain:lint                        # valida o Brain
-npm run brain:lint:strict                 # exit 1 em erros (CI)
-npm run skills:list                       # lista skills externas instaladas
-npm run skills:update                     # atualiza skills externas
-npm run web:dev                           # Next.js em porta aleatória
-npm run kit:reset-template                # ⚠️ reseta brain pra estado template (se você clonou antes do onboard)
+npm run seo:score https://meu-site.com    # SEO Score (auto-detecta profile)
+npm run perf:audit https://meu-site.com   # Lighthouse via PageSpeed/local
+npm run brain:lint                         # valida Brain
+npm run brain:lint:strict                  # exit 1 em erros (CI)
+npm run skills:list                        # lista skills externas instaladas
+npm run skills:update                      # atualiza skills externas
+npm run web:dev                            # Next.js em porta aleatória
+npm run kit:reset-template                 # reseta Brain pra template (migration)
 ```
+
+---
 
 ## Quando o gatilho de banco dispara
 
-Estado inicial: estático (`/content/*.md` + Next.js SSG). **Adicione Payload + Neon apenas** quando:
-- O site terá ≥100 páginas dinâmicas em 3 meses, **ou**
-- Editor não-técnico precisa publicar, **ou**
-- Existe necessidade comprovada de UI editorial.
+Default: estático (`/content/*.md` + Next.js SSG). **Adicione Payload + Neon apenas** quando:
+- ≥100 páginas dinâmicas em 3 meses, **ou**
+- Editor não-técnico publicando, **ou**
+- Necessidade de UI editorial.
 
-Quando disparar, peça ao agente: *"Roda `/add-cms`."*
+Quando disparar: `/add-cms`.
+
+---
 
 ## Integrações opcionais
 
-Documentadas em `docs/integrations/`. **Não fazem parte de `npm run setup`** — entram apenas sob pedido explícito, para evitar dependências externas que o usuário do kit não pediu.
+Documentadas em `docs/integrations/`. **Fora de `npm run setup`** — entram só sob pedido explícito.
 
 - [Stitch](docs/integrations/stitch.md) — importa design system de um projeto Stitch existente (alternativa ao `/design-init`)
 
-## Filosofia editorial
+---
+
+## Filosofia
 
 - **Brain primeiro.** Sempre leia `brain/` antes de pesquisar fora.
-- **Skyscraper por padrão**, com `intent-analyst` arbitrando a forma.
-- **POV proprietário > consenso.** Frontmatter `proprietary_claims[]` exige ≥3.
-- **Citável por LLMs.** TL;DR, FAQ schema, llms.txt, definições autocontidas.
+- **Skyscraper por padrão**, com `intent-analyst` arbitrando forma.
+- **POV proprietário > consenso.** `proprietary_claims[]` exige ≥3.
+- **Citável por LLMs.** TL;DR (em posts), FAQ schema, llms.txt, definições autocontidas.
 - **Capitalização brasileira** em todos os títulos.
-- **Primeiro viewport** é restrição de design (nunca estoura).
-- **Feedback granular.** Skills sempre apresentam 2-3 decisões específicas para validar, não "está bom?".
+- **Primeiro viewport** é restrição de design.
+- **Feedback granular.** Skills apresentam 2-3 decisões específicas, nunca "está bom?".
+- **Plano antes de mudar.** Tarefas não-triviais geram `plans/<slug>-<date>.md` com aprovação do usuário.
+- **Recomendado sempre presente.** Em qualquer pergunta, agente sugere a opção que ele escolheria.
 
-## Migração para quem clonou antes do onboarding
+---
 
-Se você clonou o kit antes desta versão, o Brain está com conteúdo do kit em vez de templates vazios. Veja `docs/migrations/v0-to-onboard.md`.
+## Migração para quem clonou antes
+
+Se você clonou versões anteriores, veja `docs/migrations/`.
+
+---
 
 ## Licença
 

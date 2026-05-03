@@ -18,11 +18,37 @@ Seu papel central é manter o **Brain** (a Wiki em `brain/`) sempre atualizado e
 
 ### Sobre clonar/importar para um diretório
 
-Se o usuário pedir "importe X para este diretório" e o `pwd` atual já tem nome relacionado ao projeto (ex.: `diegoivo/`, `meu-blog/`), **pergunte antes de criar subdiretório**:
+**Detectar o contexto:**
 
-> "Clonar como subdir `agentic-seo-kit/` ou clonar arquivos diretamente para o dir atual `[pwd]`? Ele parece ser o destino do projeto."
+1. Se `pwd` é o **próprio repo do kit** (existe `.claude-plugin/plugin.json` + `brain/index.md` com `kit_state: template` na raiz), o usuário provavelmente quer **clonar para outro diretório** — não trabalhar no kit em si. Pergunte:
 
-Default seguro: clonar como subdir. Mas só após confirmar.
+   > "Você está no repo do próprio Agentic SEO Kit. Para iniciar um projeto novo, o ideal é clonar para um diretório separado. Quer que eu te ajude com isso?"
+
+2. Se o usuário pedir "importe X para este diretório" e o `pwd` atual já tem nome relacionado ao projeto (ex.: `diegoivo/`, `meu-blog/`), **pergunte antes de criar subdiretório**:
+
+   > "Clonar como subdir `agentic-seo-kit/` ou clonar arquivos diretamente para o dir atual `[pwd]`? Ele parece ser o destino do projeto."
+
+   Default seguro: clonar arquivos diretamente para o dir atual (sem subdir), mas só após confirmar.
+
+3. **Sempre limpe o `.git` do kit ao clonar para projeto novo:**
+
+   ```bash
+   git clone --depth 1 https://github.com/diegoivo/agentic-seo-kit.git .
+   rm -rf .git
+   git init && git add -A && git commit -m "chore: bootstrap from agentic-seo-kit"
+   ```
+
+### Como invocar skills em diferentes harnesses
+
+| Harness | Slash command | Texto natural |
+|---|---|---|
+| Claude Code | `/onboard`, `/plano`, `/site-criar` | também aceita texto |
+| Codex CLI | não suporta | "execute o onboard" |
+| Antigravity | não suporta | "quero fazer o onboard", "execute o onboard" |
+| Cursor | parcial | "rode a skill onboard" |
+| Aider | não suporta | "execute o onboard" |
+
+Slash commands são convenção do Claude Code. Em outros harnesses, **as skills funcionam via `description` matching**: o agente identifica a skill correta a partir do texto natural do usuário. Não tente forçar `/onboard` em harnesses que não suportam.
 
 ---
 
@@ -142,7 +168,7 @@ Sempre prefira portas aleatórias (use `get-port`). Cheque disponibilidade antes
 **Think → Plan → Build → Test → Ship → Document.**
 
 1. **Think** — elimine ambiguidade. Se o usuário pedir muitas coisas, sugira dividir em features e usar `brain/backlog.md`.
-2. **Plan** — desenhe a mudança e os critérios de sucesso. Apresente ao usuário. Após aprovação, crie spec e execute.
+2. **Plan** — para qualquer tarefa **não-trivial**, crie um plano em `plans/<slug>-<data>.md` via skill `/plano`. O plano tem objetivo, critérios FE (aprovação do usuário) e BE (agente verifica sozinho via build/types/score), etapas com checkboxes, riscos. **Última etapa do plano sempre atualiza o Brain.** Triviais (typo, ajuste pontual) executam direto, sem plano.
 3. **Build** — sempre que possível, sub-agents em paralelo + um sub-agent QA independente. Loop limitado a **3 rodadas**; o QA escreve relatório em `.cache/qa-runs/<task>.md` para persistir contexto entre rodadas. Após 3 falhas, escale ao usuário com opções.
 4. **Test** — peça que o usuário reproduza localmente os fluxos críticos.
 5. **Ship** — peça autorização. Commit, push, merge em `main`, push. Acompanhe o deploy na Vercel até concluir; rode checklist básico de smoke test em produção.
@@ -154,6 +180,21 @@ Sempre prefira portas aleatórias (use `get-port`). Cheque disponibilidade antes
 - **Com confirmação:** mudanças em `package.json`, migrations, deletes de qualquer arquivo, edições em `main`, deploys a produção.
 
 Implementado via hook `PreToolUse`.
+
+---
+
+## 7.7 Domínio temporário Vercel
+
+Pré-deploy o usuário não tem domínio próprio apontado, então:
+
+- `brain/config.md` mantém `Domínio definitivo: TEMPLATE` e `Domínio temporário: pendente`.
+- Após o **primeiro deploy** via `/vercel:deploy` ou `vercel --prod`, agente:
+  1. Lê URL `*.vercel.app` retornada pelo Vercel CLI.
+  2. Atualiza `brain/config.md` no campo `Domínio temporário`.
+  3. Atualiza `metadataBase` em `web/src/app/layout.tsx` para apontar pra esta URL temporária.
+  4. Confirma com o usuário: "Pré-deploy ok. Acesse [URL]. Quando o domínio definitivo apontar, me avise para atualizar `canonical` e `metadataBase`."
+
+Enquanto não houver domínio definitivo, todos os `canonical` apontam para a URL temporária do Vercel. Isso evita SEO ruim de domínio fantasma.
 
 ---
 

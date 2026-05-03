@@ -6,8 +6,12 @@
   "license": "MIT",
   "skills": [
     "./skills/onboard",
-    "./skills/web-best-practices",
+    "./skills/plano",
+    "./skills/site-criar",
     "./skills/scaffold-page",
+    "./skills/brandbook",
+    "./skills/setup-email",
+    "./skills/web-best-practices",
     "./skills/perf-audit",
     "./skills/seo-tecnico",
     "./skills/seo-onpage",
@@ -23,6 +27,7 @@
   ],
   "commands": [
     "./commands/aprovado.md",
-    "./commands/onboard.md"
+    "./commands/onboard.md",
+    "./commands/plano.md"
   ]
 }
