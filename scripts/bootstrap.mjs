@@ -13,7 +13,7 @@ import { existsSync, rmSync, mkdirSync } from "node:fs";
 import { resolve, basename } from "node:path";
 import { argv, exit, platform } from "node:process";
 
-const REPO = "https://github.com/diegoivo/agentic-seo-kit.git";
+const REPO = "https://github.com/diegoivo/seobrain.git";
 
 const target = argv[2];
 if (!target) {
@@ -31,7 +31,8 @@ if (existsSync(dest)) {
   exit(1);
 }
 
-console.log(`\n🚀 Bootstrap Agentic SEO Kit em ${dest}\n`);
+console.log(`\n🚀 Bootstrap SEO Brain em ${dest}\n`);
+console.log(`   ⚠️  Framework experimental. Revise tudo antes de produção.\n`);
 
 const steps = [
   { name: "Criando diretório", run: () => mkdirSync(dest, { recursive: true }) },
@@ -68,7 +69,7 @@ console.log(`\n   /onboard tem 3 modos:`);
 console.log(`     • Express (default) — 1 pergunta aberta, agente decide tudo`);
 console.log(`     • Guiado — perguntas em batch por fase`);
 console.log(`     • Auto — 1 mensagem só, agent faz e mostra diff final`);
-console.log(`\nDocs: https://github.com/diegoivo/agentic-seo-kit\n`);
+console.log(`\nDocs: https://github.com/diegoivo/seobrain\n`);
 
 function sh(cmd, cwd) {
   const result = spawnSync(cmd, {
