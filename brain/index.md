@@ -22,6 +22,7 @@ Funciona prioritariamente em Claude Code, com portabilidade para Codex, Cursor e
 
 ## Resumo da Wiki
 
+- `principios-agentic-seo.md` — 10 princípios proprietários do método (POV defensável da marca).
 - `tom-de-voz.md` — voz ativa, frases curtas, antivícios de IA banidos, capitalização brasileira.
 - `personas.md` — personas-alvo do projeto.
 - `glossario/index.md` — definições proprietárias (cada conceito = 1 arquivo).

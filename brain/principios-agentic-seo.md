@@ -1,11 +1,10 @@
 # Princípios do Método Agentic SEO
 
-> Asset proprietário. Cada artigo gerado por `/conteudo` deve aderir a estes princípios.
-> Se um princípio é violado, o artigo deve ser revisado.
+> Asset proprietário. Cada artigo gerado pela skill `artigo` (ou produzido manualmente) deve aderir a estes princípios. Se um princípio é violado, o artigo deve ser revisado.
 >
-> Este arquivo é a fonte de verdade do POV da marca. Pequena, opinionada,
-> defensável. Não é "tudo sobre SEO" — é o que esta marca sustenta de diferente
-> sobre SEO Agêntico.
+> Este arquivo é a fonte de verdade do POV da marca. Pequeno, opinativo, defensável. Não é "tudo sobre SEO" — é o que esta marca sustenta de diferente sobre SEO Agêntico.
+>
+> Operacionalização: a maioria destes princípios está implementada nas skills (`artigo`, `seo-tecnico`, `geo-checklist`, `intent-analyst`, `seo-onpage`) e no `scripts/seo-score.mjs`. Este documento é o "porquê" canônico que justifica essas implementações.
 
 ## Princípio 1 — Wiki primeiro, web depois
 
