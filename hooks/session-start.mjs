@@ -34,7 +34,7 @@ const frameworkRoot = resolveFrameworkRoot();
 if (!projectRoot && isFrameworkRoot()) {
   // Modo 1 — desenvolvimento do framework, sem projeto ativo.
   const projects = listProjects(frameworkRoot);
-  messages.push("🧠 SEO Brain v0.1.0 — framework root, sem projeto ativo.");
+  messages.push("🧠 SEO Brain v0.1.5 — framework root, sem projeto ativo.");
   messages.push("   Use /seobrain:start para listar/criar projetos.");
   if (projects.length > 0) {
     messages.push("   Projetos disponíveis:");
@@ -73,7 +73,7 @@ if (!projectRoot && isFrameworkRoot()) {
     if (existsSync(brainIndex)) {
       const ageDays = (Date.now() - statSync(brainIndex).mtimeMs) / 86400000;
       if (ageDays > FRESHNESS_DAYS) {
-        messages.push(`📚 brain/index.md tem ${Math.round(ageDays)} dias sem atualização. Considere uma revisão geral via /wiki-update.`);
+        messages.push(`📚 brain/index.md tem ${Math.round(ageDays)} dias sem atualização. Considere uma revisão geral via /wiki (update playbook).`);
       }
     }
   }

@@ -1,14 +1,4 @@
----
-name: website-email
-description: Configura Resend (default) para form de contato e emails transacionais. Pergunta sobre conta no Resend (link grátis se não tiver), instala SDK, configura .env.local + route handler app/api/contact/route.ts. Substitui mailto. Atualiza brain/config.md. Use quando o usuário pedir "configurar email", "setup do contato", "form de contato real", "resend", "email transacional".
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
----
-
-# /website-email
+# Playbook: website email
 
 Configura email transacional para o projeto. **Default: Resend** (free tier 3.000 emails/mês). Substitui o `mailto:` improvisado por algo profissional.
 

@@ -162,4 +162,4 @@ Mensagem final ao usuário:
 | `/ship` | Tarefa pronta, quer ir pra produção |
 | `/vercel:deploy` | Só preview deploy (sem merge ou smoke) |
 | `/approved` | Após ship, registra no Brain |
-| `/website-domain` | Após **primeiro** ship em projeto novo |
+| `/website` (domain playbook) | Após **primeiro** ship em projeto novo |

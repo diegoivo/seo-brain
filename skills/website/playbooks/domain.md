@@ -1,16 +1,6 @@
----
-name: website-domain
-description: Configura domínio temporário Vercel após primeiro deploy. Lê URL *.vercel.app, atualiza brain/config.md (campo Domínio temporário), atualiza metadataBase em web/src/app/layout.tsx, confirma com usuário. Evita SEO ruim de domínio fantasma. Roda automaticamente ao final do primeiro /ship em projeto novo. Use quando o usuário disser "configurar domínio", "setup domain", "primeiro deploy", "atualizar metadataBase", "canonical", "vercel.app", "domain temporário".
-allowed-tools:
-  - Read
-  - Edit
-  - Bash
-  - Grep
----
+# Playbook: website domain
 
-# /website-domain — configura domínio temporário Vercel
-
-Pre-deploy o usuário não tem domínio próprio apontado. `brain/config.md` mantém `Domínio definitivo: TEMPLATE` e `Domínio temporário: pendente`. Esta skill resolve o "pendente" lendo a URL Vercel e atualizando metadataBase + canonicals.
+Configura domínio temporário Vercel após primeiro deploy. Atualiza `brain/config.md` (campo Domínio temporário) e `metadataBase` em `web/src/app/layout.tsx`. Evita SEO ruim de domínio fantasma.
 
 ## Quando rodar
 
@@ -20,9 +10,9 @@ Pre-deploy o usuário não tem domínio próprio apontado. `brain/config.md` man
 
 ## Detecção da URL Vercel (3 fontes em ordem)
 
-1. **Argumento explícito:** `/website-domain https://meu-app-abc123.vercel.app`
+1. **Argumento explícito:** o usuário fornece `https://meu-app-abc123.vercel.app`
 2. **Vercel CLI:** `vercel ls --prod 2>&1 | head -10` — extrai URL da última deploy prod
-3. **Prompt ao usuário:** "Não detectei deploy ativo. Cole a URL Vercel da home da home (ex: `https://meu-app.vercel.app`):"
+3. **Prompt ao usuário:** "Não detectei deploy ativo. Cole a URL Vercel da home (ex: `https://meu-app.vercel.app`):"
 
 Se nenhuma fonte resolve: para com mensagem clara — "rode `/ship` primeiro ou faça deploy manual antes".
 
@@ -44,7 +34,7 @@ Domínio temporário: <url-detectada>
 ```
 Mantém formatação. Adiciona linha de timestamp em comentário:
 ```
-<!-- Atualizado por /website-domain em 2026-05-03 -->
+<!-- Atualizado por /website (domain) em 2026-05-03 -->
 ```
 
 ### 3. Atualizar `metadataBase` em `web/src/app/layout.tsx`
@@ -88,37 +78,6 @@ Mensagem:
 | `metadataBase` ausente em layout.tsx | Insere bloco `metadataBase: new URL("...")` em `export const metadata`. |
 | URL com path (`vercel.app/foo`) | Rejeita. Domínio canonical não tem path. |
 | Domínio definitivo já configurado | Pergunta: "Já existe `Domínio definitivo: meusite.com`. Sobrescrever com temporário ou manter definitivo?" |
-
-## Output
-
-`brain/config.md` antes:
-```
-Domínio definitivo: TEMPLATE
-Domínio temporário: pendente
-```
-
-Depois:
-```
-Domínio definitivo: TEMPLATE
-Domínio temporário: https://meu-app-abc123.vercel.app
-<!-- Atualizado por /website-domain em 2026-05-03 -->
-```
-
-`web/src/app/layout.tsx` antes:
-```ts
-export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
-  ...
-}
-```
-
-Depois:
-```ts
-export const metadata: Metadata = {
-  metadataBase: new URL("https://meu-app-abc123.vercel.app"),
-  ...
-}
-```
 
 ## Princípios
 

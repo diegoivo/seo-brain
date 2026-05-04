@@ -1,16 +1,6 @@
----
-name: website-qa
-description: Website technical QA — validates Next.js build success, TypeScript zero-errors, Lighthouse minimums (Perf 95+, SEO 100, A11y 95+), seo-score 90+ (target 100), accessibility (WCAG AA), JSON-LD schema validity, sitemap.xml, robots.txt, llms.txt parity with routes. Outputs prioritized P0/P1/P2 report in .cache/qa-runs/. Called by /qa orchestrator in parallel. Use when user asks "qa antes do deploy", "validate build", "lighthouse check", "validar build", "QA technical", "site QA", "build validation", "schema check". Renamed from /qa-tech (v0.1.0).
-allowed-tools:
-  - Read
-  - Bash
-  - Grep
-  - Glob
----
+# Playbook: website qa (sub-agent QA técnico)
 
-# /website-qa — sub-agent QA técnico
-
-Especialista em build/SEO técnico/a11y. Não toca em design ou copy.
+Especialista em build/SEO técnico/a11y. Não toca em design ou copy. Chamado pelo `/qa` orquestrador em paralelo com revisores editoriais.
 
 ## Checks (priorizados)
 

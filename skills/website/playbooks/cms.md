@@ -1,14 +1,4 @@
----
-name: website-cms
-description: Bolt-on de Payload CMS + Neon Postgres no projeto, quando o gatilho disparar (≥100 páginas/3 meses, OU editor não-técnico, OU necessidade comprovada de UI). Por padrão o kit roda estático. Use quando o usuário disser "adicionar CMS", "instalar Payload", "preciso de banco", ou quando os números justificarem.
-allowed-tools:
-  - Read
-  - Write
-  - Bash
-  - WebFetch
----
-
-# Add CMS
+# Playbook: website cms (Payload + Neon)
 
 Adiciona Payload CMS + Neon Postgres ao projeto. Não é o default — só rode quando o gatilho disparar.
 

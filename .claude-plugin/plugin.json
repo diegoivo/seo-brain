@@ -1,6 +1,7 @@
 {
   "name": "seobrain",
-  "description": "Agentic SEO + GEO toolkit for Claude Code — technical audit, content brief, blogpost generator with AI Overviews optimization, SERP analysis, competitor research, schema markup, E-E-A-T scoring, ChatGPT and Perplexity citation engineering, semantic SEO. Brazilian Portuguese voice + bilingual triggers (PT/EN). 24 skills covering LLM Wiki, Branding, Content, Technical, Strategy, Data. DataForSEO integration. Parallel sub-agents for QA and review.",
+  "version": "0.1.5",
+  "description": "Agentic SEO + GEO toolkit for Claude Code — technical audit, content brief, blogpost generator with AI Overviews optimization, SERP analysis, competitor research, schema markup, E-E-A-T scoring, ChatGPT and Perplexity citation engineering, semantic SEO. Brazilian Portuguese voice + bilingual triggers (PT/EN). 11 progressive-disclosure skills (router SKILL.md + playbooks): LLM Wiki, Content, Technical, SEO Data, Website. DataForSEO + Google Search Console integration. Parallel sub-agents for QA and review.",
   "author": { "name": "Diego Ivo", "email": "diego@conversion.com.br" },
   "homepage": "https://github.com/diegoivo/seobrain",
   "repository": "https://github.com/diegoivo/seobrain",

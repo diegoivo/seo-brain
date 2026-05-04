@@ -1,6 +1,6 @@
 ---
 name: rank-tracker
-description: Monitor de posições orgânicas no Google. Adiciona keywords a uma lista monitorada e, sob invocação manual, puxa SERP via DataForSEO batch async (depth=200, máximo desde Set/2025), salva snapshots datados, gera report com diff vs último snapshot (subiu/desceu/entrou top 10/saiu top 100). Sub-comandos: add, remove, list, update, history. Use quando o usuário pedir "monitorar posição", "rank tracker", "tracking de keyword", "ver posição no Google", "como estou ranqueando". Pilar Dados. Pré-condição: DataForSEO configurado (rode /dataforseo-config se faltar).
+description: Monitor de posições orgânicas no Google. Adiciona keywords a uma lista monitorada e, sob invocação manual, puxa SERP via DataForSEO batch async (depth=200, máximo desde Set/2025), salva snapshots datados, gera report com diff vs último snapshot (subiu/desceu/entrou top 10/saiu top 100). Sub-comandos: add, remove, list, update, history. Use quando o usuário pedir "monitorar posição", "rank tracker", "tracking de keyword", "ver posição no Google", "como estou ranqueando". Pilar Dados. Pré-condição: DataForSEO configurado (rode /seo-data (config playbook) se faltar).
 allowed-tools:
   - Read
   - Write
@@ -42,7 +42,7 @@ Resiliência: o caminho async persiste IDs em `.pending.json` ANTES de pollar. S
 
 ## Pré-requisitos
 
-1. **DataForSEO configurado.** `.env.local` com `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD`. Sem isso: aborta com instrução pra rodar `/dataforseo-config`.
+1. **DataForSEO configurado.** `.env.local` com `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD`. Sem isso: aborta com instrução pra rodar `/seo-data (config playbook)`.
 2. **Target domain.** Lê `brain/config.md` campo "Domínio Definitivo" (fallback: temporário Vercel). Sem nenhum dos dois: aceita via `--domain=`.
 3. **Projeto ativo.** Rodar de `projects/<nome>/`.
 
@@ -134,7 +134,7 @@ Atualizado em Set/2025 (Google matou `num=100`):
 
 | Erro | Ação |
 |---|---|
-| Credenciais ausentes | Aborta apontando `/dataforseo-config` |
+| Credenciais ausentes | Aborta apontando `/seo-data (config playbook)` |
 | Lista vazia em `update` | Aborta. Sugere `rank-tracker add` |
 | Sem target_domain | Aborta. Lista 2 caminhos: `brain/config.md` ou `--domain=` |
 | Task fica "in queue" >5min | `pollTasksReady` timeout. Reporta IDs pendentes (recuperáveis em até 3 dias) |

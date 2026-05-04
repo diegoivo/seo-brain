@@ -1,6 +1,6 @@
 ---
 name: content-seo
-description: Brazilian Portuguese SEO + GEO content pipeline. Generates AI-Overviews-optimized blogposts and articles with intent analysis, skyscraper baseline, proprietary POVs, structured FAQs, schema markup, E-E-A-T signals. Renamed from /artigo + /blogpost + /intent-analyst + /geo-checklist (consolidated v0.1.0). Use when user asks "write SEO article", "create blog post", "blogpost", "content brief", "AI Overviews content", "GEO optimization", "ChatGPT citation", "Perplexity ranking", "featured snippet", "escrever artigo SEO", "criar post", "blog SEO", "novo conteúdo", "otimizar para IA". Routes to playbooks/article.md (simple) or playbooks/blogpost.md (6-step editorial pipeline) based on complexity. References playbooks/intent-analysis.md (mandatory first step) and references/geo-checklist.md (20-item checklist).
+description: Brazilian Portuguese SEO + GEO content pipeline + revisão editorial. Generates AI-Overviews-optimized blogposts and articles with intent analysis, skyscraper baseline, proprietary POVs, structured FAQs, schema markup, E-E-A-T signals. Validates brand voice, BR capitalization, AI-cliché detection, proprietary POVs in frontmatter, GEO essentials (TL;DR, FAQs, FAQPage schema, Person schema). Use when user asks "write SEO article", "create blog post", "blogpost", "content brief", "AI Overviews content", "GEO optimization", "ChatGPT citation", "Perplexity ranking", "featured snippet", "escrever artigo SEO", "criar post", "blog SEO", "novo conteúdo", "otimizar para IA", "validate content", "review article", "validar voz", "content review", "editorial review", "validar artigo", "antivícios IA", "capitalização BR", "POVs check". Routes to playbooks/article.md (simple) or playbooks/blogpost.md (6-step editorial pipeline) for writing, playbooks/review.md for editorial QA. References playbooks/intent-analysis.md (mandatory first step) and references/geo-checklist.md. Renamed from /content-seo + /content-seo-review (consolidated v0.1.5).
 allowed-tools:
   - Read
   - Write
@@ -8,32 +8,40 @@ allowed-tools:
   - WebSearch
   - WebFetch
   - Grep
+  - Glob
 ---
 
 # /content-seo — pipeline editorial PT-BR para SEO + GEO
 
-Pipeline para gerar conteúdo Brazilian Portuguese **otimizado simultaneamente para SEO tradicional e Generative Engine Optimization** (AI Overviews, ChatGPT, Perplexity).
+Pipeline para gerar e validar conteúdo Brazilian Portuguese **otimizado simultaneamente para SEO tradicional e Generative Engine Optimization** (AI Overviews, ChatGPT, Perplexity).
 
 ## Quando usar
 
-- "escrever artigo", "criar post", "blogpost", "novo conteúdo".
-- "content brief", "AI Overviews content", "otimizar para IA".
-- "Featured snippet", "GEO", "ChatGPT search".
+- "escrever artigo", "criar post", "blogpost", "novo conteúdo" → write
+- "content brief", "AI Overviews content", "otimizar para IA" → write
+- "validar conteúdo", "review article", "validar voz", "antivícios IA" → review
+- Featured snippet, GEO, ChatGPT search → write
 
 ## Decision tree
 
 ```
-1. Recebe tópico/keyword
+1. Recebe tópico/keyword OU diff de copy
    ↓
-2. SEMPRE: playbooks/intent-analysis.md  (HARD STOP — não pula)
-   ↓
-3. Avalia complexidade + contagem de POVs proprietários
-   ├── Simples (~800-1200 palavras, sem 6 etapas) → playbooks/article.md
-   └── Complexo (skyscraper, 1500+ palavras, 6 etapas auditáveis) → playbooks/blogpost.md
-   ↓
-4. SEMPRE consulta references/geo-checklist.md (20 itens) antes de publicar
-   ↓
-5. Pra validação editorial pós-fato → invocar /content-seo-review
+2. Está escrevendo ou validando?
+   ├── ESCREVENDO
+   │   ↓
+   │   3. SEMPRE: playbooks/intent-analysis.md  (HARD STOP — não pula)
+   │   ↓
+   │   4. Avalia complexidade + contagem de POVs proprietários
+   │      ├── Simples (~800-1200 palavras, sem 6 etapas) → playbooks/article.md
+   │      └── Complexo (skyscraper, 1500+ palavras, 6 etapas auditáveis) → playbooks/blogpost.md
+   │   ↓
+   │   5. SEMPRE consulta references/geo-checklist.md (20 itens) antes de publicar
+   │   ↓
+   │   6. Revisão editorial pós-fato → playbooks/review.md
+   │
+   └── VALIDANDO (chamado por /qa orquestrador ou pedido direto)
+       → playbooks/review.md (P0/P1/P2 em .cache/qa-runs/)
 ```
 
 ## Pré-condições não-negociáveis
@@ -49,6 +57,7 @@ Pipeline para gerar conteúdo Brazilian Portuguese **otimizado simultaneamente p
 - `playbooks/intent-analysis.md` — análise de intenção (informacional/navegacional/comercial/transacional). Forma deriva da intenção.
 - `playbooks/article.md` — versão simples (1 etapa, 800-1200 palavras, frontmatter completo).
 - `playbooks/blogpost.md` — pipeline 6 etapas auditáveis (mapa de termos → análise concorrentes → consenso vs POV → headings/meta/slug → briefing → escrita).
+- `playbooks/review.md` — sub-agent QA editorial (chamado por `/qa` em paralelo). Valida voz, capitalização, antivícios, POVs, GEO essentials. Output P0/P1/P2 em `.cache/qa-runs/`.
 
 ## References
 
@@ -56,10 +65,8 @@ Pipeline para gerar conteúdo Brazilian Portuguese **otimizado simultaneamente p
 
 ## Outputs
 
-- `content/posts/<slug>.md` (frontmatter completo + body)
-- `content/posts/index.md` atualizado
-- Schema FAQPage embutido (JSON-LD)
-- Person schema na autoria
+- Escrita: `content/posts/<slug>.md` (frontmatter completo + body), `content/posts/index.md` atualizado, schema FAQPage embutido (JSON-LD), Person schema na autoria
+- Revisão: `.cache/qa-runs/<task>-content.md` com P0/P1/P2 + veredicto
 
 ## Princípios
 
@@ -68,7 +75,8 @@ Pipeline para gerar conteúdo Brazilian Portuguese **otimizado simultaneamente p
 - **GEO não substitui SEO** — complementa. SEO técnico é piso, GEO é diferencial.
 - **Menções > backlinks** para LLMs.
 - **Capitalização BR canônica.** Apenas primeira letra maiúscula em headings ("Como otimizar SEO" não "Como Otimizar SEO").
+- **Review não corrige.** P0/P1/P2 reporta — humano decide o quê (e como) fixar.
 
 ## Pós-publicação
 
-Validar editorialmente via `/content-seo-review` (voz, capitalização, antivícios, POVs, GEO score). Validar tecnicamente via `/website-qa` (build + lighthouse) e `/technical-seo` (SEO score 10 categorias).
+Validar editorialmente via `playbooks/review.md` (chamado direto ou via `/qa`). Validar tecnicamente via `/website` qa playbook (build + lighthouse) e `/technical-seo` (SEO score 10 categorias).

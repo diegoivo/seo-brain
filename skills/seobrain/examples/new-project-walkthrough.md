@@ -13,21 +13,22 @@ $ /plugin install seobrain@seobrain-marketplace
   Type /seobrain:start to begin.
 
 $ /seobrain:start
-🧠 SEO Brain v0.1.0 — Brazilian-first SEO + GEO toolkit
+🧠 SEO Brain v0.1.5 — Brazilian-first SEO + GEO toolkit
 
   Status: nenhum projeto ativo (cwd não é um projeto SEO Brain).
   
   Para começar:
     /seobrain:start create-project <nome>
   
-  Available skills (24, agrupadas por pilar):
-    LLM Wiki:    /wiki-init /wiki-update /wiki-lint
-    Branding:    /branding-init /branding-clone /branding-brandbook
-                 /branding-images /branding-onboard /branding-review
-    Content:     /content-seo /content-seo-review
-    Technical:   /technical-seo /seo-strategy /seo-data
-    Website:     /website-create /website-bestpractices /website-cms
-                 /website-domain /website-email /website-qa
+  Available skills (11, agrupadas por pilar — progressive disclosure):
+    LLM Wiki:    /wiki                  (init / update / lint playbooks)
+    Branding:    (em rebuild em outra branch)
+    Content:     /content-seo           (article / blogpost / intent-analysis / review)
+    Technical:   /technical-seo         (full-audit / single-page / images / performance / strategy)
+    SEO Data:    /seo-data              (keywords-volume / competitor-pages / competitor-keywords / config)
+                 /gsc-google-search-console
+                 /rank-tracker
+    Website:     /website               (create / domain / email / cms / qa + bestpractices reference + snippets)
     Pipeline:    /plan /ship /approved /qa
   
   Trigger words (PT-BR + EN): "escrever artigo", "audit SEO",
@@ -59,7 +60,7 @@ $ /seobrain:start
 Após escolher modo Express, o agente roda em sequência:
 
 ```
-[Phase 1 — LLM Wiki / wiki-init]
+[Phase 1 — LLM Wiki / wiki (init playbook)]
   Pergunta 1/9: Qual é o nome do cliente/projeto? > Acme Cliente
   Pergunta 2/9: Sobre o que é o projeto, em 1 frase? > Marketplace de produtos artesanais
   Pergunta 3/9: Domínio definitivo (ou "depois")? > acme.com.br
@@ -70,7 +71,7 @@ Após escolher modo Express, o agente roda em sequência:
 
 ✓ brain/ populado (kit_state: initialized).
 
-[Phase 2 — Branding / branding-onboard]
+[Phase 2 — Branding (em outra branch — temporariamente indisponível)]
   Pergunta 1/10: Mood (3 palavras)? > moderno, elegante, terra
   ...
   Pergunta 10/10: Logo (upload ou skip)? > skip (depois)
@@ -79,7 +80,7 @@ Após escolher modo Express, o agente roda em sequência:
 ✓ web/src/app/brandbook/ scaffold populado.
 
 [Phase 3 — Próximos passos sugeridos]
-  - /website-create (gera scaffold do site)
+  - /website (create playbook — gera scaffold do site)
   - /content-seo (escrever primeiro post)
   - /seo-data (pesquisar keywords)
 ```

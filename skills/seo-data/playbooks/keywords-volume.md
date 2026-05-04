@@ -112,7 +112,7 @@ Output salvo em:
   brain/seo/data/keywords/seo-agentico-2026-05-03.json
 
 Próximos passos sugeridos:
-- /seo-strategy para criar topic clusters a partir destas keywords
+- /technical-seo (strategy playbook) para criar topic clusters a partir destas keywords
 - /content-seo <keyword> para um artigo skyscraper
 ```
 
@@ -136,7 +136,7 @@ Próximos passos sugeridos:
 
 ## Output canônico
 
-Arquivos sempre em `brain/seo/data/keywords/`. Skill `/seo-strategy` consome estes arquivos para topic clusters.
+Arquivos sempre em `brain/seo/data/keywords/`. Skill `/technical-seo (strategy playbook)` consome estes arquivos para topic clusters.
 
 ## Princípios
 

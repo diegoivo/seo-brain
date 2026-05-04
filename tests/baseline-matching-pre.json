@@ -1,24 +1,22 @@
 {
   "summary": {
-    "skills_dir": ".claude/skills",
-    "prompts_total": 20,
-    "top1_correct": 13,
-    "top3_correct": 16,
-    "top5_correct": 17,
-    "top1_pct": "65.0",
-    "top3_pct": "80.0",
-    "top5_pct": "85.0"
+    "skills_dir": "skills",
+    "prompts_total": 26,
+    "top1_correct": 23,
+    "top3_correct": 26,
+    "top5_correct": 26,
+    "top1_pct": "88.5",
+    "top3_pct": "100.0",
+    "top5_pct": "100.0"
   },
   "results": [
     {
       "prompt": "escrever artigo SEO sobre marketing digital",
       "accepts": [
-        "content-seo",
-        "artigo",
-        "blogpost"
+        "content-seo"
       ],
-      "top_match": "blogpost",
-      "top_score": "0.061",
+      "top_match": "content-seo",
+      "top_score": "0.038",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -26,12 +24,10 @@
     {
       "prompt": "criar blogpost completo sobre vendas B2B",
       "accepts": [
-        "content-seo",
-        "blogpost",
-        "artigo"
+        "content-seo"
       ],
-      "top_match": "site-criar",
-      "top_score": "0.059",
+      "top_match": "website",
+      "top_score": "0.029",
       "correct_top1": false,
       "correct_top3": true,
       "correct_top5": true
@@ -39,25 +35,21 @@
     {
       "prompt": "write SEO article about AI Overviews",
       "accepts": [
-        "content-seo",
-        "artigo",
-        "blogpost"
+        "content-seo"
       ],
-      "top_match": "geo-checklist",
-      "top_score": "0.038",
-      "correct_top1": false,
-      "correct_top3": false,
-      "correct_top5": false
+      "top_match": "content-seo",
+      "top_score": "0.053",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
     },
     {
       "prompt": "create content brief for keyword research",
       "accepts": [
-        "content-seo",
-        "intent-analyst",
-        "blogpost"
+        "content-seo"
       ],
-      "top_match": "intent-analyst",
-      "top_score": "0.031",
+      "top_match": "content-seo",
+      "top_score": "0.039",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -65,23 +57,21 @@
     {
       "prompt": "auditar SEO técnico do site",
       "accepts": [
-        "technical-seo",
-        "seo-tecnico"
+        "technical-seo"
       ],
-      "top_match": "perf-audit",
-      "top_score": "0.073",
-      "correct_top1": false,
+      "top_match": "technical-seo",
+      "top_score": "0.051",
+      "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
     },
     {
       "prompt": "rodar lighthouse e checar core web vitals",
       "accepts": [
-        "technical-seo",
-        "perf-audit"
+        "technical-seo"
       ],
-      "top_match": "perf-audit",
-      "top_score": "0.070",
+      "top_match": "technical-seo",
+      "top_score": "0.077",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -89,35 +79,32 @@
     {
       "prompt": "audit technical SEO and schema markup",
       "accepts": [
-        "technical-seo",
-        "seo-tecnico"
+        "technical-seo"
       ],
-      "top_match": "qa-tech",
-      "top_score": "0.057",
-      "correct_top1": false,
+      "top_match": "technical-seo",
+      "top_score": "0.064",
+      "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
     },
     {
       "prompt": "otimizar imagens do post",
       "accepts": [
-        "technical-seo",
-        "seo-imagens"
+        "technical-seo"
       ],
-      "top_match": "seo-imagens",
-      "top_score": "0.130",
-      "correct_top1": true,
+      "top_match": "content-seo",
+      "top_score": "0.026",
+      "correct_top1": false,
       "correct_top3": true,
       "correct_top5": true
     },
     {
       "prompt": "pesquisar volume de busca para palavras-chave",
       "accepts": [
-        "seo-data",
-        "keywords-volume"
+        "seo-data"
       ],
-      "top_match": "keywords-volume",
-      "top_score": "0.132",
+      "top_match": "seo-data",
+      "top_score": "0.055",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -125,11 +112,10 @@
     {
       "prompt": "competitor pages analysis",
       "accepts": [
-        "seo-data",
-        "competitor-pages"
+        "seo-data"
       ],
-      "top_match": "competitor-pages",
-      "top_score": "0.049",
+      "top_match": "seo-data",
+      "top_score": "0.042",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -137,11 +123,10 @@
     {
       "prompt": "para quais keywords concorrente rankeia",
       "accepts": [
-        "seo-data",
-        "competitor-keywords"
+        "seo-data"
       ],
-      "top_match": "competitor-keywords",
-      "top_score": "0.103",
+      "top_match": "seo-data",
+      "top_score": "0.056",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -149,11 +134,10 @@
     {
       "prompt": "estratégia de SEO para 2026",
       "accepts": [
-        "seo-strategy",
-        "seo-estrategia"
+        "technical-seo"
       ],
-      "top_match": "seo-estrategia",
-      "top_score": "0.071",
+      "top_match": "technical-seo",
+      "top_score": "0.025",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -161,11 +145,10 @@
     {
       "prompt": "criar topic clusters",
       "accepts": [
-        "seo-strategy",
-        "seo-estrategia"
+        "technical-seo"
       ],
-      "top_match": "seo-estrategia",
-      "top_score": "0.071",
+      "top_match": "technical-seo",
+      "top_score": "0.025",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -173,23 +156,21 @@
     {
       "prompt": "começar projeto novo de SEO",
       "accepts": [
-        "seobrain",
-        "onboard"
+        "seobrain"
       ],
-      "top_match": "design-init",
-      "top_score": "0.077",
-      "correct_top1": false,
-      "correct_top3": false,
+      "top_match": "seobrain",
+      "top_score": "0.078",
+      "correct_top1": true,
+      "correct_top3": true,
       "correct_top5": true
     },
     {
       "prompt": "iniciar onboarding do framework",
       "accepts": [
-        "seobrain",
-        "onboard"
+        "seobrain"
       ],
-      "top_match": "onboard-brandbook",
-      "top_score": "0.043",
+      "top_match": "seobrain",
+      "top_score": "0.059",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -197,23 +178,21 @@
     {
       "prompt": "criar site Next.js com SEO",
       "accepts": [
-        "website-create",
-        "site-criar"
+        "website"
       ],
-      "top_match": "web-best-practices",
-      "top_score": "0.114",
-      "correct_top1": false,
-      "correct_top3": false,
-      "correct_top5": false
+      "top_match": "website",
+      "top_score": "0.062",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
     },
     {
       "prompt": "configurar email com Resend no projeto",
       "accepts": [
-        "website-email",
-        "setup-email"
+        "website"
       ],
-      "top_match": "setup-email",
-      "top_score": "0.081",
+      "top_match": "website",
+      "top_score": "0.045",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
@@ -221,38 +200,102 @@
     {
       "prompt": "validar voz da marca no artigo",
       "accepts": [
-        "content-seo-review",
-        "qa-content"
+        "content-seo"
       ],
-      "top_match": "qa-content",
-      "top_score": "0.063",
+      "top_match": "content-seo",
+      "top_score": "0.039",
       "correct_top1": true,
       "correct_top3": true,
       "correct_top5": true
     },
     {
-      "prompt": "criar design system pra marca nova",
+      "prompt": "popular brain do projeto",
       "accepts": [
-        "branding-init",
-        "design-init"
+        "wiki"
       ],
-      "top_match": "design-init",
-      "top_score": "0.111",
-      "correct_top1": true,
+      "top_match": "seobrain",
+      "top_score": "0.038",
+      "correct_top1": false,
       "correct_top3": true,
       "correct_top5": true
     },
     {
       "prompt": "qa antes do deploy",
       "accepts": [
-        "qa",
-        "qa-design"
+        "qa"
       ],
-      "top_match": "seobrain-ship",
-      "top_score": "0.047",
-      "correct_top1": false,
-      "correct_top3": false,
-      "correct_top5": false
+      "top_match": "qa",
+      "top_score": "0.040",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "configurar credenciais DataForSEO",
+      "accepts": [
+        "seo-data"
+      ],
+      "top_match": "seo-data",
+      "top_score": "0.042",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "configurar domínio Vercel",
+      "accepts": [
+        "website"
+      ],
+      "top_match": "website",
+      "top_score": "0.046",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "validar build e lighthouse antes do PR",
+      "accepts": [
+        "website",
+        "qa"
+      ],
+      "top_match": "qa",
+      "top_score": "0.059",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "atualizar wiki após tarefa concluída",
+      "accepts": [
+        "wiki"
+      ],
+      "top_match": "wiki",
+      "top_score": "0.032",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "monitor de posições no Google",
+      "accepts": [
+        "rank-tracker"
+      ],
+      "top_match": "rank-tracker",
+      "top_score": "0.044",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "analisar dados do Google Search Console",
+      "accepts": [
+        "gsc-google-search-console"
+      ],
+      "top_match": "gsc-google-search-console",
+      "top_score": "0.075",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
     }
   ]
 }

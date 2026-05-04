@@ -90,4 +90,4 @@ Para CWV real, exportar `PAGESPEED_API_KEY` (Google PageSpeed API). Sem ela, ski
 - **Lighthouse:** ≥95 (alvo 100)
 - **seo-score:** ≥90 (alvo 100)
 
-Princípio: se página sai com Lighthouse 82, o template está errado, não o caso particular. Copiar de `/website-bestpractices`.
+Princípio: se página sai com Lighthouse 82, o template está errado, não o caso particular. Copiar de `/website` references/bestpractices.md.

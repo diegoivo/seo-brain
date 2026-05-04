@@ -1,10 +1,10 @@
 ---
-description: Approve current task — triggers wiki-update to document changes in the LLM Wiki
+description: Approve current task — triggers /wiki (update playbook) to document changes in the LLM Wiki
 ---
 
 A tarefa anterior foi aprovada pelo usuário.
 
-Execute a skill `wiki-update` agora:
+Execute a skill `wiki` (playbook update — `skills/wiki/playbooks/update.md`) agora:
 
 1. Levante o diff de git da sessão atual.
 2. Atualize `brain/index.md` com data + resumo executivo.
