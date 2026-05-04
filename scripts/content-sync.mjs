@@ -13,7 +13,7 @@ const PAYLOAD_CONFIG = join(PROJECT_ROOT, "web/payload.config.ts");
 if (!existsSync(PAYLOAD_CONFIG)) {
   console.log("ℹ️  Payload não detectado em web/payload.config.ts.");
   console.log("    O kit roda em modo estático por padrão.");
-  console.log("    Rode a skill /add-cms quando o gatilho dispar (≥100 páginas/3 meses).");
+  console.log("    Rode a skill /website-cms quando o gatilho dispar (≥100 páginas/3 meses).");
   process.exit(0);
 }
 

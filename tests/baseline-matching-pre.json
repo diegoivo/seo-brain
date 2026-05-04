@@ -1,0 +1,258 @@
+{
+  "summary": {
+    "skills_dir": ".claude/skills",
+    "prompts_total": 20,
+    "top1_correct": 13,
+    "top3_correct": 16,
+    "top5_correct": 17,
+    "top1_pct": "65.0",
+    "top3_pct": "80.0",
+    "top5_pct": "85.0"
+  },
+  "results": [
+    {
+      "prompt": "escrever artigo SEO sobre marketing digital",
+      "accepts": [
+        "content-seo",
+        "artigo",
+        "blogpost"
+      ],
+      "top_match": "blogpost",
+      "top_score": "0.061",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "criar blogpost completo sobre vendas B2B",
+      "accepts": [
+        "content-seo",
+        "blogpost",
+        "artigo"
+      ],
+      "top_match": "site-criar",
+      "top_score": "0.059",
+      "correct_top1": false,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "write SEO article about AI Overviews",
+      "accepts": [
+        "content-seo",
+        "artigo",
+        "blogpost"
+      ],
+      "top_match": "geo-checklist",
+      "top_score": "0.038",
+      "correct_top1": false,
+      "correct_top3": false,
+      "correct_top5": false
+    },
+    {
+      "prompt": "create content brief for keyword research",
+      "accepts": [
+        "content-seo",
+        "intent-analyst",
+        "blogpost"
+      ],
+      "top_match": "intent-analyst",
+      "top_score": "0.031",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "auditar SEO técnico do site",
+      "accepts": [
+        "technical-seo",
+        "seo-tecnico"
+      ],
+      "top_match": "perf-audit",
+      "top_score": "0.073",
+      "correct_top1": false,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "rodar lighthouse e checar core web vitals",
+      "accepts": [
+        "technical-seo",
+        "perf-audit"
+      ],
+      "top_match": "perf-audit",
+      "top_score": "0.070",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "audit technical SEO and schema markup",
+      "accepts": [
+        "technical-seo",
+        "seo-tecnico"
+      ],
+      "top_match": "qa-tech",
+      "top_score": "0.057",
+      "correct_top1": false,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "otimizar imagens do post",
+      "accepts": [
+        "technical-seo",
+        "seo-imagens"
+      ],
+      "top_match": "seo-imagens",
+      "top_score": "0.130",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "pesquisar volume de busca para palavras-chave",
+      "accepts": [
+        "seo-data",
+        "keywords-volume"
+      ],
+      "top_match": "keywords-volume",
+      "top_score": "0.132",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "competitor pages analysis",
+      "accepts": [
+        "seo-data",
+        "competitor-pages"
+      ],
+      "top_match": "competitor-pages",
+      "top_score": "0.049",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "para quais keywords concorrente rankeia",
+      "accepts": [
+        "seo-data",
+        "competitor-keywords"
+      ],
+      "top_match": "competitor-keywords",
+      "top_score": "0.103",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "estratégia de SEO para 2026",
+      "accepts": [
+        "seo-strategy",
+        "seo-estrategia"
+      ],
+      "top_match": "seo-estrategia",
+      "top_score": "0.071",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "criar topic clusters",
+      "accepts": [
+        "seo-strategy",
+        "seo-estrategia"
+      ],
+      "top_match": "seo-estrategia",
+      "top_score": "0.071",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "começar projeto novo de SEO",
+      "accepts": [
+        "seobrain",
+        "onboard"
+      ],
+      "top_match": "design-init",
+      "top_score": "0.077",
+      "correct_top1": false,
+      "correct_top3": false,
+      "correct_top5": true
+    },
+    {
+      "prompt": "iniciar onboarding do framework",
+      "accepts": [
+        "seobrain",
+        "onboard"
+      ],
+      "top_match": "onboard-brandbook",
+      "top_score": "0.043",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "criar site Next.js com SEO",
+      "accepts": [
+        "website-create",
+        "site-criar"
+      ],
+      "top_match": "web-best-practices",
+      "top_score": "0.114",
+      "correct_top1": false,
+      "correct_top3": false,
+      "correct_top5": false
+    },
+    {
+      "prompt": "configurar email com Resend no projeto",
+      "accepts": [
+        "website-email",
+        "setup-email"
+      ],
+      "top_match": "setup-email",
+      "top_score": "0.081",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "validar voz da marca no artigo",
+      "accepts": [
+        "content-seo-review",
+        "qa-content"
+      ],
+      "top_match": "qa-content",
+      "top_score": "0.063",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "criar design system pra marca nova",
+      "accepts": [
+        "branding-init",
+        "design-init"
+      ],
+      "top_match": "design-init",
+      "top_score": "0.111",
+      "correct_top1": true,
+      "correct_top3": true,
+      "correct_top5": true
+    },
+    {
+      "prompt": "qa antes do deploy",
+      "accepts": [
+        "qa",
+        "qa-design"
+      ],
+      "top_match": "seobrain-ship",
+      "top_score": "0.047",
+      "correct_top1": false,
+      "correct_top3": false,
+      "correct_top5": false
+    }
+  ]
+}

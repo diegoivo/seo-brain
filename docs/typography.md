@@ -8,7 +8,7 @@ status: initialized
 
 # Tipografia — sistema canônico do SEO Brain
 
-> Tipografia é o ingrediente que mais distingue site sério de site genérico. Como o usuário não tem briefing de tipografia para cada projeto, o framework já vem com um sistema **opinativo, calibrado para leitura longa, anti-AI-slop**. Quando `/onboard` definir as fontes específicas, só os tokens de `font-family` mudam — escala, ritmo e regras permanecem.
+> Tipografia é o ingrediente que mais distingue site sério de site genérico. Como o usuário não tem briefing de tipografia para cada projeto, o framework já vem com um sistema **opinativo, calibrado para leitura longa, anti-AI-slop**. Quando `/seobrain:start` definir as fontes específicas, só os tokens de `font-family` mudam — escala, ritmo e regras permanecem.
 
 ## Decisões fechadas
 
@@ -99,6 +99,6 @@ Em PT-BR, hyphens auto funciona em Chrome/Edge/Safari. Em Firefox depende do `la
 
 ## Aplicação no SEO Brain
 
-Tokens vivem em `web/src/app/globals.css`. As fontes (`--font-display`, `--font-body`, `--font-mono`) são preenchidas pelo `/design-init` — escala e ritmo são herdados sem mudança.
+Tokens vivem em `web/src/app/globals.css`. As fontes (`--font-display`, `--font-body`, `--font-mono`) são preenchidas pelo `/branding-init` — escala e ritmo são herdados sem mudança.
 
-Pré-onboard, o site usa system fonts (não AI-slop, não dependente de Google Fonts). Pós-onboard, `/design-init` escolhe da whitelist em `/web-best-practices` (Google Fonts / Bunny Fonts / OFL — todas gratuitas).
+Pré-onboard, o site usa system fonts (não AI-slop, não dependente de Google Fonts). Pós-onboard, `/branding-init` escolhe da whitelist em `/website-bestpractices` (Google Fonts / Bunny Fonts / OFL — todas gratuitas).

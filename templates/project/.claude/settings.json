@@ -1,25 +1,4 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ../../scripts/session-start.mjs"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ../../scripts/pre-tool-use.mjs"
-          }
-        ]
-      }
-    ]
-  }
+  "// hooks": "Hooks são registrados pelo plugin SEO Brain (.claude-plugin/plugin.json + hooks/hooks.json). Não duplicar aqui — evita double-firing.",
+  "// note": "Esse arquivo existe pra overrides per-project (env vars, allowed tools, etc). Vazio por padrão."
 }

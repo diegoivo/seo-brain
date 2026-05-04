@@ -1,0 +1,9 @@
+{
+  "mode": "pre",
+  "agents_md_lines": 186,
+  "agents_md_tokens": 2232,
+  "skills_count": 33,
+  "skills_frontmatter_tokens": 2820,
+  "total_session_start_tokens": 5052,
+  "note": "Conservative: 12 tokens/line. AGENTS.md fully loaded via @import in CLAUDE.md."
+}
