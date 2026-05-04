@@ -3,6 +3,9 @@
   "description": "SEO + GEO toolkit for Claude Code — technical audit, content brief, blogpost generator, SERP analysis, competitor research, schema markup, E-E-A-T scoring, AI Overviews optimization. Brazilian Portuguese voice + bilingual triggers (PT/EN).",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
   "homepage": "https://github.com/diegoivo/seobrain",
   "repository": "https://github.com/diegoivo/seobrain",
   "bin": {

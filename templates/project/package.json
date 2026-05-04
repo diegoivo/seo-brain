@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
   "seobrain-project": true,
   "scripts": {
     "brain:lint": "node ../../scripts/brain-lint.mjs",
@@ -11,6 +14,8 @@
     "perf:audit": "node ../../scripts/perf-audit.mjs",
     "content:sync": "node ../../scripts/content-sync.mjs",
     "images:search": "node ../../scripts/image-search.mjs",
+    "dataforseo:config": "node ../../scripts/dataforseo-config.mjs",
+    "rank-tracker": "node ../../scripts/rank-tracker.mjs",
     "web:dev": "cd web && npm run dev",
     "web:build": "cd web && npm run build",
     "web:install": "cd web && npm install"

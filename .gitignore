@@ -10,6 +10,7 @@ out/
 *.log
 .claude/skills/_external/
 .claude/skills-lock.json
+.claude/scheduled_tasks.lock
 
 # Multi-projeto: tudo do usuário fica fora do repo do framework
 projects/*

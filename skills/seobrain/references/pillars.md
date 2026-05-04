@@ -57,6 +57,10 @@ Quem importa visual de site existente: `/branding-clone` extrai tokens + valida 
 - Relevant Pages API — top 100 URLs orgânicas (~$0.30/domínio)
 - Ranked Keywords API — top 100 keywords ranqueadas (~$0.30/domínio)
 
+Skills auxiliares do mesmo pilar:
+- `/dataforseo-config` — setup interativo de credenciais via form local (porta aleatória em 127.0.0.1, valida via endpoint gratuito, grava `.env.local`).
+- `/rank-tracker` — monitor de posições orgânicas no Google. Sub-comandos `add` / `remove` / `list` / `update` / `history`. 3 modos com trade-offs claros entre tempo e custo (batch async high default, batch async normal opt-in, live síncrono opt-in). Storage híbrido: `keywords.json` (config) + SQLite (snapshots time-series, `node:sqlite` nativo) + reports md/csv/json.
+
 Todas: cost preview obrigatório, locale BR/pt-br default, output triplo (`.md` + `.csv` + `.json`).
 
 **Roadmap v0.2.0:** abstração de provider (`KeywordProvider` interface) para suportar Google Search Console (free), GA4, attribution.
