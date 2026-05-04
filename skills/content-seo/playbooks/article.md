@@ -109,7 +109,7 @@ Se algum **high** falha, **refazer** antes de entregar. Não publique 47 palavra
 Roda checklist de URL/H1/intro/visuais/links.
 
 ### 11. Cover image obrigatória
-Se `cover_image` ausente, dispare `/branding-images` para gerar/escolher antes de salvar.
+Se `cover_image` ausente, dispare o fluxo de imagens da branding (skill em rebuild em outra branch) para gerar/escolher antes de salvar.
 
 ### 12. Indexação
 Adiciona em `content/posts/index.md` (lista cronológica) com link, data, categoria, cover.

@@ -96,7 +96,7 @@ Output salvo em:
 
 Próximos passos:
 - /seo-data <dominio> — quais keywords levam tráfego pra estas páginas
-- /seo-strategy — usa esses dados pra propor topic clusters
+- /technical-seo (strategy playbook) — usa esses dados pra propor topic clusters
 - /content-seo <topico> — escrever skyscraper sobre tópico dominante
 ```
 

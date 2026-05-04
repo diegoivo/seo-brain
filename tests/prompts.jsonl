@@ -1,20 +1,26 @@
-{"id": 1, "prompt": "escrever artigo SEO sobre marketing digital", "accepts": ["content-seo", "artigo", "blogpost"], "lang": "pt"}
-{"id": 2, "prompt": "criar blogpost completo sobre vendas B2B", "accepts": ["content-seo", "blogpost", "artigo"], "lang": "pt"}
-{"id": 3, "prompt": "write SEO article about AI Overviews", "accepts": ["content-seo", "artigo", "blogpost"], "lang": "en"}
-{"id": 4, "prompt": "create content brief for keyword research", "accepts": ["content-seo", "intent-analyst", "blogpost"], "lang": "en"}
-{"id": 5, "prompt": "auditar SEO técnico do site", "accepts": ["technical-seo", "seo-tecnico"], "lang": "pt"}
-{"id": 6, "prompt": "rodar lighthouse e checar core web vitals", "accepts": ["technical-seo", "perf-audit"], "lang": "pt"}
-{"id": 7, "prompt": "audit technical SEO and schema markup", "accepts": ["technical-seo", "seo-tecnico"], "lang": "en"}
-{"id": 8, "prompt": "otimizar imagens do post", "accepts": ["technical-seo", "seo-imagens"], "lang": "pt"}
-{"id": 9, "prompt": "pesquisar volume de busca para palavras-chave", "accepts": ["seo-data", "keywords-volume"], "lang": "pt"}
-{"id": 10, "prompt": "competitor pages analysis", "accepts": ["seo-data", "competitor-pages"], "lang": "en"}
-{"id": 11, "prompt": "para quais keywords concorrente rankeia", "accepts": ["seo-data", "competitor-keywords"], "lang": "pt"}
-{"id": 12, "prompt": "estratégia de SEO para 2026", "accepts": ["seo-strategy", "seo-estrategia"], "lang": "pt"}
-{"id": 13, "prompt": "criar topic clusters", "accepts": ["seo-strategy", "seo-estrategia"], "lang": "pt"}
-{"id": 14, "prompt": "começar projeto novo de SEO", "accepts": ["seobrain", "onboard"], "lang": "pt"}
-{"id": 15, "prompt": "iniciar onboarding do framework", "accepts": ["seobrain", "onboard"], "lang": "pt"}
-{"id": 16, "prompt": "criar site Next.js com SEO", "accepts": ["website-create", "site-criar"], "lang": "pt"}
-{"id": 17, "prompt": "configurar email com Resend no projeto", "accepts": ["website-email", "setup-email"], "lang": "pt"}
-{"id": 18, "prompt": "validar voz da marca no artigo", "accepts": ["content-seo-review", "qa-content"], "lang": "pt"}
-{"id": 19, "prompt": "criar design system pra marca nova", "accepts": ["branding-init", "design-init"], "lang": "pt"}
-{"id": 20, "prompt": "qa antes do deploy", "accepts": ["qa", "qa-design"], "lang": "pt"}
+{"id": 1, "prompt": "escrever artigo SEO sobre marketing digital", "accepts": ["content-seo"], "lang": "pt"}
+{"id": 2, "prompt": "criar blogpost completo sobre vendas B2B", "accepts": ["content-seo"], "lang": "pt"}
+{"id": 3, "prompt": "write SEO article about AI Overviews", "accepts": ["content-seo"], "lang": "en"}
+{"id": 4, "prompt": "create content brief for keyword research", "accepts": ["content-seo"], "lang": "en"}
+{"id": 5, "prompt": "auditar SEO técnico do site", "accepts": ["technical-seo"], "lang": "pt"}
+{"id": 6, "prompt": "rodar lighthouse e checar core web vitals", "accepts": ["technical-seo"], "lang": "pt"}
+{"id": 7, "prompt": "audit technical SEO and schema markup", "accepts": ["technical-seo"], "lang": "en"}
+{"id": 8, "prompt": "otimizar imagens do post", "accepts": ["technical-seo"], "lang": "pt"}
+{"id": 9, "prompt": "pesquisar volume de busca para palavras-chave", "accepts": ["seo-data"], "lang": "pt"}
+{"id": 10, "prompt": "competitor pages analysis", "accepts": ["seo-data"], "lang": "en"}
+{"id": 11, "prompt": "para quais keywords concorrente rankeia", "accepts": ["seo-data"], "lang": "pt"}
+{"id": 12, "prompt": "estratégia de SEO para 2026", "accepts": ["technical-seo"], "lang": "pt"}
+{"id": 13, "prompt": "criar topic clusters", "accepts": ["technical-seo"], "lang": "pt"}
+{"id": 14, "prompt": "começar projeto novo de SEO", "accepts": ["seobrain"], "lang": "pt"}
+{"id": 15, "prompt": "iniciar onboarding do framework", "accepts": ["seobrain"], "lang": "pt"}
+{"id": 16, "prompt": "criar site Next.js com SEO", "accepts": ["website"], "lang": "pt"}
+{"id": 17, "prompt": "configurar email com Resend no projeto", "accepts": ["website"], "lang": "pt"}
+{"id": 18, "prompt": "validar voz da marca no artigo", "accepts": ["content-seo"], "lang": "pt"}
+{"id": 19, "prompt": "popular brain do projeto", "accepts": ["wiki"], "lang": "pt"}
+{"id": 20, "prompt": "qa antes do deploy", "accepts": ["qa"], "lang": "pt"}
+{"id": 21, "prompt": "configurar credenciais DataForSEO", "accepts": ["seo-data"], "lang": "pt"}
+{"id": 22, "prompt": "configurar domínio Vercel", "accepts": ["website"], "lang": "pt"}
+{"id": 23, "prompt": "validar build e lighthouse antes do PR", "accepts": ["website", "qa"], "lang": "pt"}
+{"id": 24, "prompt": "atualizar wiki após tarefa concluída", "accepts": ["wiki"], "lang": "pt"}
+{"id": 25, "prompt": "monitor de posições no Google", "accepts": ["rank-tracker"], "lang": "pt"}
+{"id": 26, "prompt": "analisar dados do Google Search Console", "accepts": ["gsc-google-search-console"], "lang": "pt"}

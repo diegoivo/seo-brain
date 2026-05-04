@@ -1,14 +1,4 @@
----
-name: seo-strategy
-description: SEO strategy planning in 7 consolidated steps — competitor analysis, technical health, positioning, keyword mapping, topic clusters, linkbait, link building. Use when user asks "SEO strategy", "estratégia de SEO", "plano de SEO", "como crescer no SEO", "topic cluster", "growth plan", "SEO roadmap", "competitive analysis", "link building plan", or when starting a project that needs growth strategy beyond per-page optimization. Renamed from /seo-estrategia (v0.1.0).
-allowed-tools:
-  - Read
-  - Write
-  - WebFetch
-  - WebSearch
----
-
-# Estratégia de SEO
+# Playbook: technical-seo strategy (planejamento estratégico em 7 passos)
 
 Aplica a estratégia em 7 passos. Foco em projetos que querem dominar um nicho em 12-24 meses.
 
@@ -29,7 +19,7 @@ Aplica a estratégia em 7 passos. Foco em projetos que querem dominar um nicho e
 ### 2. Saúde técnica primeiro
 - Antes de tudo, garanta SEO técnico.
 - Foque em pontos com **menor esforço e maior potencial** de gerar resultado.
-- Use a skill `seo-tecnico` para auditoria.
+- Use os outros playbooks de `/technical-seo` (full-audit, single-page, performance, images) para auditoria.
 
 ### 3. Posicionamento de marca
 - A marca **precisa ter potencial** de ser uma das maiores do nicho.
@@ -38,11 +28,11 @@ Aplica a estratégia em 7 passos. Foco em projetos que querem dominar um nicho e
 
 ### 4. Mapeamento de palavras-chave
 - Liste keywords que você **e os 3 concorrentes** compartilham.
-- SEMrush facilita a extração.
+- SEMrush facilita a extração. Use também `/seo-data` (keywords-volume, competitor-keywords).
 - Identifique keywords que você **já ranqueia mas atrás** dos concorrentes — são as oportunidades de impacto rápido.
 
 ### 5. Páginas de maior tráfego dos concorrentes
-- Mapeie quais páginas geram mais tráfego para cada concorrente.
+- Mapeie quais páginas geram mais tráfego para cada concorrente. Use `/seo-data` competitor-pages.
 - Recrie/melhore suas páginas existentes.
 - Crie novas páginas onde houver gap.
 - Otimize cada uma para superar todas as palavras-chave relevantes.
@@ -54,7 +44,7 @@ Aplica a estratégia em 7 passos. Foco em projetos que querem dominar um nicho e
 - Documente o mapa de clusters em `brain/seo/clusters.md`.
 
 ### 7. Conteúdo, linkbait e link building (nesta ordem)
-- **Conteúdo de qualidade** — menor quantidade, mais qualidade.
+- **Conteúdo de qualidade** — menor quantidade, mais qualidade. Via `/content-seo`.
 - **Linkbait** — páginas altamente lincáveis (dados exclusivos, pesquisas próprias, ferramentas).
 - **Link building com assessoria de imprensa (Data-Driven PR)** — não compre links, não troque, não faça guest post.
 

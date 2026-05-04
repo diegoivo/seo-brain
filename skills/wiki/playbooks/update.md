@@ -1,14 +1,4 @@
----
-name: wiki-update
-description: Update LLM Wiki (brain/) with learnings, decisions, and changes from last completed task. Triggered by /approved slash command. Updates brain/index.md (date + executive summary), brain/backlog.md (pending items), brain/tecnologia/, brain/glossario/, content/*/index.md as applicable. Identifies repeatable patterns and suggests skill conversion. Use when user asks "update brain", "atualizar wiki", "documentar mudanças", "save learnings", "update knowledge base", or after task approval via /approved. Renamed from /update-brain (v0.1.0).
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
----
-
-# Update Brain
+# Playbook: wiki update
 
 Roda ao final de cada tarefa aprovada. Mantém o Brain como source-of-truth atualizada.
 
@@ -41,7 +31,7 @@ Roda ao final de cada tarefa aprovada. Mantém o Brain como source-of-truth atua
 
 4. **Pergunte sobre skills**:
    - "Esta tarefa pareceu repetível. Quer transformar em skill?"
-   - Se sim, sugira nome + descrição e crie em `.claude/skills/<name>/SKILL.md`.
+   - Se sim, sugira nome + descrição e crie em `skills/<name>/SKILL.md`.
 
 5. **Confirmação final**:
    - Mostre o diff das mudanças no Brain.

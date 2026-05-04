@@ -111,7 +111,7 @@ Output em brain/seo/data/competitors/conversion-com-br-keywords-2026-05-03.{md,c
 
 Próximos passos:
 - /seo-data <dominio> — ver quais URLs do concorrente concentram esse tráfego
-- /seo-strategy — usar esses dados pra topic clusters do nosso site
+- /technical-seo (strategy playbook) — usar esses dados pra topic clusters do nosso site
 - /content-seo <quick-win-keyword> — atacar keyword em P11-20 com volume
 ```
 

@@ -169,7 +169,7 @@ Mais:
 - Antivícios IA banidos (lista em `brain/tom-de-voz.md`).
 - Cada H2 abre com afirmação proprietária, depois desenvolve com evidência.
 - TL;DR no topo. FAQs antes do fechamento.
-- JSON-LD `Article` + `FAQPage` (se houver FAQs) — schemas via `/website-bestpractices`.
+- JSON-LD `Article` + `FAQPage` (se houver FAQs) — schemas via `/website` references/bestpractices.md.
 
 **Pós-escrita (auto):**
 1. `node scripts/article-quality.mjs <path>` — valida tamanho, parágrafos, bullets, antivícios.

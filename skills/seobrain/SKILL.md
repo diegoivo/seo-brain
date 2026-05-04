@@ -53,7 +53,7 @@ Detectado por `brain/index.md` com `kit_state: template`. Hook session-start já
 
 ```
 /seobrain:start
-  → orquestra wiki-init (brain) + branding-onboard (visual) em sequência
+  → orquestra /wiki (init playbook) + /branding (onboard, quando reintegrado) em sequência
   → modo Express default (~10min, 18 perguntas)
   → modo Guiado disponível (50min, 35 perguntas)
   → modo Auto (LLM preenche tudo, usuário ajusta)
@@ -81,16 +81,16 @@ Ver `references/multi-project-model.md` (paths, isolamento, npm run new).
 
 Ver `references/pillars.md` para detalhamento de cada pilar.
 
-| Pilar | Skills principais |
+| Pilar | Skill (consolidada) |
 |---|---|
-| **LLM Wiki** (substrato) | `wiki-init`, `wiki-update`, `wiki-lint` |
-| **Branding** | `branding-init`, `branding-onboard`, `branding-clone`, `branding-brandbook`, `branding-images`, `branding-review` |
-| **Content SEO** | `content-seo`, `content-seo-review` |
-| **Technical SEO** | `technical-seo`, `seo-strategy` |
-| **SEO Data** | `seo-data` |
-| **Website** | `website-create`, `website-bestpractices`, `website-cms`, `website-domain`, `website-email`, `website-qa` |
+| **LLM Wiki** (substrato) | `wiki` (playbooks: init, update, lint) |
+| **Branding** | (em rebuild em outra branch — pacote temporariamente removido) |
+| **Content SEO** | `content-seo` (playbooks: article, blogpost, intent-analysis, review) |
+| **Technical SEO** | `technical-seo` (playbooks: full-audit, single-page, images, performance, strategy) |
+| **SEO Data** | `seo-data` (playbooks: keywords-volume, competitor-pages, competitor-keywords, config), `gsc-google-search-console`, `rank-tracker` |
+| **Website** | `website` (playbooks: create, domain, email, cms, qa + references/bestpractices.md + snippets/) |
 
-Pipeline auxiliares: `plan`, `ship`, `approved`, `qa` (orquestrador paralelo dos 3 reviewers).
+Pipeline auxiliares: `plan`, `ship`, `approved`, `qa` (orquestrador paralelo dos reviewers de domínio).
 
 ## Compatibilidade com outros harnesses
 

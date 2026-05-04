@@ -1,19 +1,10 @@
----
-name: website-bestpractices
-description: Canonical Next.js + Vercel snippet library for Lighthouse 95+ and SEO 100 by construction. Covers next/font, next/image, JSON-LD schema, sitemap, robots, llms.txt, OpenGraph, accessibility. Mandatorily consulted by /website-create skill. Use when user asks "Next.js best practices", "Lighthouse 100", "next-image setup", "criar página Next", "configurar SEO técnico", "otimizar performance", "OpenGraph setup", "schema markup", "snippets de componente Next", or when debugging Lighthouse below 95. Renamed from /web-best-practices (v0.1.0).
-allowed-tools:
-  - Read
-  - Write
-  - Edit
----
-
 # Web Best Practices — Vercel + Next.js
 
-Biblioteca de snippets canônicos. **Não improvise** — copie daqui e adapte só os valores.
+Biblioteca de snippets canônicos. **Não improvise** — copie daqui e adapte só os valores. Mandatorily consultado pelo `playbooks/create.md`.
 
 ## Componentes prontos (não reescrever)
 
-Os snippets canônicos vivem em `skills/website-bestpractices/snippets/`:
+Os snippets canônicos vivem em `skills/website/snippets/`:
 
 - **`Hero.tsx`** — primeiro viewport, foto à direita, CTAs
 - **`PostCard.tsx`** — card de blog com cover_image obrigatória (thumbnail default)
@@ -337,7 +328,7 @@ Tudo mais é Server Component (default). Reduz JS shipado, melhora TTI.
 }
 ```
 
-Os valores `--bg`, `--fg` vêm de `brain/DESIGN.tokens.json` (gerado por `/branding-init`). Não inventar.
+Os valores `--bg`, `--fg` vêm de `brain/DESIGN.tokens.json` (gerado pelo fluxo de branding). Não inventar.
 
 ## 13. Footer credit (sugestão default)
 
@@ -385,7 +376,7 @@ Deve caber em `100dvh` mobile e `~80vh` desktop sem scroll.
 
 ## Checklist final ao criar página
 
-Use ao terminar `/website-create` (ou edição de qualquer página) antes de entregar:
+Use ao terminar `playbooks/create.md` (ou edição de qualquer página) antes de entregar:
 
 - [ ] `next.config.ts` sem `output: "export"` (Vercel default)
 - [ ] Fontes via `next/font` (não `<link>`)

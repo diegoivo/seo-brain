@@ -1,17 +1,4 @@
----
-name: wiki-init
-description: LLM Wiki initialization (phase 1 of project onboarding) — populates brain/ with identity, positioning, personas, proprietary POVs, voice, scope, deploy config. Re-runnable in isolation. Accepts mode (auto/express/guiado), initial response, optional research from /seobrain:start orchestrator. Proprietary POVs are blocking — no consensus of market. Use when user asks "init brain", "populate wiki", "popular o brain", "rodar fase brain", "refazer o brain", "LLM wiki setup", "knowledge base init", or when /seobrain:start invokes phase 1. Renamed from /onboard-brain (v0.1.0).
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Grep
-  - WebSearch
-  - WebFetch
----
-
-# /wiki-init — fase 1 do onboarding
+# Playbook: wiki init — fase 1 do onboarding
 
 Popula o **Brain** (Karpathy LLM Wiki) deste projeto. Trabalha **uma sub-fase por vez**, com auto-commit ao fim de cada uma.
 
@@ -133,7 +120,7 @@ Após cada sub-fase aprovada:
 
 ```bash
 git add brain/
-git commit -m "chore(wiki-init): <sub-fase> — <slug>"
+git commit -m "chore(wiki): <sub-fase> — <slug>"
 ```
 
 ## Atualização do controle
@@ -156,6 +143,6 @@ Quando todas as sub-fases concluírem: Status: completed.
 ## Conclusão
 
 1. Roda `node scripts/wiki-lint.mjs` — se houver erros, pause e mostre.
-2. Atualiza `brain/log.md` com entrada `## <data> — wiki-init concluído`.
-3. Devolve controle ao orquestrador `/seobrain:start` (que aciona `/branding-onboard`).
-4. Se rodando standalone: pergunta se usuário quer prosseguir para `/branding-onboard`.
+2. Atualiza `brain/log.md` com entrada `## <data> — wiki init concluído`.
+3. Devolve controle ao orquestrador `/seobrain:start` (que aciona `/branding-onboard` quando disponível).
+4. Se rodando standalone: pergunta se usuário quer prosseguir para a próxima fase.

@@ -10,6 +10,6 @@ Pré-checks:
 3. Apresente para aprovação com 2-3 perguntas granulares específicas.
 4. Aguarde aprovação antes de executar.
 
-Última etapa do plano deve sempre ser **atualizar o LLM Wiki** (`config.md`, `tecnologia/index.md`, índices, etc. conforme aplicável). Invocar via `/wiki-update` ou skill `wiki-update`.
+Última etapa do plano deve sempre ser **atualizar o LLM Wiki** (`config.md`, `tecnologia/index.md`, índices, etc. conforme aplicável). Invocar via `/approved` ou skill `wiki` (playbook update).
 
 Detalhes da tarefa: $ARGUMENTS

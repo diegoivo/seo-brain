@@ -1,13 +1,4 @@
----
-name: content-seo-review
-description: Editorial content review — validates brand voice (brain/tom-de-voz.md), Brazilian Portuguese capitalization rules, AI-cliché word detection, proprietary POVs in frontmatter, GEO essentials (TL;DR present, FAQs structured, FAQPage schema, Person schema E-E-A-T signals). Outputs prioritized P0/P1/P2 report in .cache/qa-runs/. Called by /qa orchestrator in parallel. Use when user asks "validate content", "review article", "validar voz", "content review", "editorial review", "validar artigo", "antivícios IA", "capitalização BR", "POVs check". Renamed from /qa-content (v0.1.0).
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
----
-
-# /content-seo-review — sub-agent QA editorial
+# Playbook: content-seo review (sub-agent QA editorial)
 
 Especialista em copy. Não toca em design ou build. Lê copy de páginas/posts alteradas, compara contra:
 - `brain/tom-de-voz.md` (voz, antivícios, capitalização BR).

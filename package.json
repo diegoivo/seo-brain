@@ -1,6 +1,7 @@
 {
   "name": "seobrain",
-  "description": "SEO + GEO toolkit for Claude Code — technical audit, content brief, blogpost generator, SERP analysis, competitor research, schema markup, E-E-A-T scoring, AI Overviews optimization. Brazilian Portuguese voice + bilingual triggers (PT/EN).",
+  "version": "0.1.5",
+  "description": "SEO + GEO toolkit for Claude Code — technical audit, content brief, blogpost generator, SERP analysis, competitor research, schema markup, E-E-A-T scoring, AI Overviews optimization. Brazilian Portuguese voice + bilingual triggers (PT/EN). Progressive disclosure: 11 consolidated skills with playbooks.",
   "private": true,
   "type": "module",
   "engines": {

@@ -1,20 +1,11 @@
----
-name: dataforseo-config
-description: Configura credenciais do DataForSEO via servidor HTTP local efêmero. Sobe form em 127.0.0.1 (porta aleatória), abre navegador, valida API Login/Password com endpoint gratuito (/v3/appendix/user_data), grava em .env.local com upsert (preserva outras vars), encerra. Use quando o usuário pedir "configurar DataForSEO", "credenciais DataForSEO", "setup DataForSEO", "salvar API key DataForSEO". Pré-condição: rodar de dentro de projects/<nome>/. Pilar Dados.
-allowed-tools:
-  - Read
-  - Write
-  - Bash
----
-
-# /dataforseo-config — setup interativo de credenciais
+# Playbook: seo-data config (DataForSEO credenciais)
 
 Sobe um form HTTP local pra capturar `DATAFORSEO_LOGIN` e `DATAFORSEO_PASSWORD`, valida via call gratuita ao DataForSEO, e grava em `.env.local` do projeto ativo.
 
 ## Quando usar
 
 - Usuário acabou de criar conta no DataForSEO e quer configurar.
-- `/keywords-volume`, `/competitor-pages`, `/competitor-keywords` ou `/rank-tracker` aborta com "credenciais ausentes".
+- Outros playbooks de `/seo-data` (keywords-volume, competitor-pages, competitor-keywords) ou `/rank-tracker` abortaram com "credenciais ausentes".
 - Usuário quer trocar credenciais (ex.: rotacionou senha).
 
 ## Pré-requisitos
@@ -42,12 +33,12 @@ cd projects/<nome>
 node ../../scripts/dataforseo-config.mjs
 ```
 
-Em Claude Code: `/dataforseo-config`. Em harness sem slash: "configurar DataForSEO".
+Em Claude Code: `/seo-data` (e o usuário pede "configurar DataForSEO"). Em harness sem slash: "configurar DataForSEO".
 
 ## Output
 
 - `projects/<nome>/.env.local` — upsert das duas vars (não clobber).
-- Terminal: URL local + saldo após sucesso + dica de próximo passo (`/rank-tracker add ...`).
+- Terminal: URL local + saldo após sucesso + dica de próximo passo (`/rank-tracker add ...` ou `/seo-data` keywords-volume).
 
 ## Segurança
 
