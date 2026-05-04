@@ -1,0 +1,18 @@
+{
+  "name": "PROJECT_NAME",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "seobrain-project": true,
+  "scripts": {
+    "brain:lint": "node ../../scripts/brain-lint.mjs",
+    "brain:lint:strict": "node ../../scripts/brain-lint.mjs --strict",
+    "seo:score": "node ../../scripts/seo-score.mjs",
+    "perf:audit": "node ../../scripts/perf-audit.mjs",
+    "content:sync": "node ../../scripts/content-sync.mjs",
+    "images:search": "node ../../scripts/image-search.mjs",
+    "web:dev": "cd web && npm run dev",
+    "web:build": "cd web && npm run build",
+    "web:install": "cd web && npm install"
+  }
+}

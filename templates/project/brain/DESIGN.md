@@ -23,7 +23,7 @@ sources: []
 
 ## Tipografia (canônica do framework)
 
-A escala e o ritmo são fixos; só `font-family` muda no `/onboard`. Filosofia documentada em [[../docs/typography]]. Resumo:
+A escala e o ritmo são fixos; só `font-family` muda no `/onboard`. Filosofia documentada em `docs/typography.md` no repo do framework. Resumo:
 
 - **Escala**: perfect fourth (1.333) sobre body 1.125rem (18px). Tokens `--text-xs` → `--text-4xl`.
 - **Line-height**: 1.7 em body, 1.05–1.2 em headings.
@@ -36,7 +36,7 @@ Whitelist de fontes (gratuitas, OFL/SIL): em `/web-best-practices`. Pré-onboard
 
 ## Sistema de grid (canônico do framework)
 
-Todo site SEO Brain usa **CSS Grid 12 colunas + Subgrid + Container Queries**. Filosofia documentada em [[../docs/grid-system]]. Resumo:
+Todo site SEO Brain usa **CSS Grid 12 colunas + Subgrid + Container Queries**. Filosofia documentada em `docs/grid-system.md` no repo do framework. Resumo:
 
 - **12 colunas** padrão (responsivo: 4 mobile, 8 tablet, 12 desktop)
 - **Subgrid** para alinhar cards/sidebar com o grid pai (Safari 16+, Chrome 117+, Firefox 71+)

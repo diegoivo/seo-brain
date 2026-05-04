@@ -5,8 +5,11 @@
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { join, basename } from "node:path";
+import { join, basename, isAbsolute } from "node:path";
 import { argv, exit } from "node:process";
+import { requireProjectRoot } from "./lib/project-root.mjs";
+
+const PROJECT_ROOT = requireProjectRoot();
 
 const WEIGHTS = {
   cwv: 20,
@@ -38,7 +41,9 @@ if (!args.target) {
 }
 
 const mode = args.mode ?? (args.target.startsWith("http") ? "prod" : "local");
-const outDir = args.out ?? "brain/seo/reports";
+const outDir = args.out
+  ? (isAbsolute(args.out) ? args.out : join(PROJECT_ROOT, args.out))
+  : join(PROJECT_ROOT, "brain/seo/reports");
 const profile = resolveProfile(args.profile, args.target);
 const profileFlags = PROFILES[profile];
 

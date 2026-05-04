@@ -17,13 +17,11 @@
 //   UNSPLASH_ACCESS_KEY https://unsplash.com/developers (free, 50 req/h)
 
 import { writeFile, mkdir } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { existsSync } from "node:fs";
-import { config } from "node:process";
+import { requireProjectRoot } from "./lib/project-root.mjs";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = dirname(__dirname);
+const ROOT = requireProjectRoot();
 
 // ---------- carrega .env.local se existir ----------
 async function loadEnv() {

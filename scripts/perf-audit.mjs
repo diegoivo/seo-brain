@@ -5,9 +5,11 @@
 import { spawn } from "node:child_process";
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { join } from "node:path";
+import { join, isAbsolute } from "node:path";
 import { argv, env, exit } from "node:process";
+import { requireProjectRoot } from "./lib/project-root.mjs";
 
+const PROJECT_ROOT = requireProjectRoot();
 const args = parseArgs(argv.slice(2));
 const url = args.url ?? (await readDomainFromBrain());
 if (!url) {
@@ -17,7 +19,9 @@ if (!url) {
 }
 
 const strategy = args.strategy ?? "mobile";
-const outDir = args.out ?? "brain/seo/reports";
+const outDir = args.out
+  ? (isAbsolute(args.out) ? args.out : join(PROJECT_ROOT, args.out))
+  : join(PROJECT_ROOT, "brain/seo/reports");
 
 console.log(`\n🔍 Auditando ${url} (${strategy})...`);
 
@@ -199,7 +203,7 @@ ${issues || "_Nenhuma issue significativa._"}
 }
 
 async function readDomainFromBrain() {
-  const path = "brain/index.md";
+  const path = join(PROJECT_ROOT, "brain/index.md");
   if (!existsSync(path)) return null;
   const content = await readFile(path, "utf8");
   const m = content.match(/^.*Dom[ií]nio.*?:\s*[`'"]?([^`'"\s\n]+)/im);

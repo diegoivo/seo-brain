@@ -1,57 +1,72 @@
 #!/usr/bin/env node
 // SessionStart hook — injeta contexto inicial no Claude Code.
-// Detecta estado do kit (template vs initialized) via frontmatter kit_state.
+// Detecta o contexto do agente:
+//   1. Raiz do framework (sem projeto ativo) → orienta a fazer cd ou /new
+//   2. Dentro de um projeto, brain template → orienta /onboard
+//   3. Dentro de um projeto inicializado → checks de freshness
 
-import { existsSync, statSync, readFileSync } from "node:fs";
+import { existsSync, statSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import {
+  resolveProjectRoot,
+  isFrameworkRoot,
+  resolveFrameworkRoot,
+} from "./lib/project-root.mjs";
 
-const ROOT = process.cwd();
 const FRESHNESS_DAYS = 30;
 const messages = [];
 
-const BRAIN_FILES = [
-  "brain/index.md",
-  "brain/personas.md",
-  "brain/principios-agentic-seo.md",
-  "brain/tom-de-voz.md",
-  "brain/tecnologia/index.md",
-  "brain/DESIGN.md",
-  "brain/backlog.md",
-  "brain/glossario/index.md",
-];
+const projectRoot = resolveProjectRoot();
+const frameworkRoot = resolveFrameworkRoot();
 
-const templated = [];
-for (const f of BRAIN_FILES) {
-  const path = join(ROOT, f);
-  if (!existsSync(path)) continue;
-  const state = readKitState(path);
-  if (state === "template") templated.push(f);
-}
-
-if (templated.length === BRAIN_FILES.length) {
-  // Estado template integral — primeira execução.
-  messages.push("🚀 Kit em estado TEMPLATE. Rode /onboard para iniciar seu projeto.");
-  messages.push("   18 perguntas em 5 fases (~10 min). Sem isso, qualquer site/conteúdo gerado vai usar defaults genéricos.");
-} else if (templated.length > 0) {
-  // Onboard parcial.
-  messages.push("⚠️  Onboarding incompleto. Arquivos ainda em estado template:");
-  for (const f of templated) messages.push(`   - ${f}`);
-  messages.push("   Rode /onboard para retomar.");
+if (!projectRoot && isFrameworkRoot()) {
+  // Modo 1 — desenvolvimento do framework, sem projeto ativo.
+  const projects = listProjects(frameworkRoot);
+  messages.push("🧠 SEO Brain framework — modo desenvolvimento (sem projeto ativo).");
+  if (projects.length === 0) {
+    messages.push("   Nenhum projeto criado ainda. Para começar:");
+    messages.push("     npm run new <nome>");
+  } else {
+    messages.push("   Projetos disponíveis:");
+    for (const p of projects) messages.push(`     • cd projects/${p}`);
+    messages.push("   Ou crie novo: npm run new <nome>");
+  }
+} else if (!projectRoot) {
+  // Contexto desconhecido. Não opina.
+  process.exit(0);
 } else {
-  // Estado inicializado — checks normais.
-  const brainIndex = join(ROOT, "brain/index.md");
-  if (existsSync(brainIndex)) {
-    const ageDays = (Date.now() - statSync(brainIndex).mtimeMs) / 86400000;
-    if (ageDays > FRESHNESS_DAYS) {
-      messages.push(`📚 brain/index.md tem ${Math.round(ageDays)} dias sem atualização. Considere uma revisão geral.`);
-    }
+  // Modos 2 e 3 — agente está dentro de um projeto.
+  const BRAIN_FILES = [
+    "brain/index.md",
+    "brain/tom-de-voz.md",
+    "brain/tecnologia/index.md",
+    "brain/DESIGN.md",
+    "brain/backlog.md",
+    "brain/glossario/index.md",
+  ];
+
+  const templated = [];
+  for (const f of BRAIN_FILES) {
+    const path = join(projectRoot, f);
+    if (!existsSync(path)) continue;
+    const state = readKitState(path);
+    if (state === "template") templated.push(f);
   }
 
-  const skillsLock = join(ROOT, ".claude/skills-lock.json");
-  if (existsSync(skillsLock)) {
-    const ageDays = (Date.now() - statSync(skillsLock).mtimeMs) / 86400000;
-    if (ageDays > FRESHNESS_DAYS) {
-      messages.push(`🧰 Skills externas com ${Math.round(ageDays)} dias sem update. Quando conveniente: npm run skills:update`);
+  if (templated.length === BRAIN_FILES.length) {
+    messages.push("🚀 Projeto em estado TEMPLATE. Rode /onboard para iniciar.");
+    messages.push("   Sem isso, qualquer site/conteúdo gerado vai usar defaults genéricos.");
+  } else if (templated.length > 0) {
+    messages.push("⚠️  Onboarding incompleto. Arquivos ainda em estado template:");
+    for (const f of templated) messages.push(`   - ${f}`);
+    messages.push("   Rode /onboard para retomar.");
+  } else {
+    const brainIndex = join(projectRoot, "brain/index.md");
+    if (existsSync(brainIndex)) {
+      const ageDays = (Date.now() - statSync(brainIndex).mtimeMs) / 86400000;
+      if (ageDays > FRESHNESS_DAYS) {
+        messages.push(`📚 brain/index.md tem ${Math.round(ageDays)} dias sem atualização. Considere uma revisão geral.`);
+      }
     }
   }
 }
@@ -72,4 +87,12 @@ function readKitState(path) {
   } catch {
     return null;
   }
+}
+
+function listProjects(root) {
+  const dir = join(root, "projects");
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && !e.name.startsWith("."))
+    .map((e) => e.name);
 }

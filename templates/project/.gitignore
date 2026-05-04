@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+.cache/
+.context/
+.env
+.env.local
+.DS_Store
+*.log
+brain/seo/reports/*.json
+brain/seo/reports/*.md
+!brain/seo/reports/.gitkeep
+!brain/seo/reports/index.md

@@ -26,8 +26,12 @@ Ordem importa: brandbook lê `brain/index.md` para puxar mood/posicionamento da 
 
 ## Pré-checks
 
-1. Leia `.cache/onboard.md` se existir → modo `--resume` (continuar de onde parou).
-2. Se algum `kit_state` for `initialized`, avise: "Brain já inicializado. Refazer sobrescreve. Confirma?"
+1. **Confirme projeto ativo (CRÍTICO).** Verifique `pwd`. Você deve estar dentro de `projects/<nome>/`. Se estiver na raiz do framework (sem `package.json` com `"seobrain-project": true`):
+   - Liste projetos existentes em `../projects/` (do framework root) ou peça `pwd` ao usuário.
+   - Sem projeto algum: pergunte se quer criar um novo. Se sim: `cd <framework-root> && npm run new <nome> && cd projects/<nome>`. Depois retome esta skill.
+   - Com projetos existentes: pergunte qual antes de prosseguir.
+2. Leia `.cache/onboard.md` se existir → modo `--resume` (continuar de onde parou).
+3. Se algum `kit_state` for `initialized`, avise: "Brain já inicializado. Refazer sobrescreve. Confirma?"
 
 ---
 

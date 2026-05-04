@@ -1,6 +1,6 @@
 {
   "name": "seobrain",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "SEO Brain — framework experimental de SEO Agêntico. Brain (LLM Wiki Karpathy-style) + Brandbook visual + Conteúdo + SEO técnico por construção.",
   "private": true,
   "type": "module",
@@ -8,20 +8,11 @@
     "seobrain": "scripts/bootstrap.mjs"
   },
   "scripts": {
-    "bootstrap": "node scripts/bootstrap.mjs",
+    "new": "node scripts/new-project.mjs",
     "setup": "npm run skills:install",
     "skills:install": "npx -y skills@latest add vercel-labs/agent-skills -y",
     "skills:update": "npx -y skills@latest update",
-    "skills:list": "npx -y skills@latest list",
-    "seo:score": "node scripts/seo-score.mjs",
-    "brain:lint": "node scripts/brain-lint.mjs",
-    "brain:lint:strict": "node scripts/brain-lint.mjs --strict",
-    "content:sync": "node scripts/content-sync.mjs",
-    "perf:audit": "node scripts/perf-audit.mjs",
-    "images:search": "node scripts/image-search.mjs",
-    "kit:reset-template": "node scripts/kit-reset-template.mjs",
-    "web:dev": "cd web && npm run dev",
-    "web:build": "cd web && npm run build"
+    "skills:list": "npx -y skills@latest list"
   },
   "license": "MIT"
 }

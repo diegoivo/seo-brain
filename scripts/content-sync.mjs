@@ -5,8 +5,10 @@
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { requireProjectRoot } from "./lib/project-root.mjs";
 
-const PAYLOAD_CONFIG = join(process.cwd(), "web/payload.config.ts");
+const PROJECT_ROOT = requireProjectRoot();
+const PAYLOAD_CONFIG = join(PROJECT_ROOT, "web/payload.config.ts");
 
 if (!existsSync(PAYLOAD_CONFIG)) {
   console.log("ℹ️  Payload não detectado em web/payload.config.ts.");

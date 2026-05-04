@@ -8,8 +8,10 @@ import { readdir, readFile, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { argv } from "node:process";
+import { requireProjectRoot, resolveFrameworkRoot } from "./lib/project-root.mjs";
 
-const ROOT = process.cwd();
+const ROOT = requireProjectRoot();
+const FRAMEWORK_ROOT = resolveFrameworkRoot(ROOT);
 const STRICT = argv.includes("--strict");
 const ERRORS = [];
 const WARNINGS = [];
@@ -85,8 +87,14 @@ async function checkBrainEntities() {
 async function checkBrainGraph() {
   // Constrói grafo de wikilinks e detecta orphans + broken refs.
   const brainFiles = await collectMd("brain");
-  // Para resolver wikilinks com `..` que apontam pra fora do brain (ex.: docs/, content/).
-  const externalFiles = [...await collectMd("docs"), ...await collectMd("content")];
+  // Externos: content/ no projeto + docs/ canônico do framework (referenciado via ../../docs).
+  const externalFiles = [...await collectMd("content")];
+  if (FRAMEWORK_ROOT && FRAMEWORK_ROOT !== ROOT) {
+    const frameworkDocs = await collectMdAt(FRAMEWORK_ROOT, "docs");
+    externalFiles.push(...frameworkDocs.map((p) => `../../${p}`));
+  } else {
+    externalFiles.push(...await collectMd("docs"));
+  }
   const allFiles = [...brainFiles, ...externalFiles];
   const inbound = new Map(); // file → count
 
@@ -135,7 +143,11 @@ async function checkStaleClaims(file) {
 }
 
 async function collectMd(dir) {
-  const full = join(ROOT, dir);
+  return collectMdAt(ROOT, dir);
+}
+
+async function collectMdAt(rootDir, dir) {
+  const full = join(rootDir, dir);
   if (!existsSync(full)) return [];
   const out = [];
   await walk(full);
@@ -149,7 +161,7 @@ async function collectMd(dir) {
         if (e.name.startsWith(".")) continue;
         await walk(p);
       } else if (e.name.endsWith(".md")) {
-        out.push(relative(ROOT, p));
+        out.push(relative(rootDir, p));
       }
     }
   }
@@ -179,8 +191,13 @@ function normalizePath(p) {
   const parts = p.split("/");
   const out = [];
   for (const part of parts) {
-    if (part === "..") out.pop();
-    else if (part !== "." && part !== "") out.push(part);
+    if (part === ".." ) {
+      // Se topo é ".." (ou vazio), preserva o ".." (não dá pra subir mais)
+      if (out.length === 0 || out[out.length - 1] === "..") out.push("..");
+      else out.pop();
+    } else if (part !== "." && part !== "") {
+      out.push(part);
+    }
   }
   return out.join("/");
 }

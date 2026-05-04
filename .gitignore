@@ -10,7 +10,11 @@ out/
 *.log
 .claude/skills/_external/
 .claude/skills-lock.json
-brain/seo/reports/*.json
-brain/seo/reports/*.md
-!brain/seo/reports/.gitkeep
-!brain/seo/reports/index.md
+
+# Multi-projeto: tudo do usuário fica fora do repo do framework
+projects/*
+!projects/.gitkeep
+
+# Rascunhos do dev (planos, notas, anotações WIP)
+scratch/*
+!scratch/.gitkeep
