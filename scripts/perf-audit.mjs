@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Perf Audit — PageSpeed Insights primeiro, fallback para Lighthouse local via npx.
-// Uso: node scripts/perf-audit.mjs <url> [--strategy=mobile|desktop] [--out=<dir>]
+// Uso: node scripts/technical-seo.mjs <url> [--strategy=mobile|desktop] [--out=<dir>]
 
 import { spawn } from "node:child_process";
 import { mkdir, writeFile, readFile } from "node:fs/promises";

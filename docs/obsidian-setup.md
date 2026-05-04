@@ -92,16 +92,16 @@ Vira mapa visual da identidade do projeto.
 
 ## Workflow recomendado
 
-1. **Pesquisa/decisão** — agente roda `/onboard-brain` e popula `brain/`.
+1. **Pesquisa/decisão** — agente roda `/wiki-init` e popula `brain/`.
 2. **Revisão** — você abre Obsidian, navega no graph view, ajusta o que está errado direto no editor.
 3. **Append-only de aprendizados** — nova decisão → entrada em `brain/log.md` (Karpathy).
-4. **Atualização guiada** — agente roda `/aprovado` (que dispara `/update-brain`) ao final de tarefas relevantes.
+4. **Atualização guiada** — agente roda `/approved` (que dispara `/wiki-update`) ao final de tarefas relevantes.
 
 ## Comandos do agente que tocam o brain
 
-- `/onboard-brain` — popula a primeira vez.
-- `/update-brain` — atualiza após `/aprovado`.
-- `/brain-lint` — valida frontmatter, wikilinks, freshness.
+- `/wiki-init` — popula a primeira vez.
+- `/wiki-update` — atualiza após `/approved`.
+- `/wiki-lint` — valida frontmatter, wikilinks, freshness.
 
 Tudo em CLI/agent — Obsidian fica como **leitor + editor humano** principal.
 

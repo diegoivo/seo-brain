@@ -103,9 +103,9 @@ Se um destes aparece, **regenere**.
 
 ---
 
-## Como `/onboard-brandbook` escolhe
+## Como `/branding-onboard` escolhe
 
-A skill `/onboard-brandbook` propõe um modelo baseado em sinais do brain:
+A skill `/branding-onboard` propõe um modelo baseado em sinais do brain:
 
 | Sinal | Modelo sugerido |
 |---|---|
@@ -139,7 +139,7 @@ Se for usar imagem de fundo:
 3. **Texto legível** (contrast ratio ≥ 4.5:1 sobre a parte mais clara da imagem).
 4. **Crop intencional** que sirva a composição do hero, não preenchimento.
 
-Skill que ajuda: `/setup-images` (Unsplash/Pexels com queries específicas) e `/seo-imagens` (otimização pós-escolha).
+Skill que ajuda: `/branding-images` (Unsplash/Pexels com queries específicas) e `/technical-seo` (otimização pós-escolha).
 
 ---
 

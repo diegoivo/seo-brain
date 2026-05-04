@@ -17,8 +17,20 @@ import { fileURLToPath } from "node:url";
 import { argv, exit } from "node:process";
 import { resolveFrameworkRoot } from "./lib/project-root.mjs";
 
-const FRAMEWORK_ROOT = resolveFrameworkRoot() ?? resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const TEMPLATE_DIR = join(FRAMEWORK_ROOT, "templates/project");
+// Plugin install path (CLAUDE_PLUGIN_ROOT) — onde o template vive.
+// Quando dev local, fileURLToPath aponta pro repo. Quando rodando como plugin,
+// CLAUDE_PLUGIN_ROOT é setado pelo Claude Code.
+const PLUGIN_ROOT = process.env.CLAUDE_PLUGIN_ROOT
+  ?? resolveFrameworkRoot()
+  ?? resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const TEMPLATE_DIR = join(PLUGIN_ROOT, "templates/project");
+
+// Target dir — onde projeto é criado. Default é process.cwd() se não estiver
+// dentro do framework root (modo plugin). Se cwd === framework root, usa projects/ dentro.
+const userCwd = process.cwd();
+const isInsideFramework = userCwd === PLUGIN_ROOT || userCwd.startsWith(PLUGIN_ROOT + "/");
+const TARGET_BASE = process.env.SEOBRAIN_TARGET_DIR
+  ?? (isInsideFramework ? join(PLUGIN_ROOT, "projects") : userCwd);
 
 const args = argv.slice(2);
 const name = args.find((a) => !a.startsWith("--"));
@@ -36,8 +48,15 @@ if (!isValidName(name)) {
   exit(2);
 }
 
-const projectsDir = join(FRAMEWORK_ROOT, "projects");
+const projectsDir = TARGET_BASE;
 const dest = join(projectsDir, name);
+
+// Reject dangerous targets
+if (dest === "/" || dest === process.env.HOME || dest === userCwd) {
+  console.error(`❌ Target inválido: ${dest}`);
+  console.error("   Crie projeto a partir de um diretório diferente do home/root/cwd.");
+  exit(2);
+}
 
 if (existsSync(dest)) {
   console.error(`❌ Projeto já existe: projects/${name}`);
@@ -50,7 +69,7 @@ if (!existsSync(TEMPLATE_DIR)) {
   exit(1);
 }
 
-console.log(`\n🚀 Criando projeto "${name}" em projects/${name}/\n`);
+console.log(`\n🚀 Criando projeto "${name}" em ${dest}\n`);
 
 mkdirSync(projectsDir, { recursive: true });
 
@@ -77,17 +96,17 @@ if (doInstall) {
 
 console.log(`\n✅ Pronto.\n`);
 console.log(`Próximos passos:`);
-console.log(`  cd projects/${name}`);
-console.log(`  # Claude Code:        /onboard`);
-console.log(`  # Codex / Antigravity: "execute o onboard"`);
+console.log(`  cd ${dest}`);
+console.log(`  # Claude Code:        /seobrain:start`);
+console.log(`  # Codex / Antigravity: "execute o seobrain"`);
 console.log("");
 if (!doInstall) {
   console.log(`Quando for rodar o site (Next.js):`);
-  console.log(`  cd projects/${name} && npm run web:install`);
+  console.log(`  cd ${dest} && npm run web:install`);
   console.log("");
 }
 console.log(`Para virar repo do cliente depois (opcional):`);
-console.log(`  cd projects/${name} && git init && git remote add origin <url>`);
+console.log(`  cd ${dest} && git init && git remote add origin <url>`);
 console.log("");
 
 function patchFile(path, projectName) {

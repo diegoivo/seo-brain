@@ -1,18 +1,24 @@
 {
   "name": "seobrain",
-  "version": "0.2.0",
-  "description": "SEO Brain — framework experimental de SEO Agêntico. Brain (LLM Wiki Karpathy-style) + Brandbook visual + Conteúdo + SEO técnico por construção.",
+  "description": "SEO + GEO toolkit for Claude Code — technical audit, content brief, blogpost generator, SERP analysis, competitor research, schema markup, E-E-A-T scoring, AI Overviews optimization. Brazilian Portuguese voice + bilingual triggers (PT/EN).",
   "private": true,
   "type": "module",
+  "homepage": "https://github.com/diegoivo/seobrain",
+  "repository": "https://github.com/diegoivo/seobrain",
   "bin": {
     "seobrain": "scripts/bootstrap.mjs"
   },
   "scripts": {
     "new": "node scripts/new-project.mjs",
-    "setup": "npm run skills:install",
-    "skills:install": "npx -y skills@latest add vercel-labs/agent-skills -y",
-    "skills:update": "npx -y skills@latest update",
-    "skills:list": "npx -y skills@latest list"
+    "validate": "node scripts/validate-skills.mjs",
+    "smoke": "node tests/e2e/install-and-create.mjs",
+    "eval:matching": "node scripts/eval-skill-matching.mjs",
+    "eval:tokens": "node scripts/measure-token-baseline.mjs"
   },
+  "keywords": [
+    "seo", "seo-audit", "geo", "ai-overviews", "e-e-a-t",
+    "schema-markup", "content-seo", "technical-seo", "dataforseo",
+    "brazilian-portuguese", "claude-code", "agent-skills"
+  ],
   "license": "MIT"
 }

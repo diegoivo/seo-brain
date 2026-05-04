@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // DataForSEO shared client — auth, retry, rate limit, output writers.
-// Skills /keywords-volume, /competitor-pages, /competitor-keywords usam este client.
+// Skills /seo-data, /seo-data, /seo-data usam este client.
 // Falha cedo com mensagem clara se credenciais ausentes.
 
 import { writeFileSync, mkdirSync, existsSync } from "node:fs";
