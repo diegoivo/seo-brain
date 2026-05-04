@@ -1,23 +1,14 @@
----
-name: branding-images
-description: Image system configuration for project — chooses style (canonical mood-board) + usage types, configures provider (Pexels default free, Unsplash secondary free, OpenAI Images optional paid), saves default search queries in LLM Wiki. Runs scripts/image-search.mjs (native fetch). Use when user asks "image system", "setup images", "configurar imagens", "banco de imagens", "buscar foto", "image provider", "stock photos", "mood board", or when configuring project for the first time (via /seobrain:start), or when creating post/page that needs imagery. Renamed from /setup-images (v0.1.0).
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - WebFetch
----
+# Playbook: `/branding images`
 
-# /branding-images
+Sistema de imagens em 3 partes: **estilo** (mood-board), **tipos** (hero, secondary, avatar, illustration), **provider** (Pexels default free).
 
-Sistema de imagens em 3 partes: **estilo** (mood-board), **tipos** (hero, secondary, avatar, illustration), **provider** (Pexels default).
+Sem estilo definido, busca retorna AI-slop genérico (foto stock corporativa). Com estilo, queries ficam específicas e o resultado tem coerência visual entre páginas.
 
-## Por que 3 partes?
+## Pré-condições
 
-Sem estilo definido, todo busca retorna AI-slop genérico (foto stock corporativa). Com estilo, queries ficam específicas e o resultado tem coerência visual entre páginas.
+- `brain/DESIGN.md` initialized (mood é input para inferência de estilo).
 
-## Primeira execução — pergunta em 3 etapas
+## Pipeline em 3 etapas
 
 ### Etapa 1 — Estilo (mood-board canônico)
 
@@ -41,7 +32,7 @@ Pergunta:
 > 4. **Archival** — vintage, museu, peso histórico
 > 5. **Experimental** — abstrato, vanguarda
 >
-> Sugiro [X] com base em <mood do brain/index.md>.
+> Sugiro [X] com base no mood do `brain/index.md`.
 
 Salva em `brain/DESIGN.md` na seção "Imagens (estilo)".
 
@@ -54,7 +45,7 @@ Confirma os 4 tipos de uso (todos opt-in):
 | **hero** | Capa de post, hero de página | 16:9 | `web/public/images/heroes/` |
 | **secondary** | Imagens dentro do post | 4:3 ou 1:1 | `web/public/images/secondary/` |
 | **avatar** | Foto de pessoa (autoria, time, depoimento) | 1:1 | `web/public/images/avatars/` |
-| **illustration** | Diagramas, ícones decorativos, marca-páginas | livre, SVG > raster | `web/public/images/illustration/` |
+| **illustration** | Diagramas, ícones decorativos | livre, SVG > raster | `web/public/images/illustration/` |
 
 Pergunta:
 
@@ -66,31 +57,32 @@ Pergunta:
 
 | Provider | Free? | Setup | Quando usar |
 |---|---|---|---|
-| **Pexels** ⭐ | sim, 200 req/h | API key opcional (sem ela, rate limit menor) | Default — fotos reais, qualidade boa |
-| **Unsplash** | sim, 50 req/h | API key obrigatória pra usar API | Secundário — variedade complementar |
+| **Pexels** ⭐ | sim, 200 req/h | API key opcional | Default — fotos reais, qualidade boa |
+| **Unsplash** | sim, 50 req/h | API key obrigatória | Secundário — variedade complementar |
 | **OpenAI gpt-image-1** | não, ~$0.04/img | `OPENAI_API_KEY` obrigatória | Quando query não retorna nada apropriado |
 
-Recomendação: comece com Pexels. Adicione Unsplash se busca não for satisfatória. OpenAI só sob demanda.
+Recomendação: comece com Pexels. Adicione Unsplash se busca não satisfaz. OpenAI sob demanda.
 
 Pergunta:
 
 > Quer configurar uma API key agora?
 >
 > 1. **Pexels** — abro https://www.pexels.com/api/ pra você criar (free, 30s).
-> 2. **Pular** — funciona limitadamente sem key (rate limit Pexels: ~50 req/h sem key).
+> 2. **Pular** — funciona limitadamente sem key (rate limit menor).
 
 Se sim, instrui usuário a colar key em `.env.local`:
 
 ```bash
 PEXELS_API_KEY=...
 UNSPLASH_ACCESS_KEY=...   # opcional
+OPENAI_API_KEY=...        # opcional, pago
 ```
 
 `.env.local` é git-ignored. `.env.example` na raiz documenta as vars.
 
-## Estado salvo
+## Estado salvo em `brain/DESIGN.md`
 
-Em `brain/DESIGN.md` na seção "Imagens":
+Seção "Imagens":
 
 ```md
 ## Imagens
@@ -118,32 +110,27 @@ Quando outra skill (ex: `/content-seo`) precisa de imagem:
 npm run images:search "<query>" [--provider=pexels|unsplash|both] [--limit=8] [--orientation=landscape|portrait|square]
 ```
 
-Output: lista numerada com URL, dimensões, autor, link de atribuição. Para baixar:
+Output: lista numerada com URL, dimensões, autor, link de atribuição.
+
+Para baixar:
 
 ```bash
 npm run images:search "<query>" -- --download=N --slug=meu-post --category=heroes
 ```
 
-Script:
+Script (`scripts/image-search.mjs`):
 1. Lê `.env.local` automaticamente.
 2. Busca via Pexels API (ou Unsplash, ou ambos).
 3. Salva em `web/public/images/<categoria>/<slug>.jpg`.
-4. Imprime frontmatter sugerido (cover, cover_alt, cover_credit) pra colar no post.
-
-## Otimização (opcional, futuro)
-
-Comprimir para WebP/AVIF + variantes responsivas é um TODO. Por ora,
-Next.js 16 `next/image` faz otimização on-demand no build/edge.
+4. Imprime frontmatter sugerido (`cover`, `cover_alt`, `cover_credit`) pra colar no post.
 
 ## Cover image obrigatória em posts
 
-Toda chamada de `/content-seo` que termina sem `cover` no frontmatter
-dispara `/branding-images` automaticamente.
+Toda chamada de `/content-seo` que termina sem `cover` no frontmatter dispara `/branding images` automaticamente (etapa de busca, não reconfiguração).
 
 ## Atribuição
 
-Pexels e Unsplash exigem atribuição (nome do autor + link). Script já
-imprime no formato:
+Pexels e Unsplash exigem atribuição (nome do autor + link). Script já imprime no formato:
 
 ```
 Foto por <Autor> (Pexels) — <link>
@@ -151,10 +138,20 @@ Foto por <Autor> (Pexels) — <link>
 
 Cole no `cover_credit` do frontmatter, renderiza no rodapé do post.
 
+## Otimização (opcional)
+
+Comprimir para WebP/AVIF + variantes responsivas é um TODO. Por ora, Next.js 16 `next/image` faz otimização on-demand no build/edge.
+
 ## Princípios
 
 - **Estilo antes de tudo.** Sem mood-board, queries viram lixo.
 - **Pexels primeiro.** Free, qualidade, attribution OK.
-- **Anti-stock genérico.** Veja antipadrões em `/brandbook/imagens`.
-- **Cover obrigatório**. Post sem cover não publica.
+- **Anti-stock genérico.** Mostre antipadrões em `/brandbook/imagens` (rota do `apply`).
+- **Cover obrigatório.** Post sem cover não publica.
 - **Atribuição é regra**, não cortesia.
+
+## Conclusão
+
+1. Atualiza `brain/DESIGN.md` seção "Imagens".
+2. Atualiza `brain/log.md`: `## YYYY-MM-DD — /branding images configurado`.
+3. Sugere próximo passo: "Pronto. Quando rodar `/content-seo`, queries default já estão calibradas."

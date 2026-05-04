@@ -11,7 +11,7 @@ Stitch é uma ferramenta de design AI do Google Labs que gera telas de UI a part
 - Você já tem um projeto Stitch com pelo menos uma tela desenhada.
 - Quer extrair o design system dessas telas para o `brain/DESIGN.md` do kit.
 
-Se você está começando do zero, **não precisa de Stitch** — rode `/branding-init` (10 perguntas) que produz um DESIGN.md opinativo sem dependências externas.
+Se você está começando do zero, **não precisa de Stitch** — rode `/branding discover` (10 perguntas) que produz um DESIGN.md opinativo sem dependências externas.
 
 ## Pré-requisitos
 
@@ -37,5 +37,5 @@ A skill `design-md` chama tools como `stitch:list_projects`, `stitch:list_screen
 
 1. Depende de conta Google + serviço autenticado externo.
 2. Custo futuro incerto.
-3. `/branding-init` cobre o caso comum (projeto novo) sem dependências.
+3. `/branding discover` cobre o caso comum (projeto novo) sem dependências.
 4. Repositório público do kit não deve forçar usuários a configurar serviços que não pediram.

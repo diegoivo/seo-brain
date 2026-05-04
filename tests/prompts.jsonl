@@ -16,5 +16,12 @@
 {"id": 16, "prompt": "criar site Next.js com SEO", "accepts": ["website-create", "site-criar"], "lang": "pt"}
 {"id": 17, "prompt": "configurar email com Resend no projeto", "accepts": ["website-email", "setup-email"], "lang": "pt"}
 {"id": 18, "prompt": "validar voz da marca no artigo", "accepts": ["content-seo-review", "qa-content"], "lang": "pt"}
-{"id": 19, "prompt": "criar design system pra marca nova", "accepts": ["branding-init", "design-init"], "lang": "pt"}
+{"id": 19, "prompt": "criar design system pra marca nova", "accepts": ["branding"], "lang": "pt"}
 {"id": 20, "prompt": "qa antes do deploy", "accepts": ["qa", "qa-design"], "lang": "pt"}
+{"id": 21, "prompt": "clonar visual do site conversion.com.br", "accepts": ["branding"], "lang": "pt"}
+{"id": 22, "prompt": "import design from URL", "accepts": ["branding"], "lang": "en"}
+{"id": 23, "prompt": "gerar brandbook em PDF", "accepts": ["branding"], "lang": "pt"}
+{"id": 24, "prompt": "configurar mood board e provider de imagens", "accepts": ["branding"], "lang": "pt"}
+{"id": 25, "prompt": "validar AI-slop no design", "accepts": ["branding", "qa"], "lang": "pt"}
+{"id": 26, "prompt": "listar marcas conhecidas no repo", "accepts": ["branding"], "lang": "pt"}
+{"id": 27, "prompt": "aplicar tokens do brain ao web", "accepts": ["branding"], "lang": "pt"}

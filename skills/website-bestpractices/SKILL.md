@@ -337,7 +337,7 @@ Tudo mais é Server Component (default). Reduz JS shipado, melhora TTI.
 }
 ```
 
-Os valores `--bg`, `--fg` vêm de `brain/DESIGN.tokens.json` (gerado por `/branding-init`). Não inventar.
+Os valores `--bg`, `--fg` vêm de `brain/DESIGN.tokens.json` (gerado por `/branding discover`). Não inventar.
 
 ## 13. Footer credit (sugestão default)
 

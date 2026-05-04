@@ -22,8 +22,7 @@ $ /seobrain:start
   
   Available skills (24, agrupadas por pilar):
     LLM Wiki:    /wiki-init /wiki-update /wiki-lint
-    Branding:    /branding-init /branding-clone /branding-brandbook
-                 /branding-images /branding-onboard /branding-review
+    Branding:    /branding (modos: discover, import, apply, export, images, review, list)
     Content:     /content-seo /content-seo-review
     Technical:   /technical-seo /seo-strategy /seo-data
     Website:     /website-create /website-bestpractices /website-cms
@@ -70,7 +69,7 @@ Após escolher modo Express, o agente roda em sequência:
 
 ✓ brain/ populado (kit_state: initialized).
 
-[Phase 2 — Branding / branding-onboard]
+[Phase 2 — Branding / /branding apply (orquestra discover + apply)]
   Pergunta 1/10: Mood (3 palavras)? > moderno, elegante, terra
   ...
   Pergunta 10/10: Logo (upload ou skip)? > skip (depois)

@@ -53,7 +53,7 @@ Detectado por `brain/index.md` com `kit_state: template`. Hook session-start já
 
 ```
 /seobrain:start
-  → orquestra wiki-init (brain) + branding-onboard (visual) em sequência
+  → orquestra wiki-init (brain) + /branding apply (visual) em sequência
   → modo Express default (~10min, 18 perguntas)
   → modo Guiado disponível (50min, 35 perguntas)
   → modo Auto (LLM preenche tudo, usuário ajusta)
@@ -84,7 +84,7 @@ Ver `references/pillars.md` para detalhamento de cada pilar.
 | Pilar | Skills principais |
 |---|---|
 | **LLM Wiki** (substrato) | `wiki-init`, `wiki-update`, `wiki-lint` |
-| **Branding** | `branding-init`, `branding-onboard`, `branding-clone`, `branding-brandbook`, `branding-images`, `branding-review` |
+| **Branding** | `branding` (skill consolidada — modos: `discover`, `import <url>`, `apply`, `export`, `images`, `review`, `list`) |
 | **Content SEO** | `content-seo`, `content-seo-review` |
 | **Technical SEO** | `technical-seo`, `seo-strategy` |
 | **SEO Data** | `seo-data` |

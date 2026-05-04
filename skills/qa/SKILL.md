@@ -1,6 +1,6 @@
 ---
 name: qa
-description: QA orchestrator — runs 3 domain reviewers in parallel before presenting work or shipping. Invokes /branding-review (visual + grid + AI-slop check), /content-seo-review (voice + capitalization + GEO + POVs), /website-qa (build + lighthouse + seo-score + a11y + schema). Consolidates priority-ranked report (P0/P1/P2). Use when user asks "qa", "validate before deploy", "validation", "revisão final", "antes de aprovar", "before PR", "QA all".
+description: QA orchestrator — runs 3 domain reviewers in parallel before presenting work or shipping. Invokes /branding review (visual + grid + AI-slop check), /content-seo-review (voice + capitalization + GEO + POVs), /website-qa (build + lighthouse + seo-score + a11y + schema). Consolidates priority-ranked report (P0/P1/P2). Use when user asks "qa", "validate before deploy", "validation", "revisão final", "antes de aprovar", "before PR", "QA all".
 allowed-tools:
   - Read
   - Bash
@@ -9,7 +9,7 @@ allowed-tools:
 
 # /qa — orchestrator paralelo de QA
 
-Skill **fina** que dispara 3 reviewers de domínio em paralelo via `Task` tool. Cada reviewer é uma skill independente (`branding-review`, `content-seo-review`, `website-qa`).
+Skill **fina** que dispara 3 reviewers de domínio em paralelo via `Task` tool. Cada reviewer é uma skill/playbook independente (`/branding review`, `content-seo-review`, `website-qa`).
 
 **Diretiva inegociável:** os 3 sub-agents rodam **em paralelo**, nunca sequencial.
 
@@ -27,7 +27,7 @@ Skill **fina** que dispara 3 reviewers de domínio em paralelo via `Task` tool. 
 Numa **única mensagem** com 3 tool calls Agent simultâneos:
 
 ```
-Agent(general-purpose):  carregar skills/branding-review/SKILL.md, validar
+Agent(general-purpose):  carregar skills/branding/playbooks/review.md + skills/branding/references/audit-checklist.md, validar
 Agent(general-purpose):  carregar skills/content-seo-review/SKILL.md, validar
 Agent(general-purpose):  carregar skills/website-qa/SKILL.md, validar (build+lighthouse+seo-score)
 ```
@@ -48,7 +48,7 @@ Agente lê os 3 reports. Produz consolidated em `.cache/qa-runs/<task>.md`:
 - [content-seo-review] Headline em CAPS LOCK ("COMO OTIMIZAR")
 
 ## Atenção (P1)
-- [branding-review] Botão primário usa shadow-md (AI-slop)
+- [/branding review] Botão primário usa shadow-md (AI-slop)
 
 ## Polimento (P2)
 - [website-qa] Imagem hero sem `priority`, LCP estimado 3.2s
@@ -75,7 +75,7 @@ Agente lê os 3 reports. Produz consolidated em `.cache/qa-runs/<task>.md`:
 
 ## Reviewers invocados (skills separadas)
 
-- `/branding-review` — visual, grid, tipografia, AI-slop, regra do primeiro viewport.
+- `/branding review` — visual, grid, tipografia, AI-slop, regra do primeiro viewport.
 - `/content-seo-review` — voz, capitalização BR, antivícios IA, POVs, GEO, schema.
 - `/website-qa` — build, TypeScript, Lighthouse, seo-score, schema válido, sitemap.
 

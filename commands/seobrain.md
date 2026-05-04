@@ -14,6 +14,6 @@ Pré-checks:
 Modos:
 - `/seobrain:start` — load context, list projects.
 - `/seobrain:start create-project <nome>` — criar projeto novo (kebab-case).
-- Dentro de projeto template — orquestrar `wiki-init` + `branding-onboard` (modo Express default).
+- Dentro de projeto template — orquestrar `wiki-init` + `/branding apply` (modo Express default).
 
 Argumentos (se houver): $ARGUMENTS

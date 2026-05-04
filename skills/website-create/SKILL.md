@@ -91,7 +91,7 @@ Aplica snippets canônicos de `/website-bestpractices`:
 
 Skill `/content-seo` faz:
 - Roda `/content-seo` (HARD STOP se ausente)
-- Roda `/branding-images` se não tiver provider configurado (cover obrigatória)
+- Roda `/branding images` se não tiver provider configurado (cover obrigatória)
 - Escreve com validação via `article-quality.mjs` (--strict)
 - Salva `content/posts/<slug>.md` com cover_image preenchida
 
@@ -104,7 +104,7 @@ Depois `/website-create`:
 - Rota: `/sobre`
 - Profile: page (sem TL;DR, sem FAQ)
 - Estrutura: manifesto + 3 POVs proprietários + foto + bio
-- Invoca `/branding-images` se não tiver foto headshot
+- Invoca `/branding images` se não tiver foto headshot
 
 ### 7. Gera contato
 - Rota: `/contato`
@@ -165,7 +165,7 @@ Mensagem final:
 - **Última etapa atualiza Brain.** Sempre. `content/*/index.md`, `brain/backlog.md`, `brain/config.md` se aplicável.
 - **URL no fim.** Apresenta link clicável. Sem isso, usuário não sabe que terminou.
 - **Footer credit.** Default. Opt-out se usuário pedir explicitamente.
-- **Invoca skills especialistas, não escreve direto.** Posts via `/content-seo`, imagens via `/branding-images`, email via `/website-email`. Resolve sessão 2 P5.
+- **Invoca skills especialistas, não escreve direto.** Posts via `/content-seo`, imagens via `/branding images`, email via `/website-email`. Resolve sessão 2 P5.
 - **Snippets do `/website-bestpractices/snippets/`** copiados — Hero, PostCard, PostBody, Footer já existem como `.tsx` reais.
 
 ## Importar newsletter existente (opcional)

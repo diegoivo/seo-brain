@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#181712">
+  <title>Dashboard · {{brand.name}}</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family={{brand.font.body}}|{{brand.font.mono}}&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: {{brand.color.bg}};
+      --fg: {{brand.color.fg}};
+      --fg-muted: {{brand.color.fg-muted}};
+      --fg-subtle: {{brand.color.fg-subtle}};
+      --accent: {{brand.color.accent}};
+      --accent-fg: {{brand.color.accent-fg}};
+      --surface-elevated: {{brand.color.surface-elevated}};
+      --surface-sunken: {{brand.color.surface-sunken}};
+      --border: {{brand.color.border}};
+      --border-strong: {{brand.color.border-strong}};
+      --success: {{brand.color.success}};
+      --warning: {{brand.color.warning}};
+      --danger: {{brand.color.danger}};
+      --font-body: "{{brand.font.body}}", system-ui, sans-serif;
+      --font-mono: "{{brand.font.mono}}", ui-monospace, monospace;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      grid-template-rows: 56px 1fr;
+      grid-template-areas: "sidebar topbar" "sidebar main";
+      min-height: 100vh;
+    }
+
+    .skip-link { position: absolute; left: -10000px; background: var(--accent); color: var(--accent-fg); padding: 0.5rem 0.75rem; }
+    .skip-link:focus { left: 1rem; top: 1rem; z-index: 100; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    aside.sidebar {
+      grid-area: sidebar;
+      background: var(--surface-sunken);
+      border-right: 1px solid var(--border);
+      padding: 1rem;
+      overflow-y: auto;
+    }
+    aside.sidebar h1 { font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; }
+    aside.sidebar nav ul { list-style: none; }
+    aside.sidebar nav a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      color: var(--fg-muted);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    aside.sidebar nav a:hover { background: var(--surface-elevated); color: var(--fg); }
+    aside.sidebar nav a[aria-current="page"] { background: var(--surface-elevated); color: var(--fg); font-weight: 500; }
+
+    header.topbar {
+      grid-area: topbar;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    header.topbar input[type="search"] {
+      flex: 1;
+      max-width: 400px;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      background: var(--surface-elevated);
+      border-radius: 6px;
+      color: var(--fg);
+      font-size: 0.875rem;
+    }
+    header.topbar input[type="search"]:focus { border-color: var(--border-strong); }
+
+    main.workspace {
+      grid-area: main;
+      padding: 2rem;
+      overflow-y: auto;
+      background: var(--bg);
+    }
+
+    h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 1100px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .metrics { grid-template-columns: 1fr; } }
+
+    .metric {
+      padding: 1rem;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .metric__label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-bottom: 0.5rem;
+    }
+    .metric__value {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric__delta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-variant-numeric: tabular-nums;
+      margin-top: 0.25rem;
+    }
+    .metric__delta--up { color: var(--success); }
+    .metric__delta--down { color: var(--danger); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-muted); background: var(--surface-sunken); }
+    tr:last-child td { border-bottom: none; }
+    td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+
+    .badge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+    .badge--success { background: color-mix(in srgb, var(--success) 12%, transparent); color: var(--success); }
+    .badge--warning { background: color-mix(in srgb, var(--warning) 12%, transparent); color: var(--warning); }
+    .badge--danger { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Pular para conteúdo</a>
+
+  <aside class="sidebar">
+    <h1>{{brand.name}}</h1>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="/dashboard" aria-current="page">Visão geral</a></li>
+        <li><a href="/projetos">Projetos</a></li>
+        <li><a href="/relatorios">Relatórios</a></li>
+        <li><a href="/configuracoes">Configurações</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <header class="topbar">
+    <input type="search" placeholder="Buscar...">
+    <button type="button" aria-label="Notificações">🔔</button>
+  </header>
+
+  <main id="main" class="workspace">
+    <h2>Visão geral</h2>
+
+    <section aria-labelledby="metrics-heading">
+      <h3 id="metrics-heading" class="visually-hidden">Métricas</h3>
+      <div class="metrics">
+        <div class="metric">
+          <p class="metric__label">Sessões</p>
+          <p class="metric__value">12.483</p>
+          <p class="metric__delta metric__delta--up">+8,2% vs ontem</p>
+        </div>
+        <div class="metric">
+          <p class="metric__label">Conversões</p>
+          <p class="metric__value">238</p>
+          <p class="metric__delta metric__delta--up">+12,4%</p>
+        </div>
+        <div class="metric">
+          <p class="metric__label">Taxa</p>
+          <p class="metric__value">1,91%</p>
+          <p class="metric__delta metric__delta--down">−0,3%</p>
+        </div>
+        <div class="metric">
+          <p class="metric__label">Receita</p>
+          <p class="metric__value">R$ 48.290</p>
+          <p class="metric__delta metric__delta--up">+5,1%</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="recent-heading">
+      <h3 id="recent-heading" style="margin: 2rem 0 1rem; font-size: 1.1rem;">Últimas atividades</h3>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Evento</th>
+            <th scope="col">Status</th>
+            <th scope="col">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-05-04</td>
+            <td>Pagamento aprovado</td>
+            <td><span class="badge badge--success">OK</span></td>
+            <td class="num">R$ 1.290,00</td>
+          </tr>
+          <tr>
+            <td>2026-05-04</td>
+            <td>Carrinho abandonado</td>
+            <td><span class="badge badge--warning">Pendente</span></td>
+            <td class="num">R$ 489,00</td>
+          </tr>
+          <tr>
+            <td>2026-05-03</td>
+            <td>Pagamento recusado</td>
+            <td><span class="badge badge--danger">Falha</span></td>
+            <td class="num">R$ 2.190,00</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

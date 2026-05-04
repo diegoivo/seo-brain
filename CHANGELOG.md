@@ -2,6 +2,29 @@
 
 Todas as mudanças notáveis no SEO Brain. Segue [Keep a Changelog](https://keepachangelog.com/) e [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] — 2026-05-04
+
+**Consolidação total das skills de branding em uma única `/branding`.**
+
+### BREAKING CHANGES
+
+- **6 skills de branding fundidas em 1**: `branding-init`, `branding-onboard`, `branding-brandbook`, `branding-clone`, `branding-images`, `branding-review` → `/branding` única com modos.
+- **Sintaxe nova**: `/branding <modo>` em vez de `/branding-<x>`. Modos: `discover`, `import <url>`, `apply`, `export`, `images`, `review`, `list`.
+- **Diretórios das 6 antigas removidos** de `skills/`. Cross-refs em outras skills atualizadas.
+
+### Added
+
+- **Skill `/branding`** consolidada com 7 modos.
+- **Modo `export`** (novo) — gera `brand/<slug>/brandbook.md/.html/.pdf` (puppeteer-core + Chrome do sistema).
+- **Modo `list`** (novo) — lista marcas em `brain/`, `projects/<slug>/brain/` e exportadas em `brand/`.
+- **References maduras** em `skills/branding/references/`: brand-archetypes (12 Mark & Pearson), color-system, typography-guide, audit-checklist, web-interface-guidelines, brandbook-format.
+- **Assets**: `design-companion.template.html` (preview ao vivo durante discover), `pdf-generator.mjs` (puppeteer-core), 3 page templates (institutional, blog, dashboard).
+- **Spec assertivo + QA prompt** em `skills/branding/tests/` para validação por sub-agente independente.
+
+### Migration
+
+Cheat sheet em `MIGRATION.md`. Funcionalidades preservadas 1:1; `discover` herda anti-AI-slop + primeiro-viewport; `import` herda multi-fase + perguntas de fidelidade bloqueantes.
+
 ## [0.1.0] — 2026-05-04
 
 **🎉 Inaugural release como Claude Code plugin.**
@@ -20,7 +43,7 @@ Ver [MIGRATION.md](./MIGRATION.md) pra cheat sheet completo.
 
 - **Plugin Claude Code distribuível**: `/plugin marketplace add diegoivo/seobrain && /plugin install seobrain@seobrain-marketplace`.
 - **Skill `seobrain`** — entry point com princípios + recipe + 6 pilares + harness compatibility.
-- **Skill `branding-clone`** — consolida site-clone + clone-fidelity (visual clone + fidelity QA).
+- **Skill `branding-clone`** — consolida site-clone + clone-fidelity (visual clone + fidelity QA). _(absorvida em `/branding import` na v0.2.0)_
 - **Skill `content-seo`** — consolida artigo + blogpost + intent-analyst + geo-checklist (decision tree).
 - **Skill `technical-seo`** — consolida seo-tecnico + seo-onpage + seo-imagens + perf-audit.
 - **Skill `seo-data`** — consolida keywords-volume + competitor-pages + competitor-keywords.
@@ -46,7 +69,7 @@ Ver [MIGRATION.md](./MIGRATION.md) pra cheat sheet completo.
 ### Removed
 
 - Skill `/onboard` — absorvida em `/seobrain:start`.
-- Skills duplicadas: `qa-design`, `qa-content`, `qa-tech` viram `branding-review`, `content-seo-review`, `website-qa`.
+- Skills duplicadas: `qa-design`, `qa-content`, `qa-tech` viram `/branding review` (v0.2.0), `content-seo-review`, `website-qa`.
 - AGENTS.md e CLAUDE.md do plugin root.
 
 ### Token impact

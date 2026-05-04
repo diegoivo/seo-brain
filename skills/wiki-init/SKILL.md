@@ -157,5 +157,5 @@ Quando todas as sub-fases concluírem: Status: completed.
 
 1. Roda `node scripts/wiki-lint.mjs` — se houver erros, pause e mostre.
 2. Atualiza `brain/log.md` com entrada `## <data> — wiki-init concluído`.
-3. Devolve controle ao orquestrador `/seobrain:start` (que aciona `/branding-onboard`).
-4. Se rodando standalone: pergunta se usuário quer prosseguir para `/branding-onboard`.
+3. Devolve controle ao orquestrador `/seobrain:start` (que aciona `/branding apply`).
+4. Se rodando standalone: pergunta se usuário quer prosseguir para `/branding apply`.

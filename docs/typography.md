@@ -99,6 +99,6 @@ Em PT-BR, hyphens auto funciona em Chrome/Edge/Safari. Em Firefox depende do `la
 
 ## Aplicação no SEO Brain
 
-Tokens vivem em `web/src/app/globals.css`. As fontes (`--font-display`, `--font-body`, `--font-mono`) são preenchidas pelo `/branding-init` — escala e ritmo são herdados sem mudança.
+Tokens vivem em `web/src/app/globals.css`. As fontes (`--font-display`, `--font-body`, `--font-mono`) são preenchidas pelo `/branding discover` — escala e ritmo são herdados sem mudança.
 
-Pré-onboard, o site usa system fonts (não AI-slop, não dependente de Google Fonts). Pós-onboard, `/branding-init` escolhe da whitelist em `/website-bestpractices` (Google Fonts / Bunny Fonts / OFL — todas gratuitas).
+Pré-onboard, o site usa system fonts (não AI-slop, não dependente de Google Fonts). Pós-onboard, `/branding discover` escolhe da whitelist em `/website-bestpractices` (Google Fonts / Bunny Fonts / OFL — todas gratuitas).

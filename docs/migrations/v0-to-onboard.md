@@ -7,7 +7,7 @@ Esta versão introduz **estado explícito do kit** (`kit_state: template` vs `in
 Você está nesta situação se:
 
 - `brain/index.md` começa com "Este é o Agentic SEO Kit — um repositório template + plugin Claude Code…"
-- `brain/DESIGN.md` é um placeholder mas o agent não sugeriu rodar `/branding-init`
+- `brain/DESIGN.md` é um placeholder mas o agent não sugeriu rodar `/branding discover`
 - O agent cria páginas com defaults Tailwind (purple/blue, Inter, shadow-md) sem reclamar
 - `brain/principios-agentic-seo.md` lista 10 princípios genéricos, mas não tem POVs específicos da **sua** marca
 

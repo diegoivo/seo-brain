@@ -1,0 +1,32 @@
+{
+  "_comment": "Fixture mínima para T10 — extract.json real precisa ter ESTES CAMPOS presentes (estrutura, não valores exatos). Valores são checados por presença/range, não igualdade.",
+  "url": "https://www.conversion.com.br/",
+  "expected_title_contains": "Conversion",
+  "min_palette_count": 4,
+  "min_fonts_count": 1,
+  "min_total_sections": 3,
+  "expected_lang_starts_with": "pt",
+  "required_keys": [
+    "meta",
+    "logo",
+    "favicon",
+    "fonts",
+    "palette",
+    "typeScale",
+    "radius",
+    "composition"
+  ],
+  "required_meta_keys": [
+    "title",
+    "description",
+    "lang"
+  ],
+  "required_composition_keys": [
+    "sections",
+    "totalSections",
+    "totalImages",
+    "totalCards",
+    "hasHero",
+    "hasMotion"
+  ]
+}
