@@ -66,7 +66,7 @@ if (mode === "--pre") {
     mode: "post",
     skills_count: skills.count,
     skills_frontmatter_tokens: skills.tokens,
-    seo-brain_skill_frontmatter_tokens: seoBrainTokens,
+    seo_brain_skill_frontmatter_tokens: seoBrainTokens,
     total_session_start_tokens: skills.tokens,
     note: "Conservative: 12 tokens/line. AGENTS.md deleted; seo-brain SKILL.md body lazy-loaded."
   }, null, 2));

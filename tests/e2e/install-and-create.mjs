@@ -72,7 +72,7 @@ check("new-project.mjs creates in cwd", () => {
   // Set cwd to SMOKE_DIR so process.cwd() in script resolves there
   const result = spawnSync("node", [join(REPO_ROOT, "scripts/new-project.mjs"), projectName], {
     cwd: SMOKE_DIR,
-    env: { ...process.env, SEOBRAIN_TARGET_DIR: SMOKE_DIR },
+    env: { ...process.env, SEO_BRAIN_TARGET_DIR: SMOKE_DIR },
     stdio: "pipe",
   });
   if (result.status !== 0) {
