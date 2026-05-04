@@ -12,7 +12,12 @@
     "setup": "npm run skills:install",
     "skills:install": "npx -y skills@latest add vercel-labs/agent-skills -y",
     "skills:update": "npx -y skills@latest update",
-    "skills:list": "npx -y skills@latest list"
+    "skills:list": "npx -y skills@latest list",
+    "test": "node --test scripts/**/*.test.mjs"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "get-port": "^7.1.0"
   },
   "license": "MIT"
 }

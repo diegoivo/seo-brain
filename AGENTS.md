@@ -87,7 +87,7 @@ Brain é **substrato**, não pilar paralelo aos outros. Tudo que vem abaixo depe
 | `brain/tecnologia/index.md` | Stack atual; decisão sobre banco de dados |
 | `brain/DESIGN.md` + `DESIGN.tokens.json` | Design system (gerado por `/design-init`) |
 | `brain/config.md` | Domínios temporário/definitivo, env, deploy target |
-| `brain/seo/data/` | Dados de pesquisa do Pilar Dados (DataForSEO outputs) |
+| `brain/seo/data/` | Dados de pesquisa do Pilar Dados (DataForSEO + GSC outputs) |
 | `brain/seo/reports/` | Relatórios SEO Score |
 | `brain/backlog.md` | Pendências, ideias, estado |
 
@@ -131,15 +131,27 @@ Quem importa visual de site existente: `/site-clone` extrai tokens, `/clone-fide
 
 ### 3.6 Pesquisa & Dados — research empacotado
 
-3 skills via DataForSEO (Pay-as-you-go, custos transparentes em `.env.example`):
+Dois providers complementares: **DataForSEO** (estimativas de mercado, pago) e **Google Search Console** (dados reais do próprio site, grátis).
+
+**DataForSEO** (Pay-as-you-go, custos em `.env.example`):
 
 - `/keywords-volume` — volume + CPC + dificuldade de 1 ou N keywords (~$0.05/keyword)
 - `/competitor-pages` — top 100 URLs orgânicas de um domínio (~$0.30/domínio)
 - `/competitor-keywords` — top 100 keywords ranqueadas de um domínio (~$0.30/domínio)
 
-Todas: cost preview obrigatório, locale BR/pt-br default, output triplo (`.md` + `.csv` + `.json`) em `brain/seo/data/`. Credenciais em `.env.local`.
+**Google Search Console** (grátis, quota 1.200 req/min):
 
-**Roadmap v2:** abstração de provider (`KeywordProvider` interface) para suportar Google Search Console (free), GA4, attribution. Hoje DataForSEO é provider concreto único.
+- `/gsc-google-search-console-setup` — fluxo OAuth guiado (uma vez por projeto, ~5min). Conduz pelo Google Cloud Console abrindo URLs no Chrome real, captura refresh_token via callback localhost. BYO credentials.
+- `/gsc-google-search-console-performance` — top queries + páginas reais que trazem tráfego, CTR, posição média, e oportunidades automáticas (queries em pos 5-15 com CTR baixo).
+- `/gsc-google-search-console-coverage` — sitemaps submetidos + status (warnings, errors, indexação).
+
+**Padrão comum a todas:** cost preview (DataForSEO), locale BR/pt-br default, output triplo (`.md` + `.csv` + `.json`) em `brain/seo/data/<provider>/`. Audit log em `_log.jsonl` por subpasta. Credenciais em `.env.local`.
+
+**Quando usar qual:**
+- DataForSEO: pesquisa de keywords novas (que ainda não trazem tráfego), análise de concorrentes, dimensionamento de mercado.
+- GSC: dados reais do *meu* site — o que o Google de fato mostra, onde estou ranqueando, quais queries trazem tráfego, oportunidades de subida fácil.
+
+**Roadmap v2:** abstração de provider (`KeywordProvider` interface) pra unificar GSC + DataForSEO + GA4. URL Inspection API (`/gsc-inspect-url`, cota 2.000/dia separada).
 
 ## Skills disponíveis (por pilar)
 
@@ -150,7 +162,7 @@ Todas: cost preview obrigatório, locale BR/pt-br default, output triplo (`.md` 
 | **Conteúdo** | `/blogpost`, `/artigo`, `/intent-analyst`, `/qa-content`, `/setup-images` |
 | **Tecnologia** | `/site-criar`, `/web-best-practices`, `/setup-email`, `/add-cms`, `/plano`, `/qa`, `/qa-design`, `/qa-tech`, `/seobrain-ship`, `/setup-domain` |
 | **SEO Técnico** | `/seo-tecnico`, `/seo-onpage`, `/seo-estrategia`, `/seo-imagens`, `/perf-audit`, `/geo-checklist` |
-| **Pesquisa & Dados** | `/keywords-volume`, `/competitor-pages`, `/competitor-keywords` |
+| **Pesquisa & Dados** | `/keywords-volume`, `/competitor-pages`, `/competitor-keywords`, `/gsc-google-search-console-setup`, `/gsc-google-search-console-performance`, `/gsc-google-search-console-coverage` |
 
 ### Como invocar em diferentes harnesses
 
