@@ -12,7 +12,7 @@ LLM Wiki é **substrato**, não pilar paralelo aos outros. Tudo que vem abaixo d
 | `brain/povs/` | 1 arquivo por POV proprietário |
 | `brain/glossario/` | Definições proprietárias, 1 verbete por arquivo |
 | `brain/tecnologia/index.md` | Stack atual; decisão sobre banco de dados |
-| `brain/DESIGN.md` + `DESIGN.tokens.json` | Design system (gerado pelo fluxo de branding) |
+| `brain/DESIGN.md` + `DESIGN.tokens.json` | Design system (gerado por `/branding discover` ou `/branding import <url>`) |
 | `brain/config.md` | Domínios temporário/definitivo, env, deploy target |
 | `brain/seo/data/` | Dados de pesquisa do Pilar Dados (DataForSEO outputs) |
 | `brain/seo/reports/` | Relatórios SEO Score |
@@ -22,9 +22,14 @@ Atualizado automaticamente após `/approved` (skill `wiki`, playbook update).
 
 ## 2. Branding — design + identidade visual
 
-Pacote em rebuild em outra branch. Quando reintegrado, `brain/DESIGN.md` segue metodologia Google (10 perguntas que produzem decisões opinativas) e brandbook visual em `web/src/app/brandbook/` consome os tokens.
+`brain/DESIGN.md` segue metodologia Google (10 perguntas em `/branding discover` que produzem decisões opinativas). Brandbook visual em `web/src/app/brandbook/` consome os tokens.
 
 **Regra:** narrativo (manifesto, voz, personas) mora no LLM Wiki. Visual (cores, tipografia, grid, motion) mora no brandbook. Voz é Wiki (texto), tom visual é brandbook (cores).
+
+Quem importa visual de site existente: `/branding import <url>` extrai tokens + valida fidelidade.
+
+`/branding apply` popula `web/src/app/brandbook/*` (7 rotas vivas) + `globals.css` (cores e fontes apenas — escala/grid/spacing são canônicos do framework). `/branding export` gera `brand/<slug>/brandbook.{md,html,pdf}` para deck/distribuição. `/branding review` é um dos 3 reviewers chamados pelo `/qa`.
+
 
 ## 3. Content SEO — voz BR + skyscraper + GEO
 

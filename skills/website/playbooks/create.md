@@ -79,7 +79,7 @@ Aplica snippets canônicos de `references/bestpractices.md`:
 
 Skill `/content-seo` faz:
 - Roda intent-analysis (HARD STOP se ausente)
-- Aciona fluxo de imagens da branding (cover obrigatória)
+- Roda `/branding images` se não tiver provider configurado (cover obrigatória)
 - Escreve com validação via `article-quality.mjs` (--strict)
 - Salva `content/posts/<slug>.md` com cover_image preenchida
 
@@ -92,7 +92,7 @@ Depois `create`:
 - Rota: `/sobre`
 - Profile: page (sem TL;DR, sem FAQ)
 - Estrutura: manifesto + 3 POVs proprietários + foto + bio
-- Aciona fluxo de imagens da branding se não tiver foto headshot
+- Invoca `/branding images` se não tiver foto headshot
 
 ### 7. Gera contato
 - Rota: `/contato`
@@ -153,7 +153,7 @@ Mensagem final:
 - **Última etapa atualiza Brain.** Sempre. `content/*/index.md`, `brain/backlog.md`, `brain/config.md` se aplicável.
 - **URL no fim.** Apresenta link clicável. Sem isso, usuário não sabe que terminou.
 - **Footer credit.** Default. Opt-out se usuário pedir explicitamente.
-- **Invoca skills especialistas, não escreve direto.** Posts via `/content-seo`, email via `playbooks/email.md`. Resolve sessão 2 P5.
+- **Invoca skills especialistas, não escreve direto.** Posts via `/content-seo`, imagens via `/branding images`, email via `playbooks/email.md`. Resolve sessão 2 P5.
 - **Snippets do `snippets/`** copiados — Hero, PostCard, PostBody, Footer já existem como `.tsx` reais.
 
 ## Importar newsletter existente (opcional)

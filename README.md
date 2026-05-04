@@ -81,13 +81,8 @@ Full walkthrough: [`skills/seobrain/examples/new-project-walkthrough.md`](./skil
 - `wiki-update` — refresh after task
 - `wiki-lint` — frontmatter + freshness + drift detection
 
-### Branding (6) — design + visual identity
-- `branding-init` — 10 questions → DESIGN.md (anti-AI-slop)
-- `branding-onboard` — phase 2 of project onboarding
-- `branding-clone` — visual clone from URL + fidelity QA
-- `branding-brandbook` — interactive Next.js scaffold (cores, tipografia, voz)
-- `branding-images` — image system (Pexels, Unsplash, OpenAI)
-- `branding-review` — design system QA + AI-slop detection
+### Branding (1) — design + visual identity (consolidada v0.2.0)
+- `branding` — skill única com 7 modos: `discover` (10 questions → DESIGN.md), `import <url>` (visual clone via agent-browser + fidelity QA), `apply` (popula globals.css + 7 rotas vivas em web/src/app/brandbook/), `export` (gera brandbook.md/.html/.pdf), `images` (Pexels/Unsplash/OpenAI), `review` (design QA + AI-slop), `list` (marcas conhecidas).
 
 ### Content SEO (2)
 - `content-seo` — pipeline editorial (intent analysis → article OR 6-step blogpost → GEO checklist)

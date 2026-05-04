@@ -24,3 +24,11 @@
 {"id": 24, "prompt": "atualizar wiki após tarefa concluída", "accepts": ["wiki"], "lang": "pt"}
 {"id": 25, "prompt": "monitor de posições no Google", "accepts": ["rank-tracker"], "lang": "pt"}
 {"id": 26, "prompt": "analisar dados do Google Search Console", "accepts": ["gsc-google-search-console"], "lang": "pt"}
+{"id": 27, "prompt": "criar design system pra marca nova", "accepts": ["branding"], "lang": "pt"}
+{"id": 28, "prompt": "clonar visual do site conversion.com.br", "accepts": ["branding"], "lang": "pt"}
+{"id": 29, "prompt": "import design from URL", "accepts": ["branding"], "lang": "en"}
+{"id": 30, "prompt": "gerar brandbook em PDF", "accepts": ["branding"], "lang": "pt"}
+{"id": 31, "prompt": "configurar mood board e provider de imagens", "accepts": ["branding"], "lang": "pt"}
+{"id": 32, "prompt": "validar AI-slop no design", "accepts": ["branding", "qa"], "lang": "pt"}
+{"id": 33, "prompt": "listar marcas conhecidas no repo", "accepts": ["branding"], "lang": "pt"}
+{"id": 34, "prompt": "aplicar tokens do brain ao web", "accepts": ["branding"], "lang": "pt"}

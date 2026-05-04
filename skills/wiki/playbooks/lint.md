@@ -23,7 +23,7 @@ node scripts/wiki-lint.mjs --strict   # exit 1 se erros (uso em CI)
 - `proprietary_claims[]` tem ≥3 itens.
 
 ### Warnings (não bloqueiam)
-- `brain/DESIGN.md` ausente — sugere fluxo de branding.
+- `brain/DESIGN.md` ausente — sugere `/branding discover` (ou `/branding import <url>`).
 - Arquivos do Brain core com >30 dias sem mtime — sugere revisão.
 - `content/posts/index.md` ou `content/site/index.md` ausentes.
 

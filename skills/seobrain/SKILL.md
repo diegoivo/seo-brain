@@ -53,7 +53,7 @@ Detectado por `brain/index.md` com `kit_state: template`. Hook session-start já
 
 ```
 /seobrain:start
-  → orquestra /wiki (init playbook) + /branding (onboard, quando reintegrado) em sequência
+  → orquestra /wiki (init playbook) + /branding apply (visual) em sequência
   → modo Express default (~10min, 18 perguntas)
   → modo Guiado disponível (50min, 35 perguntas)
   → modo Auto (LLM preenche tudo, usuário ajusta)
@@ -84,7 +84,7 @@ Ver `references/pillars.md` para detalhamento de cada pilar.
 | Pilar | Skill (consolidada) |
 |---|---|
 | **LLM Wiki** (substrato) | `wiki` (playbooks: init, update, lint) |
-| **Branding** | (em rebuild em outra branch — pacote temporariamente removido) |
+| **Branding** | `branding` (playbooks: discover, import-url, apply, export, images, review, list + 6 references + page templates) |
 | **Content SEO** | `content-seo` (playbooks: article, blogpost, intent-analysis, review) |
 | **Technical SEO** | `technical-seo` (playbooks: full-audit, single-page, images, performance, strategy) |
 | **SEO Data** | `seo-data` (playbooks: keywords-volume, competitor-pages, competitor-keywords, config), `gsc-google-search-console`, `rank-tracker` |

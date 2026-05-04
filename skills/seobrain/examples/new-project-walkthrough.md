@@ -20,9 +20,9 @@ $ /seobrain:start
   Para começar:
     /seobrain:start create-project <nome>
   
-  Available skills (11, agrupadas por pilar — progressive disclosure):
+  Available skills (12, agrupadas por pilar — progressive disclosure):
     LLM Wiki:    /wiki                  (init / update / lint playbooks)
-    Branding:    (em rebuild em outra branch)
+    Branding:    /branding              (discover / import / apply / export / images / review / list)
     Content:     /content-seo           (article / blogpost / intent-analysis / review)
     Technical:   /technical-seo         (full-audit / single-page / images / performance / strategy)
     SEO Data:    /seo-data              (keywords-volume / competitor-pages / competitor-keywords / config)
@@ -71,7 +71,7 @@ Após escolher modo Express, o agente roda em sequência:
 
 ✓ brain/ populado (kit_state: initialized).
 
-[Phase 2 — Branding (em outra branch — temporariamente indisponível)]
+[Phase 2 — Branding / /branding apply (orquestra discover + apply)]
   Pergunta 1/10: Mood (3 palavras)? > moderno, elegante, terra
   ...
   Pergunta 10/10: Logo (upload ou skip)? > skip (depois)

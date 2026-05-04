@@ -42,15 +42,20 @@ Isso vai:
 | /update-brain | /wiki-update |
 | /brain-lint | /wiki-lint |
 
-### Branding
-| Antigo | Novo |
+### Branding (consolidada v0.2.0 — `/branding` única com 7 modos)
+
+**v0.2.0 (2026-05-04)**: as 6 skills `branding-*` foram fundidas em uma única `/branding` com modos. Todas as funcionalidades preservadas; nova feature `export` (brandbook.md/.html/.pdf).
+
+| Antigo (v0.1.x) | Novo (v0.2.0) |
 |---|---|
-| /design-init | /branding-init |
-| /onboard-brandbook | /branding-onboard |
-| /brandbook | /branding-brandbook |
-| /setup-images | /branding-images |
-| /qa-design | /branding-review |
-| /site-clone + /clone-fidelity | /branding-clone (consolidado) |
+| /design-init / /branding-init | `/branding discover` |
+| /onboard-brandbook / /branding-onboard | `/branding apply` |
+| /brandbook / /branding-brandbook | `/branding apply` (rotas vivas) |
+| /setup-images / /branding-images | `/branding images` |
+| /qa-design / /branding-review | `/branding review` |
+| /site-clone + /clone-fidelity / /branding-clone | `/branding import <url>` |
+| (novo) | `/branding export` (brandbook.md + .html + .pdf) |
+| (novo) | `/branding list` (lista marcas no repo) |
 
 ### Content
 | Antigo | Novo |
@@ -96,7 +101,7 @@ Absorvido em `/seobrain:start`. Mesmas 5 fases (identidade, posicionamento, desi
 ## Onde foi parar /qa?
 
 Continua existindo, mas agora é skill **fina** (10 linhas) que dispara 3 reviewers em paralelo via `Task`:
-- `/branding-review` (era `/qa-design`)
+- `/branding review` (era `/qa-design` / `/branding-review`)
 - `/content-seo-review` (era `/qa-content`)
 - `/website-qa` (era `/qa-tech`)
 
