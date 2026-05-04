@@ -24,11 +24,13 @@ Referência conceitual: [agenticseo.sh](https://agenticseo.sh) · Multi-harness 
 ## Quick start
 
 ```bash
-npx github:diegoivo/seobrain bootstrap meu-projeto
-cd meu-projeto
+git clone https://github.com/diegoivo/seobrain.git
+cd seobrain && npm install
+npm run new meu-projeto      # cria projects/meu-projeto/
+cd projects/meu-projeto
 ```
 
-Abra seu coding agent no diretório:
+Abra seu coding agent no diretório do projeto:
 
 | Harness | Como invocar |
 |---|---|
@@ -36,6 +38,8 @@ Abra seu coding agent no diretório:
 | **Codex CLI** | "execute o onboard" |
 | **Antigravity** | "execute o onboard" |
 | **Cursor** | "rode a skill onboard" |
+
+> **Multi-projeto:** cada `projects/<nome>/` é autocontido (próprio `brain/`, `content/`, `web/`). É git-ignored no repo do framework. Pode virar repo próprio do cliente: `cd projects/<nome> && git init && git remote add origin <url>`.
 
 ---
 
@@ -100,45 +104,48 @@ Skills do framework em `.claude/skills/`. Markdown puro = portátil entre harnes
 ## Estrutura
 
 ```
-.
-├── AGENTS.md                  source-of-truth
-├── CLAUDE.md, .cursorrules    stubs
+seobrain/                          ← REPO PÚBLICO DO FRAMEWORK
+├── AGENTS.md                      source-of-truth (instruções do agente)
+├── CLAUDE.md, .cursorrules        stubs apontando pra AGENTS.md
 ├── .claude/
-│   ├── skills/                20+ skills markdown
-│   ├── commands/              /aprovado, /onboard, /plano
-│   └── settings.json          hooks
-├── brain/                     LLM Wiki (Karpathy + Obsidian)
-│   ├── index.md               MoC navegável (wikilinks)
-│   ├── log.md                 append-only (operações)
-│   ├── config.md              estado operacional
-│   ├── tom-de-voz.md
-│   ├── tecnologia/index.md
-│   ├── personas/              1 arquivo por persona
-│   ├── povs/                  1 arquivo por POV proprietário
-│   ├── glossario/             1 arquivo por verbete
-│   ├── sources/               fontes brutas imutáveis
-│   ├── DESIGN.md              design system narrativo
-│   └── seo/reports/
-├── content/
-│   ├── posts/
-│   └── site/
-├── plans/                     planos de execução versionados
-├── web/                       Next.js SSG (Lighthouse 100 baseline)
-│   └── src/app/brandbook/     rotas pré-scaffolded (cores, tipografia, voz, etc.)
-├── scripts/                   CLI tools
-└── docs/integrations/
+│   ├── skills/                    30+ skills markdown
+│   ├── commands/                  /aprovado, /onboard, /plano
+│   └── settings.json              hooks (session-start, pre-tool-use)
+├── scripts/                       CLI tools compartilhadas
+│   ├── lib/project-root.mjs       resolve cwd → projeto ativo
+│   ├── new-project.mjs            cria projects/<nome>/ a partir do template
+│   └── *.mjs                      brain-lint, seo-score, perf-audit, etc
+├── docs/                          referências canônicas (typography, grid, etc)
+├── templates/
+│   └── project/                   esqueleto de projeto (esqueleto, NÃO o seu projeto)
+├── projects/                      git-ignored — projetos do usuário moram aqui
+│   ├── cliente-a/                 ← projeto autocontido
+│   │   ├── brain/                 LLM Wiki da marca (Karpathy + Obsidian)
+│   │   ├── content/               posts + páginas
+│   │   ├── web/                   Next.js SSG (Lighthouse 100 baseline)
+│   │   ├── plans/                 planos de execução do projeto
+│   │   ├── package.json           scripts delegando ao framework via ../../
+│   │   └── .git/                  opcional — repo próprio do cliente
+│   └── cliente-b/                 ← outro projeto
+└── scratch/                       git-ignored — rascunhos do dev do framework
 ```
 
 ---
 
 ## Comandos úteis
 
+**Da raiz do framework:**
+```bash
+npm run new <nome>              # cria projects/<nome>/ a partir do template
+```
+
+**De dentro de um projeto (`cd projects/<nome>`):**
 ```bash
 npm run brain:lint              # valida Brain (orphans, broken refs, stale)
 npm run seo:score <url>         # SEO Score (auto-detecta profile)
 npm run perf:audit <url>        # Lighthouse via PSI + fallback local
 npm run web:dev                 # Next.js em porta aleatória
-npm run brandbook:pdf           # exporta brandbook para PDF
+npm run web:build               # build de produção
 ```
 
 ---
@@ -148,7 +155,7 @@ npm run brandbook:pdf           # exporta brandbook para PDF
 Setup completo em [`docs/obsidian-setup.md`](./docs/obsidian-setup.md). Resumo:
 
 1. Instale [Obsidian](https://obsidian.md) (free).
-2. Abra `brain/` como vault.
+2. Abra `projects/<nome>/brain/` como vault (cada projeto tem seu Brain próprio).
 3. Edite com wikilinks `[[arquivo]]`, tags `#brand`, callouts `> [!warning]`.
 4. Plugins recomendados: **Templater** (templates de verbetes), **Dataview** (dashboards read-only).
 

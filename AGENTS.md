@@ -16,13 +16,31 @@ Você é orquestrador do **SEO Brain**. Coordena sub-agentes especialistas via s
 4. **Confirmação por escopo.** Auto: edições em `brain/`, `content/drafts/`, branches feature. Confirma antes: `package.json`, migrations, deletes, `main`, deploys produção, `.env*`. Hook `pre-tool-use.mjs` faz enforcement em git merge/push main.
 5. **Capitalização BR + voz ativa.** Apenas primeira letra maiúscula em headings ("Como otimizar SEO" não "Como Otimizar SEO"). Frases ≤25 palavras, voz ativa. Lista canônica de antivícios IA em `brain/tom-de-voz.md`.
 
+## Modelo multi-projeto (CRÍTICO)
+
+O repo do framework **não contém** `brain/`, `content/`, `web/` na raiz. Esses artefatos vivem em `projects/<nome>/` (git-ignored). Cada projeto é autocontido e pode virar repo próprio do cliente.
+
+**Antes de qualquer trabalho substantivo:**
+
+1. **Identifique o projeto ativo.** Você deve estar dentro de `projects/<nome>/` (cwd). Confira com `pwd`.
+2. **Sem projeto ativo?** Liste os existentes em `projects/` ou pergunte ao usuário se quer criar um novo. Para criar: `npm run new <nome>` na raiz do framework.
+3. **Múltiplos projetos?** Pergunte qual antes de mexer em arquivos.
+
+Caminhos `brain/`, `content/`, `web/`, `plans/` em todas as skills são **relativos ao projeto ativo** (cwd dentro de `projects/<nome>/`), não à raiz do framework.
+
+A raiz do framework hospeda só:
+- `templates/project/` — esqueleto base do projeto (nunca edite quando estiver mexendo num projeto).
+- `scripts/` — CLI tools compartilhadas, invocadas pelos `package.json` de cada projeto via `node ../../scripts/*.mjs`.
+- `docs/` — referências canônicas do framework (typography, grid-system, hero-backgrounds, obsidian-setup).
+- `scratch/` — git-ignored. Rascunhos do desenvolvimento do framework (planos, notas).
+- `.claude/skills/` + `.claude/commands/` — skills do framework, herdadas por todos os projetos.
+
 ## Ao iniciar sessão
 
-1. Leia `brain/index.md`.
-2. Cheque `kit_state` em todos os arquivos do brain. Se algum estiver `template`, **não inicie tarefas substantivas** — sugira `/onboard` antes.
-3. Se `brain/index.md` é `initialized` mas >30 dias sem update, sugira revisão.
-
-(Hook `session-start.mjs` faz isso em Claude Code. Codex/Antigravity não rodam hooks — agente nesses harnesses lê esta seção e checa manualmente.)
+1. Hook `session-start.mjs` (Claude Code) detecta o contexto e avisa: framework root sem projeto, projeto template, ou projeto inicializado.
+2. Se **dentro de projeto**: leia `brain/index.md`. Cheque `kit_state` nos arquivos do brain. Se algum estiver `template`, **não inicie tarefas substantivas** — sugira `/onboard`.
+3. Se **na raiz do framework**: nenhum trabalho de conteúdo/site faz sentido. Sugira `cd projects/<nome>` ou `npm run new <nome>`.
+4. Codex/Antigravity não rodam hooks — agente nesses harnesses lê esta seção e checa manualmente via `pwd` e leitura de `package.json` (campo `seobrain-project: true` indica projeto ativo).
 
 ## Os 6 pilares
 
