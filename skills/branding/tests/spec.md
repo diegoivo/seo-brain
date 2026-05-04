@@ -105,7 +105,7 @@ Cada feature presente nas 6 skills antigas existe em algum playbook do `/brandin
 | T8.1 | Nenhuma skill em `skills/` (exceto `skills/branding/tests/`) referencia `branding-init`, `branding-onboard`, `branding-brandbook`, `branding-clone`, `branding-images` ou `branding-review` | `grep -r` |
 | T8.2 | `skills/qa/SKILL.md` referencia `/branding review` (modo da nova skill) | grep |
 | T8.3 | `skills/wiki-init/SKILL.md` referencia `/branding` (não mais `branding-onboard`) | grep |
-| T8.4 | `commands/seo-brain.md` orquestra `/branding` (não mais `branding-onboard`) | grep |
+| T8.4 | `commands/start.md` orquestra `/branding` (não mais `branding-onboard`) | grep |
 | T8.5 | `skills/seo-brain/SKILL.md` cita apenas `/branding` na tabela de skills | grep |
 | T8.6 | `tests/prompts.jsonl` tem ≥ 6 entradas com `accepts` contendo `branding` (cobre os 6 modos) | jq/grep |
 | T8.7 | `README.md`, `MIGRATION.md`, `CHANGELOG.md` mencionam a consolidação para `/branding` | grep |
