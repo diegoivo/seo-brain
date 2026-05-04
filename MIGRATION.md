@@ -22,7 +22,7 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/migrate-existing-project.mjs
 
 Isso vai:
 1. Remover hook duplicado de `.claude/settings.json` (agora plugin manifest registra).
-2. Regenerar AGENTS.md no projeto a partir de `skills/seobrain/SKILL.md`.
+2. Regenerar AGENTS.md no projeto a partir de `skills/seo-brain/SKILL.md`.
 3. Reportar drift (brain >30 dias, etc.).
 
 ## Cheat sheet — skill renames
@@ -30,10 +30,10 @@ Isso vai:
 ### Pipeline + framework entry
 | Antigo | Novo |
 |---|---|
-| /onboard | /seobrain:start |
+| /onboard | /seo-brain:start |
 | /plano | /plan |
 | /aprovado | /approved |
-| /seobrain-ship | /ship |
+| /seo-brain-ship | /ship |
 
 ### LLM Wiki (era "Brain")
 | Antigo | Novo |
@@ -96,7 +96,7 @@ Exemplos:
 
 ## Onde foi parar /onboard?
 
-Absorvido em `/seobrain:start`. Mesmas 5 fases (identidade, posicionamento, design, voz, escopo), agora orquestradas pelo entry point.
+Absorvido em `/seo-brain:start`. Mesmas 5 fases (identidade, posicionamento, design, voz, escopo), agora orquestradas pelo entry point.
 
 ## Onde foi parar /qa?
 
@@ -109,9 +109,9 @@ UX pra você é a mesma: roda `/qa` e os 3 sub-agents validam. Diferença é que
 
 ## Onde foi parar AGENTS.md?
 
-Deletado do plugin root. Conteúdo virou canonical em `skills/seobrain/SKILL.md` (single source of truth).
+Deletado do plugin root. Conteúdo virou canonical em `skills/seo-brain/SKILL.md` (single source of truth).
 
-Para harnesses não-Claude (Codex, Antigravity, Cursor), o `scripts/init-agents-md.mjs` gera AGENTS.md no projeto na 1ª execução de `/seobrain:start`.
+Para harnesses não-Claude (Codex, Antigravity, Cursor), o `scripts/init-agents-md.mjs` gera AGENTS.md no projeto na 1ª execução de `/seo-brain:start`.
 
 ## Onde foi parar CLAUDE.md?
 
@@ -127,5 +127,5 @@ Cada IDE/projeto pode criar seu próprio CLAUDE.md se quiser instruções espec�
 
 ## Precisa de ajuda?
 
-- Issues: https://github.com/diegoivo/seobrain/issues
+- Issues: https://github.com/diegoivo/seo-brain/issues
 - Plan original: `scratch/plans/skills-refactor-plugin-2026-05-04.md` (no repo)

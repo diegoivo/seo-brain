@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// sync-meta — propaga descrição/keywords do skills/seobrain/SKILL.md
+// sync-meta — propaga descrição/keywords do skills/seo-brain/SKILL.md
 // pra package.json + .claude-plugin/plugin.json + .claude-plugin/marketplace.json.
 //
-// Single source of truth: skills/seobrain/SKILL.md frontmatter.
+// Single source of truth: skills/seo-brain/SKILL.md frontmatter.
 // Outros artefatos derivam dele.
 //
 // Uso:
@@ -11,7 +11,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 
-const skillPath = "skills/seobrain/SKILL.md";
+const skillPath = "skills/seo-brain/SKILL.md";
 const pluginPath = ".claude-plugin/plugin.json";
 const marketplacePath = ".claude-plugin/marketplace.json";
 const pkgPath = "package.json";
@@ -21,7 +21,7 @@ const mode = process.argv[2] || "--check";
 const skill = readFileSync(skillPath, "utf8");
 const fmMatch = skill.match(/^---\n([\s\S]*?)\n---/);
 if (!fmMatch) {
-  console.error("❌ skills/seobrain/SKILL.md sem frontmatter.");
+  console.error("❌ skills/seo-brain/SKILL.md sem frontmatter.");
   process.exit(1);
 }
 const fm = fmMatch[1];

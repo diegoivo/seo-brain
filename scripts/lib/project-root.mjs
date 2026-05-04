@@ -1,6 +1,6 @@
 // Resolve a raiz de um projeto SEO Brain ou do framework.
-// Projeto = pasta com package.json contendo "seobrain-project": true.
-// Framework = pasta com package.json contendo "name": "seobrain".
+// Projeto = pasta com package.json contendo "seo-brain-project": true.
+// Framework = pasta com package.json contendo "name": "seo-brain".
 //
 // Sobe da cwd procurando o marcador. Retorna null se não achar.
 
@@ -9,19 +9,19 @@ import { dirname, resolve } from "node:path";
 import { cwd } from "node:process";
 
 export function resolveProjectRoot(start = cwd()) {
-  return findUp(start, (pkg) => pkg["seobrain-project"] === true);
+  return findUp(start, (pkg) => pkg["seo-brain-project"] === true);
 }
 
 export function resolveFrameworkRoot(start = cwd()) {
-  return findUp(start, (pkg) => pkg.name === "seobrain");
+  return findUp(start, (pkg) => pkg.name === "seo-brain");
 }
 
 export function isProjectRoot(path = cwd()) {
-  return readPackage(path)?.["seobrain-project"] === true;
+  return readPackage(path)?.["seo-brain-project"] === true;
 }
 
 export function isFrameworkRoot(path = cwd()) {
-  return readPackage(path)?.name === "seobrain";
+  return readPackage(path)?.name === "seo-brain";
 }
 
 // Resolve raiz de projeto OU aborta com mensagem clara.

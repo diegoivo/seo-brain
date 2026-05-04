@@ -1,6 +1,6 @@
 ---
-name: seobrain
-description: SEO Brain framework entry — agentic SEO + GEO toolkit for Claude Code with Brazilian Portuguese voice and proprietary POVs. Loads framework principles (6 pillars LLM Wiki/Branding/Content/Technical/Strategy/Data), lists projects, creates new project, orchestrates brain + branding onboarding. Bilingual triggers (PT-BR + EN). Use when user asks "seobrain", "framework de SEO", "agentic SEO", "começar projeto", "iniciar SEO", "framework principles", "create project", "novo projeto SEO", "Brazilian SEO framework", "SEO Brain start", or as session entrypoint. Routes to references/ (pillars, multi-project-model, project-recipe, harness-compatibility).
+name: seo-brain
+description: SEO Brain framework entry — agentic SEO + GEO toolkit for Claude Code with Brazilian Portuguese voice and proprietary POVs. Loads framework principles (6 pillars LLM Wiki/Branding/Content/Technical/Strategy/Data), lists projects, creates new project, orchestrates brain + branding onboarding. Bilingual triggers (PT-BR + EN). Use when user asks "seo-brain", "framework de SEO", "agentic SEO", "começar projeto", "iniciar SEO", "framework principles", "create project", "novo projeto SEO", "Brazilian SEO framework", "SEO Brain start", or as session entrypoint. Routes to references/ (pillars, multi-project-model, project-recipe, harness-compatibility).
 allowed-tools:
   - Read
   - Write
@@ -9,7 +9,7 @@ allowed-tools:
   - Grep
 ---
 
-# /seobrain — entry point do framework
+# /seo-brain — entry point do framework
 
 SEO Brain é framework de SEO Agêntico para Claude Code (e harnesses compatíveis: Codex, Antigravity, Cursor). Você é orquestrador: coordena sub-agentes especialistas via skills. Usuário define estratégia.
 
@@ -32,19 +32,19 @@ SEO Brain é framework de SEO Agêntico para Claude Code (e harnesses compatíve
 Detectado por `pwd` em raiz com `.claude-plugin/plugin.json`. Hook session-start já avisou.
 
 ```
-/seobrain:start
+/seo-brain:start
   → lista projects/* existentes
-  → sugere /seobrain:start create-project <nome>
+  → sugere /seo-brain:start create-project <nome>
 ```
 
 ### Modo 2 — criar projeto novo
 
 ```
-/seobrain:start create-project cliente-acme
+/seo-brain:start create-project cliente-acme
   → cd para framework root se preciso
   → node scripts/new-project.mjs cliente-acme
   → confirma criação em projects/cliente-acme/ (ou cwd do usuário se plugin install)
-  → próximo passo: cd projects/cliente-acme && /seobrain:start
+  → próximo passo: cd projects/cliente-acme && /seo-brain:start
 ```
 
 ### Modo 3 — projeto template (kit_state: template)
@@ -52,7 +52,7 @@ Detectado por `pwd` em raiz com `.claude-plugin/plugin.json`. Hook session-start
 Detectado por `brain/index.md` com `kit_state: template`. Hook session-start já avisou.
 
 ```
-/seobrain:start
+/seo-brain:start
   → orquestra /wiki (init playbook) + /branding apply (visual) em sequência
   → modo Express default (~10min, 18 perguntas)
   → modo Guiado disponível (50min, 35 perguntas)
@@ -64,7 +64,7 @@ Detectado por `brain/index.md` com `kit_state: template`. Hook session-start já
 Detectado por `brain/index.md` com `kit_state: initialized`.
 
 ```
-/seobrain:start
+/seo-brain:start
   → carrega contexto do projeto (brain/index.md, brain/config.md)
   → lista próximos passos: /content-seo, /technical-seo, /seo-data, /ship
 ```

@@ -8,7 +8,7 @@ status: initialized
 
 # Tipografia — sistema canônico do SEO Brain
 
-> Tipografia é o ingrediente que mais distingue site sério de site genérico. Como o usuário não tem briefing de tipografia para cada projeto, o framework já vem com um sistema **opinativo, calibrado para leitura longa, anti-AI-slop**. Quando `/seobrain:start` definir as fontes específicas, só os tokens de `font-family` mudam — escala, ritmo e regras permanecem.
+> Tipografia é o ingrediente que mais distingue site sério de site genérico. Como o usuário não tem briefing de tipografia para cada projeto, o framework já vem com um sistema **opinativo, calibrado para leitura longa, anti-AI-slop**. Quando `/seo-brain:start` definir as fontes específicas, só os tokens de `font-family` mudam — escala, ritmo e regras permanecem.
 
 ## Decisões fechadas
 

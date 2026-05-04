@@ -60,15 +60,15 @@ if (mode === "--pre") {
 } else if (mode === "--post") {
   // Estado pós-refactor: só frontmatters de skills/ (sem AGENTS.md)
   const skills = measureSkillsDir("skills");
-  const seoBrainFm = frontmatterOf("skills/seobrain/SKILL.md");
+  const seoBrainFm = frontmatterOf("skills/seo-brain/SKILL.md");
   const seoBrainTokens = countLines(seoBrainFm) * TOKENS_PER_LINE;
   console.log(JSON.stringify({
     mode: "post",
     skills_count: skills.count,
     skills_frontmatter_tokens: skills.tokens,
-    seobrain_skill_frontmatter_tokens: seoBrainTokens,
+    seo_brain_skill_frontmatter_tokens: seoBrainTokens,
     total_session_start_tokens: skills.tokens,
-    note: "Conservative: 12 tokens/line. AGENTS.md deleted; seobrain SKILL.md body lazy-loaded."
+    note: "Conservative: 12 tokens/line. AGENTS.md deleted; seo-brain SKILL.md body lazy-loaded."
   }, null, 2));
 } else {
   console.error("Usage: measure-token-baseline.mjs --pre | --post");

@@ -4,7 +4,7 @@ Você é um agente de QA independente. Seu trabalho é validar a skill `/brandin
 
 ## Contexto
 
-Workspace: `/Users/diego/conductor/workspaces/seobrain/da-nang`
+Workspace: `/Users/diego/conductor/workspaces/seo-brain/da-nang`
 
 A skill `/branding` consolida 6 skills antigas (`branding-init`, `branding-onboard`, `branding-brandbook`, `branding-clone`, `branding-images`, `branding-review`) em uma única skill com modos. As 6 antigas foram **deletadas** — qualquer referência sobrevivente é falha.
 

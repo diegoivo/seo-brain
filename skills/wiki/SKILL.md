@@ -32,7 +32,7 @@ Suite única para popular, atualizar e validar o **Brain** (Karpathy LLM Wiki) d
 
 ## Playbooks
 
-- `playbooks/init.md` — fase 1 do onboarding. 6 sub-fases (identidade, personas, POVs, voz, glossário, tecnologia) com auto-commit. Modos: auto / express (default) / guiado. Aceita inputs do orquestrador `/seobrain:start` ou roda standalone.
+- `playbooks/init.md` — fase 1 do onboarding. 6 sub-fases (identidade, personas, POVs, voz, glossário, tecnologia) com auto-commit. Modos: auto / express (default) / guiado. Aceita inputs do orquestrador `/seo-brain:start` ou roda standalone.
 - `playbooks/update.md` — disparado pelo `/approved`. Atualiza `brain/index.md`, `brain/config.md`, `brain/tecnologia/`, `brain/glossario/`, `brain/backlog.md` conforme o diff da tarefa concluída. Identifica padrões repetíveis e sugere conversão em skill.
 - `playbooks/lint.md` — roda `node scripts/wiki-lint.mjs`. Erros (frontmatter ausente, ≥3 POVs, arquivos core ausentes) e warnings (>30 dias, DESIGN.md ausente).
 

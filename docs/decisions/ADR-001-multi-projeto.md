@@ -23,7 +23,7 @@ Separar o repo em **3 zonas explícitas**:
 
 **"Projeto ativo" = cwd.** Sem variável de ambiente nem flag. O agente faz `cd projects/<nome>` antes de operar. Skills continuam usando paths relativos (`brain/`, `web/`) que resolvem dentro do projeto. Helper `scripts/lib/project-root.mjs` resolve para scripts CLI que precisam saber onde estão.
 
-**`package.json` do projeto** tem campo `"seobrain-project": true` como marcador. Scripts delegam ao framework via `node ../../scripts/*.mjs`.
+**`package.json` do projeto** tem campo `"seo-brain-project": true` como marcador. Scripts delegam ao framework via `node ../../scripts/*.mjs`.
 
 **Bootstrap antigo removido.** Substituído por `npm run new <nome>` (cria projeto interno). Bootstrap standalone (init em pasta arbitrária) fica fora do v1 — adicionado quando outro dev pedir.
 

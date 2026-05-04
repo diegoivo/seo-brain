@@ -86,12 +86,12 @@ async function main() {
     console.log("Abri https://console.cloud.google.com/projectcreate");
     console.log("");
     console.log("No formulário:");
-    console.log(`  • Project name:  seobrain-${projectName}`);
+    console.log(`  • Project name:  seo-brain-${projectName}`);
     console.log("  • Location:      No organization (default)");
     console.log("  • Clique CREATE e aguarde ~30s.");
     console.log("");
     const projectId =
-      (await ask("Cole aqui o Project ID (ex: seobrain-cliente-123456) ou Enter pra pular: ")) ||
+      (await ask("Cole aqui o Project ID (ex: seo-brain-cliente-123456) ou Enter pra pular: ")) ||
       "";
 
     // === Passo 2: habilitar API ===
@@ -145,7 +145,7 @@ async function main() {
     console.log("");
     console.log("  1. CREATE CREDENTIALS → OAuth client ID");
     console.log("  2. Application type: Desktop app");
-    console.log("  3. Name: seobrain-cli");
+    console.log("  3. Name: seo-brain-cli");
     console.log("  4. CREATE");
     console.log("");
     console.log("Vai aparecer modal com Client ID e Client secret.");
@@ -191,7 +191,7 @@ async function main() {
     console.log("Vou abrir a tela de consent do Google. Você vai ver:");
     console.log("");
     console.log("  • 'Google hasn't verified this app'");
-    console.log("    → Clique 'Advanced' → 'Go to seobrain (unsafe)'");
+    console.log("    → Clique 'Advanced' → 'Go to seo-brain (unsafe)'");
     console.log("    → É seu próprio app, é seguro. Só não foi verificado pelo Google.");
     console.log("");
     console.log("  • Tela de permissões (Search Console read-only)");

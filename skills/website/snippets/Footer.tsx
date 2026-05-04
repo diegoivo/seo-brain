@@ -79,7 +79,7 @@ export function Footer({ brand, tagline, socials, navColumns, showCredit = true 
             <p>
               Powered by{" "}
               <a
-                href="https://github.com/diegoivo/seobrain"
+                href="https://github.com/diegoivo/seo-brain"
                 target="_blank"
                 rel="noopener"
                 className="underline decoration-1 underline-offset-2 hover:opacity-70"

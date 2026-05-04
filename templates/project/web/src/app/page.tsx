@@ -22,7 +22,7 @@ export default function Home() {
                 Ver brandbook
               </Link>
               <a
-                href="https://github.com/diegoivo/seobrain"
+                href="https://github.com/diegoivo/seo-brain"
                 className="btn-ghost"
                 target="_blank"
                 rel="noopener noreferrer"

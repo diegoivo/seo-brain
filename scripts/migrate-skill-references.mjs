@@ -37,7 +37,7 @@ const RENAMES = [
   ["/website-domain", "/website-domain"],
   ["/website-email", "/website-email"],
   ["/ship", "/ship"],
-  ["/seobrain:start", "/seobrain:start"],
+  ["/seo-brain:start", "/seo-brain:start"],
   ["/plan", "/plan"],
   ["/approved", "/approved"],
 
@@ -58,7 +58,7 @@ const RENAMES = [
   ["skill `content-seo`", "skill `content-seo`"],
   ["skill `technical-seo`", "skill `technical-seo`"],
   ["skill `ship`", "skill `ship`"],
-  ["skill `seobrain`", "skill `seobrain`"],
+  ["skill `seo-brain`", "skill `seo-brain`"],
   ["skill `plan`", "skill `plan`"],
 
   // path references

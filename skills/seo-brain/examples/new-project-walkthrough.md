@@ -5,20 +5,20 @@ Mockup do output esperado para usuário fresh.
 ## Cenário 1: instalar plugin + criar projeto
 
 ```
-$ /plugin marketplace add diegoivo/seobrain
-✓ Marketplace 'seobrain-marketplace' added (1 plugin)
+$ /plugin marketplace add diegoivo/seo-brain
+✓ Marketplace 'seo-brain-marketplace' added (1 plugin)
 
-$ /plugin install seobrain@seobrain-marketplace
-✓ Plugin 'seobrain' installed (24 skills + 3 commands + 2 hooks)
-  Type /seobrain:start to begin.
+$ /plugin install seo-brain@seo-brain-marketplace
+✓ Plugin 'seo-brain' installed (24 skills + 3 commands + 2 hooks)
+  Type /seo-brain:start to begin.
 
-$ /seobrain:start
+$ /seo-brain:start
 🧠 SEO Brain v0.1.5 — Brazilian-first SEO + GEO toolkit
 
   Status: nenhum projeto ativo (cwd não é um projeto SEO Brain).
   
   Para começar:
-    /seobrain:start create-project <nome>
+    /seo-brain:start create-project <nome>
   
   Available skills (12, agrupadas por pilar — progressive disclosure):
     LLM Wiki:    /wiki                  (init / update / lint playbooks)
@@ -34,14 +34,14 @@ $ /seobrain:start
   Trigger words (PT-BR + EN): "escrever artigo", "audit SEO",
   "criar projeto", "GEO content", "AI Overviews", "validar voz".
 
-$ /seobrain:start create-project acme-cliente
+$ /seo-brain:start create-project acme-cliente
 ✓ Created /Users/you/dev/clients/acme-cliente/
   Templates copied. brain/ in template state.
   
-  Next: cd acme-cliente && /seobrain:start
+  Next: cd acme-cliente && /seo-brain:start
 
 $ cd acme-cliente
-$ /seobrain:start
+$ /seo-brain:start
 🧠 SEO Brain — projeto 'acme-cliente' detectado.
    brain/ ainda em estado template (kit_state: template em 6 arquivos).
    
@@ -88,7 +88,7 @@ Após escolher modo Express, o agente roda em sequência:
 ## Cenário 3: projeto inicializado
 
 ```
-$ cd acme-cliente && /seobrain:start
+$ cd acme-cliente && /seo-brain:start
 🧠 SEO Brain — projeto 'acme-cliente' inicializado.
    brain/index.md atualizado há 2 dias (✓ fresh).
    

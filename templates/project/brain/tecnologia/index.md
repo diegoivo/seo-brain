@@ -29,7 +29,7 @@ Credenciais em `.env.local` (gitignored). Cliente compartilhado em `scripts/data
 
 ## Pipeline de release
 
-`/seobrain-ship` (renomeada de /ship pra evitar colisão com gstack/ship) orquestra: pre-flight (typecheck + build + qa) → commit conventional → push → preview Vercel → smoke pre-merge → confirmação explícita → merge main → smoke prod → atualizar Brain via `/aprovado`.
+`/seo-brain-ship` (renomeada de /ship pra evitar colisão com gstack/ship) orquestra: pre-flight (typecheck + build + qa) → commit conventional → push → preview Vercel → smoke pre-merge → confirmação explícita → merge main → smoke prod → atualizar Brain via `/aprovado`.
 
 Hard gate via hook `pre-tool-use.mjs`: regex bloqueia `git merge|push.*main` por default. Skill é único caminho autorizado.
 

@@ -29,7 +29,7 @@ const TEMPLATE_DIR = join(PLUGIN_ROOT, "templates/project");
 // dentro do framework root (modo plugin). Se cwd === framework root, usa projects/ dentro.
 const userCwd = process.cwd();
 const isInsideFramework = userCwd === PLUGIN_ROOT || userCwd.startsWith(PLUGIN_ROOT + "/");
-const TARGET_BASE = process.env.SEOBRAIN_TARGET_DIR
+const TARGET_BASE = process.env.SEO_BRAIN_TARGET_DIR
   ?? (isInsideFramework ? join(PLUGIN_ROOT, "projects") : userCwd);
 
 const args = argv.slice(2);
@@ -97,8 +97,8 @@ if (doInstall) {
 console.log(`\n✅ Pronto.\n`);
 console.log(`Próximos passos:`);
 console.log(`  cd ${dest}`);
-console.log(`  # Claude Code:        /seobrain:start`);
-console.log(`  # Codex / Antigravity: "execute o seobrain"`);
+console.log(`  # Claude Code:        /seo-brain:start`);
+console.log(`  # Codex / Antigravity: "execute o seo-brain"`);
 console.log("");
 if (!doInstall) {
   console.log(`Quando for rodar o site (Next.js):`);

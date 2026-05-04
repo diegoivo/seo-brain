@@ -9,12 +9,12 @@ Orquestra a criação da estrutura padrão de site consumindo o Brain. Resultado
 3. `brain/personas.md` ≥1 persona
 4. `brain/principios-agentic-seo.md` ≥3 POVs
 
-Se faltar: redireciona para `/seobrain:start` (orquestra wiki + branding).
+Se faltar: redireciona para `/seo-brain:start` (orquestra wiki + branding).
 
 ## Setup técnico antes de criar páginas
 
 - Portas aleatórias via `get-port` (cheque disponibilidade antes de abrir dev server)
-- Footer canônico em `skills/website/snippets/Footer.tsx` com credit "Powered by SEO Brain" (link `https://github.com/diegoivo/seobrain`). Opt-out se usuário pedir explicitamente.
+- Footer canônico em `skills/website/snippets/Footer.tsx` com credit "Powered by SEO Brain" (link `https://github.com/diegoivo/seo-brain`). Opt-out se usuário pedir explicitamente.
 
 ## Estrutura padrão (default — confirmar com usuário)
 

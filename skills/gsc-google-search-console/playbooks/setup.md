@@ -32,7 +32,7 @@ Sem credenciais? Skill cuida do setup do zero — cliente cria conta Google Clou
 
 Cada passo: agente abre URL via `open -a "Google Chrome" <url>` + imprime instruções no terminal + pausa pra usuário digitar `ok` ou colar valor.
 
-**Passo 1 — Criar projeto Google Cloud:** abre `https://console.cloud.google.com/projectcreate`. Usuário nomeia `seobrain-<projeto>`, clica CREATE. Cola Project ID (opcional).
+**Passo 1 — Criar projeto Google Cloud:** abre `https://console.cloud.google.com/projectcreate`. Usuário nomeia `seo-brain-<projeto>`, clica CREATE. Cola Project ID (opcional).
 
 **Passo 2 — Habilitar Search Console API:** abre `https://console.cloud.google.com/apis/library/searchconsole.googleapis.com?project=<id>`. Usuário clica ENABLE.
 

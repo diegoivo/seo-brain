@@ -5,7 +5,7 @@
 // O que faz:
 //   1. Remove hook de templates/.claude/settings.json (agora plugin manifest registra)
 //   2. Atualiza paths em scripts referenced nos package.json/web (../../scripts → ${CLAUDE_PLUGIN_ROOT}/scripts)
-//   3. Regenera AGENTS.md a partir do skills/seobrain/SKILL.md
+//   3. Regenera AGENTS.md a partir do skills/seo-brain/SKILL.md
 //   4. Reporta drift detectado
 //
 // Uso:
@@ -26,8 +26,8 @@ if (!existsSync(pkg)) {
 }
 
 const pkgJson = JSON.parse(readFileSync(pkg, "utf8"));
-if (!pkgJson["seobrain-project"]) {
-  console.error("❌ Não é projeto SEO Brain (faltando 'seobrain-project: true' no package.json).");
+if (!pkgJson["seo-brain-project"]) {
+  console.error("❌ Não é projeto SEO Brain (faltando 'seo-brain-project: true' no package.json).");
   process.exit(1);
 }
 
@@ -78,6 +78,6 @@ if (issues.length > 0) {
 }
 
 console.log("\nPróximos passos:");
-console.log("  /seobrain:start         (load context)");
+console.log("  /seo-brain:start         (load context)");
 console.log("  /wiki-update            (refresh brain se >30 dias)");
 console.log("  /qa                     (validate before next change)");

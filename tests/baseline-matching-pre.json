@@ -156,9 +156,9 @@
     {
       "prompt": "começar projeto novo de SEO",
       "accepts": [
-        "seobrain"
+        "seo-brain"
       ],
-      "top_match": "seobrain",
+      "top_match": "seo-brain",
       "top_score": "0.078",
       "correct_top1": true,
       "correct_top3": true,
@@ -167,9 +167,9 @@
     {
       "prompt": "iniciar onboarding do framework",
       "accepts": [
-        "seobrain"
+        "seo-brain"
       ],
-      "top_match": "seobrain",
+      "top_match": "seo-brain",
       "top_score": "0.059",
       "correct_top1": true,
       "correct_top3": true,
@@ -213,7 +213,7 @@
       "accepts": [
         "wiki"
       ],
-      "top_match": "seobrain",
+      "top_match": "seo-brain",
       "top_score": "0.038",
       "correct_top1": false,
       "correct_top3": true,

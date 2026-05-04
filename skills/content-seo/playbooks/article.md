@@ -7,7 +7,7 @@ Pipeline completo de criação de artigo seguindo a filosofia do kit.
 
 1. **`intent-analyst` NÃO rodou** → abortar com:
    > "Preciso rodar `/content-seo` antes pra saber a forma certa do artigo (informacional, comercial, transacional). Roda primeiro."
-2. **`brain/index.md` é template** → redirecionar para `/seobrain:start`.
+2. **`brain/index.md` é template** → redirecionar para `/seo-brain:start`.
 3. **`proprietary_claims` faltando ou genéricos** → bloquear (não auto-resolver).
 
 Sem hard stops, **não escreva**.

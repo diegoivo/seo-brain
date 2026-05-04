@@ -10,7 +10,7 @@ Sobe um form HTTP local pra capturar `DATAFORSEO_LOGIN` e `DATAFORSEO_PASSWORD`,
 
 ## Pré-requisitos
 
-- Rodar de dentro de `projects/<nome>/` (cwd em projeto ativo, identificado por `seobrain-project: true` no `package.json`).
+- Rodar de dentro de `projects/<nome>/` (cwd em projeto ativo, identificado por `seo-brain-project: true` no `package.json`).
 - Conta no DataForSEO. Sem conta: o form mostra link de signup inline (https://app.dataforseo.com/register, Pay-as-you-go).
 
 ## Pipeline

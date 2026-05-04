@@ -6,7 +6,7 @@
   "engines": {
     "node": ">=22.13"
   },
-  "seobrain-project": true,
+  "seo-brain-project": true,
   "scripts": {
     "brain:lint": "node ../../scripts/brain-lint.mjs",
     "brain:lint:strict": "node ../../scripts/brain-lint.mjs --strict",

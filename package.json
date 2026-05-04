@@ -1,5 +1,5 @@
 {
-  "name": "seobrain",
+  "name": "seo-brain",
   "version": "0.1.5",
   "description": "SEO + GEO toolkit for Claude Code — technical audit, content brief, blogpost generator, SERP analysis, competitor research, schema markup, E-E-A-T scoring, AI Overviews optimization. Brazilian Portuguese voice + bilingual triggers (PT/EN). Progressive disclosure: 11 consolidated skills with playbooks.",
   "private": true,
@@ -7,10 +7,10 @@
   "engines": {
     "node": ">=22.13"
   },
-  "homepage": "https://github.com/diegoivo/seobrain",
-  "repository": "https://github.com/diegoivo/seobrain",
+  "homepage": "https://github.com/diegoivo/seo-brain",
+  "repository": "https://github.com/diegoivo/seo-brain",
   "bin": {
-    "seobrain": "scripts/bootstrap.mjs"
+    "seo-brain": "scripts/bootstrap.mjs"
   },
   "scripts": {
     "new": "node scripts/new-project.mjs",

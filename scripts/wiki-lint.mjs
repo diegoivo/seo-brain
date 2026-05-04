@@ -65,7 +65,7 @@ async function checkBrainCore() {
     await checkStaleClaims(f);
   }
   if (!existsSync(join(ROOT, "brain/DESIGN.md"))) {
-    WARNINGS.push("brain/DESIGN.md não existe — rode /branding-init (ou /seobrain:start fase brandbook)");
+    WARNINGS.push("brain/DESIGN.md não existe — rode /branding-init (ou /seo-brain:start fase brandbook)");
   }
 }
 
@@ -79,7 +79,7 @@ async function checkBrainEntities() {
     const entries = await readdir(full);
     const real = entries.filter(e => e.endsWith(".md") && e !== "index.md" && !e.startsWith("_"));
     if (real.length === 0) {
-      WARNINGS.push(`${dir}: vazio (0 entidades). Esperado após /seobrain:start.`);
+      WARNINGS.push(`${dir}: vazio (0 entidades). Esperado após /seo-brain:start.`);
     }
   }
 }

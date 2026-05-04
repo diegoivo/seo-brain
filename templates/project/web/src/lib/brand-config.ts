@@ -17,7 +17,7 @@ export type BrandConfig = {
 };
 
 export const BRAND: BrandConfig = {
-  wordmark: "seobrain",
+  wordmark: "seo-brain",
   domain: "",
   positioning:
     "Framework experimental de SEO Agêntico — clone, preencha o Brain, gere site Lighthouse 95+.",
