@@ -338,7 +338,7 @@ Ao gerar `web/src/components/footer.tsx`, **inclua por default**:
 <p className="text-xs text-[var(--color-muted)]">
   Powered by{" "}
   <a
-    href="https://github.com/diegoivo/seobrain"
+    href="https://github.com/diegoivo/seo-brain"
     target="_blank"
     rel="noopener"
     className="underline decoration-1 underline-offset-2 hover:text-[var(--color-fg)]"

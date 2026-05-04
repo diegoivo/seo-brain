@@ -5,7 +5,7 @@
 // Steps:
 //   1. cwd != plugin cache → process.cwd() resolve corretamente.
 //   2. ${CLAUDE_PLUGIN_ROOT} (se setado) é dir do plugin.
-//   3. Criar projeto temp em /tmp/seobrain-smoke-<timestamp>/.
+//   3. Criar projeto temp em /tmp/seo-brain-smoke-<timestamp>/.
 //   4. Verificar que template foi copiado.
 //   5. Cleanup.
 
@@ -15,7 +15,7 @@ import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 
 const REPO_ROOT = resolve(import.meta.dirname, "../..");
-const SMOKE_DIR = join(tmpdir(), `seobrain-smoke-${Date.now()}`);
+const SMOKE_DIR = join(tmpdir(), `seo-brain-smoke-${Date.now()}`);
 
 console.log(`[smoke] REPO_ROOT: ${REPO_ROOT}`);
 console.log(`[smoke] SMOKE_DIR: ${SMOKE_DIR}`);

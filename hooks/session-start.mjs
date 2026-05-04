@@ -35,7 +35,7 @@ if (!projectRoot && isFrameworkRoot()) {
   // Modo 1 — desenvolvimento do framework, sem projeto ativo.
   const projects = listProjects(frameworkRoot);
   messages.push("🧠 SEO Brain v0.1.5 — framework root, sem projeto ativo.");
-  messages.push("   Use /seobrain:start para listar/criar projetos.");
+  messages.push("   Use /seo-brain:start para listar/criar projetos.");
   if (projects.length > 0) {
     messages.push("   Projetos disponíveis:");
     for (const p of projects) messages.push(`     • cd projects/${p}`);
@@ -63,11 +63,11 @@ if (!projectRoot && isFrameworkRoot()) {
   }
 
   if (templated.length === BRAIN_FILES.length) {
-    messages.push("🚀 Projeto em estado TEMPLATE. Rode /seobrain:start para popular brain + branding.");
+    messages.push("🚀 Projeto em estado TEMPLATE. Rode /seo-brain:start para popular brain + branding.");
   } else if (templated.length > 0) {
     messages.push("⚠️  Onboarding incompleto. Arquivos ainda em estado template:");
     for (const f of templated) messages.push(`   - ${f}`);
-    messages.push("   Rode /seobrain:start pra retomar.");
+    messages.push("   Rode /seo-brain:start pra retomar.");
   } else {
     const brainIndex = join(projectRoot, "brain/index.md");
     if (existsSync(brainIndex)) {

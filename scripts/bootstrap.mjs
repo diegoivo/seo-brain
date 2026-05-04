@@ -5,11 +5,11 @@
 // Bootstrap standalone (init em pasta arbitrária) será reintroduzido em v2.
 
 console.error("");
-console.error("⚠️  `seobrain bootstrap` foi removido.");
+console.error("⚠️  `seo-brain bootstrap` foi removido.");
 console.error("");
 console.error("   Novo modelo multi-projeto:");
-console.error("     1. git clone https://github.com/diegoivo/seobrain.git");
-console.error("     2. cd seobrain && npm install");
+console.error("     1. git clone https://github.com/diegoivo/seo-brain.git");
+console.error("     2. cd seo-brain && npm install");
 console.error("     3. npm run new <nome>");
 console.error("     4. cd projects/<nome>");
 console.error("");

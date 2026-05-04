@@ -8,7 +8,7 @@ Use kebab-case (a-z, 0-9, hífen). Se o usuário não disse, pergunte. Exemplo: 
 
 ## 2. Confirme cwd
 
-Em **dev local** (clone do repo): rode `pwd` — você deve estar em algo terminado em `/seobrain` (ou nome do clone), com `package.json` contendo `"name": "seobrain"`. Se estiver em outro lugar, faça `cd` para a raiz antes.
+Em **dev local** (clone do repo): rode `pwd` — você deve estar em algo terminado em `/seo-brain` (ou nome do clone), com `package.json` contendo `"name": "seo-brain"`. Se estiver em outro lugar, faça `cd` para a raiz antes.
 
 Em **plugin instalado**: o usuário pode estar em qualquer cwd. `scripts/new-project.mjs` detecta e cria projeto no cwd do usuário (não no plugin cache).
 
@@ -38,19 +38,19 @@ cd <cwd>/<nome>
 
 ## 5. Confirme
 
-Rode `pwd` e verifique. Verifique `package.json` contém `"seobrain-project": true`.
+Rode `pwd` e verifique. Verifique `package.json` contém `"seo-brain-project": true`.
 
 ## 6. Próximo passo natural
 
 ```
 # Claude Code:
-/seobrain:start
+/seo-brain:start
 
 # Codex / Antigravity:
-"execute o seobrain"
+"execute o seo-brain"
 
 # Cursor:
-"rode a skill seobrain"
+"rode a skill seo-brain"
 ```
 
 Se o usuário pediu projeto + onboard na mesma frase, encadeie automaticamente.

@@ -5,7 +5,7 @@ Substitui `/content-seo`. Cada etapa **entrega um artefato concreto** salvo em `
 
 ## HARD STOPs (antes de qualquer etapa)
 
-1. `brain/index.md` em `kit_state: template` → redirecionar para `/seobrain:start`.
+1. `brain/index.md` em `kit_state: template` → redirecionar para `/seo-brain:start`.
 2. `intent-analyst` ainda não rodou pra essa query → rodar antes da etapa 1.
 3. Sem 3 POVs proprietários no brain → bloquear na etapa 3.
 

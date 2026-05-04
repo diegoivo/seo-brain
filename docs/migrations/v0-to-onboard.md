@@ -1,6 +1,6 @@
 # Migração: v0 → onboarding-v1
 
-Esta versão introduz **estado explícito do kit** (`kit_state: template` vs `initialized`) e a skill `/seobrain:start`. Se você clonou o kit antes desta mudança, seu Brain provavelmente tem conteúdo do **próprio kit** (descrevendo o Agentic SEO Kit) em vez de templates vazios prontos para o **seu projeto**.
+Esta versão introduz **estado explícito do kit** (`kit_state: template` vs `initialized`) e a skill `/seo-brain:start`. Se você clonou o kit antes desta mudança, seu Brain provavelmente tem conteúdo do **próprio kit** (descrevendo o Agentic SEO Kit) em vez de templates vazios prontos para o **seu projeto**.
 
 ## Sintomas
 
@@ -22,11 +22,11 @@ npm run kit:reset-template
 Esse script:
 1. Faz backup do Brain atual em `brain/.backup-pre-onboard-<data>/`
 2. Substitui os arquivos do brain por templates vazios (com `kit_state: template`)
-3. Imprime instrução para rodar `/seobrain:start`
+3. Imprime instrução para rodar `/seo-brain:start`
 
 Depois rode no Claude Code:
 ```
-/seobrain:start
+/seo-brain:start
 ```
 
 E preencha as 18 perguntas. Você pode consultar o backup quando precisar.
@@ -47,14 +47,14 @@ Se preferir migrar à mão:
 
 2. Limpe o conteúdo de cada um, mantendo só headers e marcadores TEMPLATE.
 
-3. Rode `/seobrain:start`.
+3. Rode `/seo-brain:start`.
 
 ## E se eu já tinha conteúdo bom no Brain?
 
 Se você já tinha customizado o Brain com seus dados reais, **não rode reset**. Em vez disso:
 
 1. Adicione `kit_state: initialized` no frontmatter de cada arquivo (manualmente).
-2. O hook `SessionStart` vai parar de sugerir `/seobrain:start`.
+2. O hook `SessionStart` vai parar de sugerir `/seo-brain:start`.
 3. Skills como `scaffold-page` vão funcionar normalmente.
 
 ## E o site que eu já criei?

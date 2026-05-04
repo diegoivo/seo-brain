@@ -97,8 +97,8 @@ if (doInstall) {
 console.log(`\n✅ Pronto.\n`);
 console.log(`Próximos passos:`);
 console.log(`  cd ${dest}`);
-console.log(`  # Claude Code:        /seobrain:start`);
-console.log(`  # Codex / Antigravity: "execute o seobrain"`);
+console.log(`  # Claude Code:        /seo-brain:start`);
+console.log(`  # Codex / Antigravity: "execute o seo-brain"`);
 console.log("");
 if (!doInstall) {
   console.log(`Quando for rodar o site (Next.js):`);

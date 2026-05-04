@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Release pipeline for SEO Brain — pre-flight (typecheck + build + qa orchestrator), conventional commit, push, Vercel preview deploy, smoke pre-merge, merge to main, prod deploy, smoke prod, update LLM Wiki via /approved. Hard confirmation gate before any change to main branch. Use when user asks "ship", "deploy", "release", "publish", "push to production", "ir pra prod", "subir produção", "merge main", "lançar a versão", "create PR", "abrir PR". Renamed from /seobrain-ship to /ship (v0.1.0).
+description: Release pipeline for SEO Brain — pre-flight (typecheck + build + qa orchestrator), conventional commit, push, Vercel preview deploy, smoke pre-merge, merge to main, prod deploy, smoke prod, update LLM Wiki via /approved. Hard confirmation gate before any change to main branch. Use when user asks "ship", "deploy", "release", "publish", "push to production", "ir pra prod", "subir produção", "merge main", "lançar a versão", "create PR", "abrir PR". Renamed from /seo-brain-ship to /ship (v0.1.0).
 allowed-tools:
   - Read
   - Bash

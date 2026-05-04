@@ -14,7 +14,7 @@ Se algum falhar, redirecione: "Brain ainda em estado template — rode `/brandin
 
 ## Inputs
 
-Quando chamada por orquestrador (`/seobrain start`):
+Quando chamada por orquestrador (`/seo-brain start`):
 - `mode`: `auto` | `express` | `guiado` (default `auto`).
 - `research`: caminho opcional para `.cache/onboard-research.md`.
 

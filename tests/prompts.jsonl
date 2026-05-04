@@ -11,8 +11,8 @@
 {"id": 11, "prompt": "para quais keywords concorrente rankeia", "accepts": ["seo-data"], "lang": "pt"}
 {"id": 12, "prompt": "estratégia de SEO para 2026", "accepts": ["technical-seo"], "lang": "pt"}
 {"id": 13, "prompt": "criar topic clusters", "accepts": ["technical-seo"], "lang": "pt"}
-{"id": 14, "prompt": "começar projeto novo de SEO", "accepts": ["seobrain"], "lang": "pt"}
-{"id": 15, "prompt": "iniciar onboarding do framework", "accepts": ["seobrain"], "lang": "pt"}
+{"id": 14, "prompt": "começar projeto novo de SEO", "accepts": ["seo-brain"], "lang": "pt"}
+{"id": 15, "prompt": "iniciar onboarding do framework", "accepts": ["seo-brain"], "lang": "pt"}
 {"id": 16, "prompt": "criar site Next.js com SEO", "accepts": ["website"], "lang": "pt"}
 {"id": 17, "prompt": "configurar email com Resend no projeto", "accepts": ["website"], "lang": "pt"}
 {"id": 18, "prompt": "validar voz da marca no artigo", "accepts": ["content-seo"], "lang": "pt"}

@@ -1,9 +1,9 @@
 {
-  "name": "seobrain-marketplace",
+  "name": "seo-brain-marketplace",
   "owner": { "name": "Diego Ivo", "email": "diego@conversion.com.br" },
   "plugins": [
     {
-      "name": "seobrain",
+      "name": "seo-brain",
       "description": "Agentic SEO + GEO toolkit for Claude Code with Brazilian Portuguese voice. 24 skills covering LLM Wiki, Branding, Content SEO, Technical SEO, SEO Strategy, SEO Data. DataForSEO integration, parallel sub-agents, AI Overviews optimization, E-E-A-T signals, schema markup. Brazilian Portuguese voice + bilingual triggers (PT/EN).",
       "source": "./",
       "keywords": [

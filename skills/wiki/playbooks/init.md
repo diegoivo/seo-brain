@@ -4,13 +4,13 @@ Popula o **Brain** (Karpathy LLM Wiki) deste projeto. Trabalha **uma sub-fase po
 
 ## Inputs do orquestrador
 
-Quando chamada pelo `/seobrain:start`, recebe:
+Quando chamada pelo `/seo-brain:start`, recebe:
 - `mode`: `auto` | `express` | `guiado`
 - `input_raw`: resposta literal do usuário à pergunta aberta
-- `research`: caminho opcional para `.cache/seobrain-research.md` (output do sub-agent pesquisador)
+- `research`: caminho opcional para `.cache/seo-brain-research.md` (output do sub-agent pesquisador)
 
 Quando chamada **standalone**:
-- Faz a pergunta aberta (mesma do `/seobrain:start`).
+- Faz a pergunta aberta (mesma do `/seo-brain:start`).
 - Pergunta o modo.
 
 ## Sub-fases
@@ -125,7 +125,7 @@ git commit -m "chore(wiki): <sub-fase> — <slug>"
 
 ## Atualização do controle
 
-Ao fim de cada sub-fase, edite `.cache/seobrain.md`:
+Ao fim de cada sub-fase, edite `.cache/seo-brain.md`:
 
 ```markdown
 ## Fase 1 — Brain
@@ -144,5 +144,5 @@ Quando todas as sub-fases concluírem: Status: completed.
 
 1. Roda `node scripts/wiki-lint.mjs` — se houver erros, pause e mostre.
 2. Atualiza `brain/log.md` com entrada `## <data> — wiki init concluído`.
-3. Devolve controle ao orquestrador `/seobrain:start` (que aciona `/branding apply`).
+3. Devolve controle ao orquestrador `/seo-brain:start` (que aciona `/branding apply`).
 4. Se rodando standalone: pergunta se usuário quer prosseguir para `/branding apply`.

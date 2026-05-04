@@ -6,16 +6,16 @@ Plugin Claude Code é a distribuição primária. Mas o framework foi desenhado 
 
 | Harness | Slash commands | Plugin install | AGENTS.md (projeto) | CLAUDE.md (projeto) |
 |---|---|---|---|---|
-| **Claude Code** | ✅ `/seobrain:start` | ✅ `/plugin install seobrain` | ❌ não precisa | ❌ não precisa |
+| **Claude Code** | ✅ `/seo-brain:start` | ✅ `/plugin install seo-brain` | ❌ não precisa | ❌ não precisa |
 | **Codex CLI** | ❌ | ❌ | ✅ Gerado por `init-agents-md.mjs` na 1ª execução | ❌ |
 | **Antigravity** | ❌ | ❌ | ✅ Idem | ❌ |
 | **Cursor** | parcial | ❌ | ✅ Idem | ❌ (usa `.cursorrules` se preferir) |
 
 ## Como funciona em harnesses não-Claude
 
-`scripts/init-agents-md.mjs` é invocado pela skill `seobrain` na primeira execução de `/seobrain:start` num projeto. Ele:
+`scripts/init-agents-md.mjs` é invocado pela skill `seo-brain` na primeira execução de `/seo-brain:start` num projeto. Ele:
 
-1. Lê `${CLAUDE_PLUGIN_ROOT}/skills/seobrain/SKILL.md` (canonical SOT).
+1. Lê `${CLAUDE_PLUGIN_ROOT}/skills/seo-brain/SKILL.md` (canonical SOT).
 2. Gera versão simplificada como `<projeto>/AGENTS.md`.
 3. Não toca em CLAUDE.md (cada IDE pode criar o seu).
 
@@ -27,8 +27,8 @@ Skills funcionam via **description matching**:
 
 | Pedido do usuário | Skill que matcheia |
 |---|---|
-| "execute o seobrain" / "iniciar SEO Brain" | `seobrain` |
-| "criar projeto" / "novo cliente X" | `seobrain` (modo create-project) |
+| "execute o seo-brain" / "iniciar SEO Brain" | `seo-brain` |
+| "criar projeto" / "novo cliente X" | `seo-brain` (modo create-project) |
 | "escrever artigo" / "criar post" | `content-seo` |
 | "auditar SEO" / "audit SEO técnico" | `technical-seo` |
 | "qa antes do deploy" | `qa` |

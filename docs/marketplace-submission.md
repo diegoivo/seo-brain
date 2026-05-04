@@ -4,8 +4,8 @@ Plugin SEO Brain v0.1.0 — 8 canais de distribuição priorizados.
 
 ## Day 0 (pré-tag)
 
-- [ ] `gh repo edit diegoivo/seobrain --add-topic seobrain --add-topic claude-code --add-topic agent-skills --add-topic seo-tools --add-topic geo --add-topic agentic-seo --add-topic portuguese-seo --add-topic seo-audit --add-topic e-e-a-t --add-topic schema-markup --add-topic content-marketing --add-topic dataforseo --add-topic ai-search --add-topic aeo --add-topic llm-seo --add-topic semantic-seo --add-topic claude-skills --add-topic marketing-automation`
-- [ ] README.md com badges + GIF de `/seobrain:start` acima da dobra.
+- [ ] `gh repo edit diegoivo/seo-brain --add-topic seo-brain --add-topic claude-code --add-topic agent-skills --add-topic seo-tools --add-topic geo --add-topic agentic-seo --add-topic portuguese-seo --add-topic seo-audit --add-topic e-e-a-t --add-topic schema-markup --add-topic content-marketing --add-topic dataforseo --add-topic ai-search --add-topic aeo --add-topic llm-seo --add-topic semantic-seo --add-topic claude-skills --add-topic marketing-automation`
+- [ ] README.md com badges + GIF de `/seo-brain:start` acima da dobra.
 - [ ] README com tabela "Why SEO Brain vs claude-seo / superseo-skills / searchfit-seo".
 - [ ] License MIT (já está).
 
@@ -16,9 +16,9 @@ Plugin SEO Brain v0.1.0 — 8 canais de distribuição priorizados.
 ```
 git clone https://github.com/travisvn/awesome-claude-skills
 # Editar README.md adicionando entry na seção SEO/Marketing
-git checkout -b add-seobrain
+git checkout -b add-seo-brain
 git commit -m "Add SEO Brain — Brazilian Portuguese SEO + GEO toolkit"
-git push origin add-seobrain
+git push origin add-seo-brain
 gh pr create --title "Add SEO Brain — Brazilian Portuguese SEO + GEO toolkit" --body-file PR_BODY.md
 ```
 

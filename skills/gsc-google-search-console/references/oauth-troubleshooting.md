@@ -44,7 +44,7 @@ Erros comuns no setup OAuth e como resolver.
 Não é erro. É a tela que aparece quando seu app está em modo Testing (sem verification do Google). Pra prosseguir:
 
 1. Clique **Advanced** (link pequeno embaixo)
-2. Clique **Go to seobrain (unsafe)**
+2. Clique **Go to seo-brain (unsafe)**
 
 É **seguro** — é seu próprio app, criado por você. "Unsafe" só significa que Google não verificou.
 

@@ -173,7 +173,7 @@
     {
       "prompt": "começar projeto novo de SEO",
       "accepts": [
-        "seobrain",
+        "seo-brain",
         "onboard"
       ],
       "top_match": "website-domain",
@@ -185,10 +185,10 @@
     {
       "prompt": "iniciar onboarding do framework",
       "accepts": [
-        "seobrain",
+        "seo-brain",
         "onboard"
       ],
-      "top_match": "seobrain",
+      "top_match": "seo-brain",
       "top_score": "0.059",
       "correct_top1": true,
       "correct_top3": true,

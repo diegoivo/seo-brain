@@ -38,7 +38,7 @@ const POVS = [
 const PERSONAS_DEFAULT = [
   {
     title: "Desenvolvedor que clonou o kit",
-    context: "Acabou de rodar npx github:diegoivo/seobrain bootstrap meu-projeto.",
+    context: "Acabou de rodar npx github:diegoivo/seo-brain bootstrap meu-projeto.",
     pain: "Quer site Lighthouse 95+ + brandbook coerente sem precisar pensar em escala tipográfica, grid, AI-slop.",
     looks_for: "Comandos /onboard, /blogpost, /site-criar. Documentação curta, exemplos vivos.",
   },

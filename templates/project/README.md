@@ -1,6 +1,6 @@
 # PROJECT_NAME
 
-Projeto criado com [SEO Brain](https://github.com/diegoivo/seobrain).
+Projeto criado com [SEO Brain](https://github.com/diegoivo/seo-brain).
 
 ## Setup
 

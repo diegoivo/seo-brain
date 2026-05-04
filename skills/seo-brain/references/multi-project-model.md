@@ -25,6 +25,6 @@ Caminhos `brain/`, `content/`, `web/`, `plans/` em todas as skills são **relati
 
 ## Distribuição como plugin
 
-Quando instalado via `/plugin install seobrain`, o framework vive em `~/.claude/plugins/cache/seobrain/`. Skills resolvem paths via `${CLAUDE_PLUGIN_ROOT}` env var. Templates copiados pra `process.cwd()` do usuário (não pra plugin cache).
+Quando instalado via `/plugin install seo-brain`, o framework vive em `~/.claude/plugins/cache/seo-brain/`. Skills resolvem paths via `${CLAUDE_PLUGIN_ROOT}` env var. Templates copiados pra `process.cwd()` do usuário (não pra plugin cache).
 
 Em dev local (cd no repo), `process.cwd()` resolve dentro do framework, então `projects/` é criado relativo ao framework root.

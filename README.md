@@ -16,38 +16,38 @@ Multi-harness: Claude Code (plugin) · Codex CLI · Cursor · Antigravity (via A
 
 ```bash
 # Inside Claude Code
-/plugin marketplace add diegoivo/seobrain
-/plugin install seobrain@seobrain-marketplace
+/plugin marketplace add diegoivo/seo-brain
+/plugin install seo-brain@seo-brain-marketplace
 
 # First run
-/seobrain:start
+/seo-brain:start
 ```
 
 Plugin discovers 24 skills + 3 commands + 2 hooks automatically. No `npm install` required.
 
-For Codex/Cursor/Antigravity: clone repo, agent reads `AGENTS.md` (auto-generated per-project on first `/seobrain:start`).
+For Codex/Cursor/Antigravity: clone repo, agent reads `AGENTS.md` (auto-generated per-project on first `/seo-brain:start`).
 
 ---
 
 ## Quick start
 
 ```
-$ /seobrain:start
+$ /seo-brain:start
 🧠 SEO Brain v0.1.0 — Brazilian-first SEO + GEO toolkit
    Status: framework root, no projects yet.
-   Run /seobrain:start create-project <name> to begin.
+   Run /seo-brain:start create-project <name> to begin.
 
-$ /seobrain:start create-project acme-cliente
+$ /seo-brain:start create-project acme-cliente
 ✓ Created /Users/you/dev/acme-cliente/
 
-$ cd acme-cliente && /seobrain:start
+$ cd acme-cliente && /seo-brain:start
 🧠 Project 'acme-cliente' detected. Brain in template state.
    Vamos popular brain + branding (~10min, 18 questions).
 ```
 
 After onboarding: `/content-seo` writes blog post · `/technical-seo` audits · `/seo-data` keyword research · `/qa` validates · `/ship` deploys.
 
-Full walkthrough: [`skills/seobrain/examples/new-project-walkthrough.md`](./skills/seobrain/examples/new-project-walkthrough.md).
+Full walkthrough: [`skills/seo-brain/examples/new-project-walkthrough.md`](./skills/seo-brain/examples/new-project-walkthrough.md).
 
 ---
 
@@ -68,7 +68,7 @@ Full walkthrough: [`skills/seobrain/examples/new-project-walkthrough.md`](./skil
 ## 24 skills (6 pillars + pipeline)
 
 ### Framework entry
-- `seobrain` — load context, list/create projects, orchestrate brain + branding onboarding.
+- `seo-brain` — load context, list/create projects, orchestrate brain + branding onboarding.
 
 ### Pipeline (4)
 - `plan` — execution plan in plans/ before non-trivial task
@@ -106,7 +106,7 @@ Full walkthrough: [`skills/seobrain/examples/new-project-walkthrough.md`](./skil
 ## Architecture
 
 ```
-seobrain/                            (plugin root)
+seo-brain/                            (plugin root)
 ├── .claude-plugin/
 │   ├── plugin.json                 (manifest)
 │   └── marketplace.json            (catalog)
@@ -114,7 +114,7 @@ seobrain/                            (plugin root)
 ├── commands/                        (3 slash shortcuts)
 ├── hooks/                           (session-start, pre-tool-use)
 ├── scripts/                         (utilities — seo-score, eval, sync-meta, etc.)
-├── templates/project/               (copied to user cwd by /seobrain:start create-project)
+├── templates/project/               (copied to user cwd by /seo-brain:start create-project)
 ├── tests/                           (e2e smoke + eval prompts)
 └── docs/                            (release-process, marketplace-submission)
 ```
@@ -159,8 +159,8 @@ See [CHANGELOG.md](./CHANGELOG.md).
 ## Development
 
 ```bash
-git clone https://github.com/diegoivo/seobrain.git
-cd seobrain
+git clone https://github.com/diegoivo/seo-brain.git
+cd seo-brain
 node scripts/validate-skills.mjs       # 24 skills, 0 errors
 node tests/e2e/install-and-create.mjs  # smoke ✓
 node scripts/eval-skill-matching.mjs   # 100% top3 match

@@ -92,8 +92,8 @@ Date: 2026-05-04
 - T8.1 PASS — busca `grep -r` por nomes antigos em `*.md` retorna apenas hits em `MIGRATION.md`/`CHANGELOG.md` (raiz, fora de `skills/`) e `skills/branding/tests/` — ambos permitidos pelo spec.
 - T8.2 PASS — `skills/qa/SKILL.md:3,12,51,78` referencia `/branding review`.
 - T8.3 PASS — `skills/wiki-init/SKILL.md:160-161` referencia `/branding apply` (não `branding-onboard`).
-- T8.4 PASS — `commands/seobrain.md:17` orquestra `/branding apply`.
-- T8.5 PASS — `skills/seobrain/SKILL.md:87` cita apenas `branding` na tabela de skills.
+- T8.4 PASS — `commands/seo-brain.md:17` orquestra `/branding apply`.
+- T8.5 PASS — `skills/seo-brain/SKILL.md:87` cita apenas `branding` na tabela de skills.
 - T8.6 PASS — `tests/prompts.jsonl` tem 8 entradas com `"branding"` em `accepts` (≥ 6 exigidos), cobrindo discover/import/apply/export/images/review/list.
 - T8.7 PASS — `README.md` (linhas 3, 84-85), `MIGRATION.md` (linhas 7, 45-58) e `CHANGELOG.md` (linhas 7, 11-12) mencionam a consolidação para `/branding`.
 
