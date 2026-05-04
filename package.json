@@ -16,11 +16,17 @@
     "validate": "node scripts/validate-skills.mjs",
     "smoke": "node tests/e2e/install-and-create.mjs",
     "eval:matching": "node scripts/eval-skill-matching.mjs",
-    "eval:tokens": "node scripts/measure-token-baseline.mjs"
+    "eval:tokens": "node scripts/measure-token-baseline.mjs",
+    "test": "node --test scripts/**/*.test.mjs"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "get-port": "^7.1.0"
   },
   "keywords": [
     "seo", "seo-audit", "geo", "ai-overviews", "e-e-a-t",
     "schema-markup", "content-seo", "technical-seo", "dataforseo",
+    "google-search-console", "gsc",
     "brazilian-portuguese", "claude-code", "agent-skills"
   ],
   "license": "MIT"
