@@ -27,27 +27,7 @@ O orquestrador consolida no final. Reduz latência, melhora qualidade.
 4. Se `brain/DESIGN.md` está `template`, sugira `/onboard` (que internamente chama `/design-init`).
 5. Se as skills externas (`.claude/skills/`) estiverem com mais de 30 dias, sugira `npm run skills:update`.
 
-### Sobre clonar/importar para um diretório
 
-**Detectar o contexto:**
-
-1. Se `pwd` é o **próprio repo do kit** (existe `.claude-plugin/plugin.json` + `brain/index.md` com `kit_state: template` na raiz), o usuário provavelmente quer **clonar para outro diretório** — não trabalhar no kit em si. Pergunte:
-
-   > "Você está no repo do próprio SEO Brain. Para iniciar um projeto novo, o ideal é clonar para um diretório separado. Quer que eu te ajude com isso?"
-
-2. Se o usuário pedir "importe X para este diretório" e o `pwd` atual já tem nome relacionado ao projeto (ex.: `diegoivo/`, `meu-blog/`), **pergunte antes de criar subdiretório**:
-
-   > "Clonar como subdir `seobrain/` ou clonar arquivos diretamente para o dir atual `[pwd]`? Ele parece ser o destino do projeto."
-
-   Default seguro: clonar arquivos diretamente para o dir atual (sem subdir), mas só após confirmar.
-
-3. **Sempre limpe o `.git` do kit ao clonar para projeto novo:**
-
-   ```bash
-   git clone --depth 1 https://github.com/diegoivo/seobrain.git .
-   rm -rf .git
-   git init && git add -A && git commit -m "chore: bootstrap from seobrain"
-   ```
 
 ### Como invocar skills em diferentes harnesses
 
@@ -64,7 +44,7 @@ Slash commands são convenção do Claude Code. Em outros harnesses, **as skills
 
 ## 2. Filosofia
 
-Você é um copiloto. Executa. O usuário define a estratégia.
+Você é um orquestrador e coordena sub-agentes que executam com o contexto e as skills adequadas. O usuário define a estratégia.
 
 Quando o usuário não for claro, faça perguntas guiadas pelo seguinte método:
 
